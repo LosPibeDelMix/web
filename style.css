@@ -11,7 +11,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky; /* Fija el header */
+  position: sticky;
   top: 0;
   z-index: 1000;
 }
@@ -30,7 +30,6 @@ nav a {
   transition: 0.3s;
 }
 
-/* Estilo para los íconos */
 nav a i {
   margin-right: 5px; 
 }
@@ -40,38 +39,36 @@ nav a:hover {
 }
 
 /* ======================================================= */
-/* 🆕 GESTIÓN DE SECCIONES - Esconder/Mostrar */
+/* 🚀 GESTIÓN DE SECCIONES CORREGIDA - Esconder/Mostrar */
 /* ======================================================= */
 
-/* 1. Esconde todas las secciones de contenido */
+/* 1. Oculta todas las secciones de contenido por defecto */
 .content-section {
   display: none;
   padding: 40px 0;
 }
 
-/* 2. Muestra solo la sección que coincida con el #ancla de la URL */
-/* La regla :target se activa cuando el hash de la URL coincide con el ID del elemento */
+/* 2. Muestra la sección #inicio si la URL no tiene ningún #ancla (comportamiento por defecto) */
+/* Este selector utiliza un truco avanzado que solo funciona si el elemento no es el :target */
+/* En navegadores modernos, es más limpio usar JavaScript para este caso, pero este CSS funciona: */
+body:not(:has(:target)) #inicio {
+  display: block;
+}
+
+/* 3. Muestra la sección que coincida con el #ancla de la URL (siempre funciona) */
 .content-section:target {
   display: block;
 }
 
-/* 3. Muestra la sección #inicio por defecto si no hay #ancla en la URL */
-#inicio {
-  display: block;
+/* 4. Oculta explícitamente #inicio si cualquier OTRA sección es el :target. */
+/* Si el truco del :not(:has) no funciona, esto ayuda. */
+:target:not(#inicio) ~ * #inicio {
+    display: none;
 }
 
-/* Si se recarga la página en #servidores, se esconde #inicio */
-:target#inicio {
-  display: block; /* Asegura que Inicio se vea si el ancla es #inicio */
-}
-
-/* Si hay un ancla diferente a #inicio, ocultamos #inicio */
-.content-section:target ~ #inicio {
-  display: none;
-}
 
 /* ======================================================= */
-/* 🆕 ESTILOS DE LA SECCIÓN DE INICIO */
+/* ESTILOS DE LA SECCIÓN DE INICIO */
 /* ======================================================= */
 
 .welcome-container {
@@ -79,10 +76,10 @@ nav a:hover {
   margin: 40px auto;
   padding: 60px 30px;
   text-align: center;
-  background: #222; /* Fondo para la bienvenida */
+  background: #222;
   border-radius: 12px;
   box-shadow: 0 8px 30px rgba(0,0,0,0.8);
-  border-top: 3px solid #ffcc00; /* Borde de color */
+  border-top: 3px solid #ffcc00;
 }
 
 .welcome-container h2 {
@@ -116,7 +113,7 @@ nav a:hover {
 }
 
 /* ======================================================= */
-/* 🆕 ESTILOS PARA SECCIONES DE CONTENIDO SIMPLE (Descargas/Ventas) */
+/* ESTILOS PARA SECCIONES DE CONTENIDO SIMPLE (Descargas/Ventas) */
 /* ======================================================= */
 .simple-content {
   max-width: 700px;
@@ -142,15 +139,14 @@ nav a:hover {
   border-radius: 5px;
 }
 .simple-content a {
-  color: #99d6ff; /* Un color para enlaces de descarga/venta */
+  color: #99d6ff;
   text-decoration: none;
   font-weight: bold;
 }
 /* ======================================================= */
 
 
-/* 🔥 Fondo nuevo solo para la sección de servidores (manteniendo tu estilo) */
-/* NOTA: El contenedor de servidores ahora es la clase .container DENTRO de #servidores */
+/* 🔥 Estilos de la sección de servidores */
 #servidores .container {
   max-width: 900px;
   margin: 40px auto;
@@ -211,4 +207,3 @@ footer a {
   text-decoration: none;
   font-weight: bold;
 }
-
