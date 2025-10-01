@@ -7,133 +7,141 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
-    /* === ESTILO BASE === */
-    body {
+    /* === RESET / BASE === */
+    * {
+      box-sizing: border-box;
       margin: 0;
+      padding: 0;
+    }
+    body {
       font-family: 'Share Tech Mono', monospace;
       color: #e0e0e0;
       background: #0a0a0a;
       overflow-x: hidden;
     }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-    /* Menú (header) */
+    /* === MENÚ / HEADER === */
     header {
-      background: rgba(20, 20, 20, 0.65); /* translúcido oscuro */
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      background: rgba(20, 20, 20, 0.75);
+      backdrop-filter: blur(12px);
       position: fixed;
       top: 0;
       width: 100%;
       z-index: 1000;
       border-bottom: 2px solid #FFD700;
-      backdrop-filter: blur(12px);
     }
-
+    .menu-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 20px;
+    }
     header h1 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 28px;
+      font-size: 24px;
       color: #FFD700;
-      margin: 0;
-      text-shadow: 0 0 12px #FFD700, 0 0 25px #000;
       letter-spacing: 2px;
+      text-shadow: 0 0 10px #FFD700;
     }
-
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
     nav a {
-      margin-left: 18px;
-      text-decoration: none;
-      color: #ccc;
-      font-weight: 700;
-      transition: all 0.3s ease;
-      padding: 10px 16px;
+      padding: 8px 14px;
       border-radius: 6px;
-      font-size: 15px;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255,255,255,0.05);
+      color: #ccc;
+      font-weight: bold;
+      transition: all 0.3s;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
     }
-
-    nav a:hover {
-      color: #111;
-      background: #FFD700;
-      box-shadow: 0 0 18px #FFD700;
-    }
-
     nav a i {
       margin-right: 6px;
     }
+    nav a:hover {
+      background: #FFD700;
+      color: #111;
+      box-shadow: 0 0 15px #FFD700;
+    }
 
-    /* Secciones / páginas con nuevos fondos */
+    /* === SECCIONES / CONTENIDO === */
     .page {
       display: none;
-      padding: 100px 20px 40px;
       min-height: 100vh;
+      padding: 100px 20px 40px;
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
-      transition: opacity 0.6s ease-in-out;
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
-
     .page.active {
       display: block;
       animation: fadeIn 0.8s ease-in-out;
     }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .content-box {
+    .content-wrapper {
       max-width: 900px;
       margin: auto;
-      padding: 30px;
-      background: rgba(20, 20, 20, 0.8);
-      border-radius: 12px;
+      background: rgba(20, 20, 20, 0.85);
       border: 1px solid rgba(255, 215, 0, 0.6);
-      box-shadow: 0 0 35px rgba(0,0,0,0.95);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 0 35px rgba(0,0,0,0.9);
       backdrop-filter: blur(10px);
-      animation: fadeIn 1s ease;
     }
-
-    .content-box h2 {
-      color: #FFD700;
-      margin-bottom: 20px;
+    .content-wrapper h2 {
       font-family: 'Orbitron', sans-serif;
+      font-size: 28px;
+      color: #FFD700;
       text-align: center;
-      font-size: 30px;
-      text-shadow: 0 0 12px #FFD700, 0 0 28px #000;
+      margin-bottom: 20px;
+      text-shadow: 0 0 12px #FFD700;
+    }
+    .content-wrapper p {
+      line-height: 1.6;
+      margin-bottom: 20px;
     }
 
-    /* Cards de servidores */
+    /* === SERVIDORES CARD === */
     .server-card {
       background: rgba(5,5,5,0.75);
       border-left: 6px solid #FFD700;
       border-radius: 10px;
-      padding: 22px;
-      margin-bottom: 22px;
+      padding: 20px;
+      margin-bottom: 20px;
       box-shadow: 0 0 18px rgba(0,0,0,0.9);
-      backdrop-filter: blur(8px);
       transition: transform 0.3s;
     }
-
     .server-card:hover {
       transform: scale(1.02);
     }
-
     .server-card h3 {
-      margin: 0 0 12px;
-      color: #FFD700;
-      font-size: 22px;
       font-family: 'Orbitron', sans-serif;
+      color: #FFD700;
+      font-size: 20px;
+      margin-bottom: 8px;
     }
-
     .server-status.online {
       color: #7CFC00;
       font-weight: bold;
       text-shadow: 0 0 8px #7CFC00;
     }
-
     .copy-btn {
+      margin-top: 10px;
       background: #FFD700;
       color: #111;
       border: none;
@@ -141,61 +149,54 @@
       border-radius: 6px;
       cursor: pointer;
       font-size: 15px;
-      margin-top: 10px;
-      transition: all 0.3s ease;
+      transition: all 0.3s;
     }
-
     .copy-btn:hover {
       background: #FFA500;
       box-shadow: 0 0 14px #FFD700;
     }
 
-    /* Botones generales */
-    a.btn {
+    /* === BOTONES GENERALES === */
+    .btn {
       display: inline-block;
-      margin-top: 24px;
+      margin-top: 20px;
       background: #FFD700;
       color: #111;
-      padding: 14px 24px;
+      padding: 12px 22px;
       border-radius: 8px;
-      text-decoration: none;
       font-weight: bold;
-      font-size: 16px;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 10px #FFD700;
+      font-size: 15px;
+      text-align: center;
+      box-shadow: 0 0 8px #FFD700;
+      transition: all 0.3s;
     }
-
-    a.btn:hover {
+    .btn:hover {
       background: #FFA500;
-      box-shadow: 0 0 22px #FFA500;
-      transform: scale(1.08);
+      box-shadow: 0 0 20px #FFA500;
+      transform: scale(1.05);
     }
 
-    /* Redes sociales – iconos estilo CS personalizados */
+    /* === REDES SOCIALES === */
     .social-links {
       display: flex;
       justify-content: center;
-      align-items: center;
       gap: 24px;
       margin-top: 30px;
     }
-
     .social-links a {
-      display: inline-block;
       width: 60px;
       height: 60px;
       border: 3px solid #FFD700;
       border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #FFD700;
       background: rgba(0,0,0,0.6);
-      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFD700;
       position: relative;
       overflow: hidden;
+      transition: all 0.3s;
     }
-
     .social-links a:hover {
       background: rgba(255, 215, 0, 0.9);
       color: #111;
@@ -203,72 +204,96 @@
       box-shadow: 0 0 20px rgba(255, 215, 0, 0.9);
       transform: scale(1.15);
     }
-
     .social-links a i {
       font-size: 28px;
       z-index: 2;
     }
-
     .social-links a::before {
       content: "";
       position: absolute;
       width: 0;
       height: 0;
       border-radius: 50%;
-      background: rgba(255, 215, 0, 0.4);
-      transition: all 0.3s ease;
+      background: rgba(255,215,0,0.4);
+      transition: all 0.3s;
       z-index: 1;
     }
-
     .social-links a:hover::before {
       width: 130%;
       height: 130%;
     }
 
-    /* Footer */
+    /* === FOOTER === */
     footer {
       background: rgba(15,15,15,0.9);
-      text-align: center;
       padding: 14px;
+      text-align: center;
       color: #aaa;
-      font-size: 14px;
       border-top: 2px solid #FFD700;
+      font-size: 14px;
     }
-
     footer a {
       color: #FFD700;
-      text-decoration: none;
     }
-
     footer a:hover {
       text-shadow: 0 0 10px #FFD700;
+    }
+
+    /* === AJUSTES RESPONSIVOS === */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 20px;
+      }
+      nav a {
+        font-size: 13px;
+        padding: 6px 12px;
+      }
+      .content-wrapper {
+        padding: 20px;
+      }
+      .server-card h3 {
+        font-size: 18px;
+      }
+      .btn {
+        padding: 10px 18px;
+      }
+      .social-links a {
+        width: 50px;
+        height: 50px;
+      }
+      .social-links a i {
+        font-size: 24px;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Menú / Header -->
   <header>
-    <h1>Los Pibes Del Mix</h1>
-    <nav>
-      <a href="#inicio"><i class="fas fa-house"></i> Inicio</a>
-      <a href="#servidores"><i class="fas fa-network-wired"></i> Servidores</a>
-      <a href="#ventas"><i class="fas fa-tag"></i> Ventas</a>
-      <a href="#redes"><i class="fas fa-hashtag"></i> Redes</a>
-    </nav>
+    <div class="menu-container">
+      <h1>Los Pibes Del Mix</h1>
+      <nav>
+        <a href="#inicio"><i class="fas fa-house"></i> Inicio</a>
+        <a href="#servidores"><i class="fas fa-network-wired"></i> Servidores</a>
+        <a href="#ventas"><i class="fas fa-tag"></i> Ventas</a>
+        <a href="#redes"><i class="fas fa-hashtag"></i> Redes</a>
+      </nav>
+    </div>
   </header>
 
-  <!-- Inicio -->
-  <div id="inicio" class="page active" style="background-image: url('https://wallpapercave.com/wp/wp4048451.jpg');">
-    <div class="content-box" style="text-align: center;">
-      <h2>¡Bienvenido a Los Pibes Del Mix!</h2>
+  <!-- Sección Inicio -->
+  <section id="inicio" class="page active" style="background-image: url('https://wallpapercave.com/wp/wp4048451.jpg');">
+    <div class="content-wrapper">
+      <h2>Bienvenido a Los Pibes Del Mix</h2>
       <p>Comunidad de <b>Counter-Strike 1.6</b> con servidores <b>Mix</b>, <b>Público</b> y <b>Mata al Traidor</b>.  
-      ¡Unite a la acción y revive la nostalgia del CS clásico 🎮!</p>
+      Unite a la acción y revive la nostalgia del CS clásico 🎮</p>
       <a href="#servidores" class="btn"><i class="fas fa-bolt"></i> Ver Servidores</a>
     </div>
-  </div>
+  </section>
 
-  <!-- Servidores -->
-  <div id="servidores" class="page" style="background-image: url('https://images.unsplash.com/photo-1578451671181-a4119bdc4b6e?auto=compress&cs=tinysrgb&w=1600');">
-    <div class="content-box">
+  <!-- Sección Servidores -->
+  <section id="servidores" class="page" style="background-image: url('https://images.unsplash.com/photo-1578451671181-a4119bdc4b6e?auto=compress&cs=tinysrgb&w=1600');">
+    <div class="content-wrapper">
       <h2>Servidores</h2>
 
       <div class="server-card">
@@ -279,7 +304,7 @@
       </div>
 
       <div class="server-card">
-        <h3>[PUBLICO] Los Pibes Del Mix</h3>
+        <h3>[PÚBLICO] Los Pibes Del Mix</h3>
         <p class="server-status online">🟢 Activo</p>
         <p>IP: 45.235.98.220:27310</p>
         <button class="copy-btn" onclick="copyIP('45.235.98.220:27310')"><i class="fas fa-copy"></i> Copiar IP</button>
@@ -292,21 +317,21 @@
         <button class="copy-btn" onclick="copyIP('45.235.99.105:27643')"><i class="fas fa-copy"></i> Copiar IP</button>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Ventas -->
-  <div id="ventas" class="page" style="background-image: url('https://images.unsplash.com/photo-1603791440384-56cd371ee9b2?auto=compress&cs=tinysrgb&w=1600');">
-    <div class="content-box" style="text-align: center;">
-      <h2>Tienda</h2>
+  <!-- Sección Ventas -->
+  <section id="ventas" class="page" style="background-image: url('https://images.unsplash.com/photo-1603791440384-56cd371ee9b2?auto=compress&cs=tinysrgb&w=1600');">
+    <div class="content-wrapper">
+      <h2>Tienda / Ventas</h2>
       <p>¿Querés VIP, rangos especiales o skins en nuestros servidores?  
       Hacelo a través de nuestro <b>Discord oficial</b>. Ahí podés comprar y apoyar la comunidad 🔥</p>
       <a href="https://discord.gg/bSRR7AyYuh" target="_blank" class="btn"><i class="fab fa-discord"></i> Ir al Discord</a>
     </div>
-  </div>
+  </section>
 
-  <!-- Redes -->
-  <div id="redes" class="page" style="background-image: url('https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=compress&cs=tinysrgb&w=1600');">
-    <div class="content-box" style="text-align: center;">
+  <!-- Sección Redes -->
+  <section id="redes" class="page" style="background-image: url('https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=compress&cs=tinysrgb&w=1600');">
+    <div class="content-wrapper">
       <h2>Nuestras Redes</h2>
       <div class="social-links">
         <a href="https://www.instagram.com/lospibesdelmixcs" target="_blank" title="Instagram">
@@ -320,7 +345,7 @@
         </a>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- Footer -->
   <footer>
@@ -328,22 +353,33 @@
   </footer>
 
   <script>
-    // Navegación entre secciones
+    // Control de navegación
     const pages = document.querySelectorAll('.page');
     function showPage(hash) {
       pages.forEach(p => p.classList.remove('active'));
-      const active = document.querySelector(hash);
-      if (active) active.classList.add('active');
+      const target = document.querySelector(hash);
+      if (target) {
+        target.classList.add('active');
+      } else {
+        // si no encuentra, mostrar inicio
+        document.querySelector('#inicio').classList.add('active');
+      }
     }
-    window.addEventListener('hashchange', () => showPage(location.hash || '#inicio'));
+    window.addEventListener('hashchange', () => showPage(location.hash));
     showPage(location.hash || '#inicio');
 
-    // Copiar IP al portapapeles
+    // Copiar IP
     function copyIP(ip) {
-      navigator.clipboard.writeText(ip);
-      alert("IP copiada: " + ip);
+      navigator.clipboard.writeText(ip).then(() => {
+        alert("IP copiada: " + ip);
+      }).catch(err => {
+        console.error("Error al copiar: ", err);
+      });
     }
   </script>
 </body>
 </html>
+
+</html>
+
 
