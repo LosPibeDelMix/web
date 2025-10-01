@@ -1,87 +1,295 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Los Pibes Del Mix - Inicio</title>
-  <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los Pibes Del Mix - Inicio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #111; /* Fondo neutro oscuro */
+            color: #fff;
+        }
+
+        header {
+            background: rgba(0,0,0,0.85);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 22px;
+            color: #ffcc00;
+        }
+
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        nav a i {
+            margin-right: 5px; 
+        }
+
+        nav a:hover {
+            color: #ffcc00;
+        }
+
+        /* GESTIÓN DE SECCIONES - Esconder/Mostrar (Truco con :target) */
+        .content-section {
+            display: none;
+            padding: 40px 0;
+        }
+
+        /* Muestra la sección #inicio si la URL no tiene ningún #ancla (comportamiento por defecto) */
+        /* Nota: El selector :not(:has) puede no ser soportado en navegadores muy antiguos. */
+        body:not(:has(:target)) #inicio {
+            display: block;
+        }
+
+        /* Muestra la sección que coincida con el #ancla de la URL */
+        .content-section:target {
+            display: block;
+        }
+        
+        /* Oculta explícitamente #inicio si cualquier OTRA sección es el :target. */
+        :target:not(#inicio) ~ * #inicio {
+            display: none;
+        }
+
+        /* ESTILOS DE LA SECCIÓN DE INICIO */
+        .welcome-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 60px 30px;
+            text-align: center;
+            background: #222;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.8);
+            border-top: 3px solid #ffcc00;
+        }
+
+        .welcome-container h2 {
+            font-size: 36px;
+            color: #ffcc00;
+            margin-bottom: 15px;
+        }
+
+        .welcome-container h3 {
+            margin-top: 30px;
+            font-size: 24px;
+            color: #fff;
+            border-bottom: 2px solid rgba(255, 204, 0, 0.3);
+            padding-bottom: 10px;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            margin-top: 25px;
+            background: #ffcc00;
+            color: #111;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #e6b800;
+        }
+
+        /* ESTILOS PARA SECCIONES DE CONTENIDO SIMPLE (Descargas/Ventas) */
+        .simple-content {
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 40px;
+            background: rgba(0,0,0,0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        .simple-content h2 {
+            color: #ffcc00;
+            border-bottom: 1px solid #444;
+            padding-bottom: 10px;
+        }
+        .simple-content ul {
+            list-style: none;
+            padding: 0;
+        }
+        .simple-content li {
+            background: rgba(255,255,255,0.05);
+            margin-bottom: 8px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .simple-content a {
+            color: #99d6ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Estilos de la sección de servidores */
+        #servidores .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 40px 20px;
+            border-radius: 12px;
+            /* Nota: Si no tienes el archivo '60bc2663-2c50-462d-b192-c8dabbb5687d.png', este fondo no aparecerá. */
+            background: url('60bc2663-2c50-462d-b192-c8dabbb5687d.png') no-repeat center center;
+            background-size: cover;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+        }
+
+        .server-card {
+            background: rgba(0,0,0,0.85);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: transform 0.2s;
+        }
+
+        .server-card:hover {
+            transform: scale(1.02);
+        }
+
+        .server-card h2 {
+            margin-top: 0;
+            font-size: 20px;
+            color: #ffcc00;
+        }
+
+        .server-info {
+            margin: 10px 0;
+            font-size: 15px;
+        }
+
+        button {
+            background: #ffcc00;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #e6b800;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            background: rgba(0,0,0,0.8);
+        }
+
+        footer a {
+            color: #ffcc00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Los Pibes Del Mix</h1>
-    <nav>
-            <a href="#inicio"><i class="fas fa-home"></i> Inicio</a>
-            <a href="#servidores"><i class="fas fa-server"></i> Servidores</a>
-      <a href="#descargas"><i class="fas fa-download"></i> Descargas</a>
-      <a href="#ventas"><i class="fas fa-shopping-cart"></i> Ventas</a>
-      <a href="https://discord.gg/bSRR7AyYuh" target="_blank"><i class="fab fa-discord"></i> Discord</a>
-    </nav>
-  </header>
+    <header>
+        <h1>Los Pibes Del Mix</h1>
+        <nav>
+            <a href="#inicio"><i class="fas fa-home"></i> Inicio</a>
+            <a href="#servidores"><i class="fas fa-server"></i> Servidores</a>
+            <a href="#descargas"><i class="fas fa-download"></i> Descargas</a>
+            <a href="#ventas"><i class="fas fa-shopping-cart"></i> Ventas</a>
+            <a href="https://discord.gg/bSRR7AyYuh" target="_blank"><i class="fab fa-discord"></i> Discord</a>
+        </nav>
+    </header>
 
-  <main>
-                <section id="inicio" class="content-section">
-      <div class="welcome-container">
-        <h2>¡Bienvenido a Los Pibes Del Mix!</h2>
-        <p>Somos una de las comunidades de gaming más grandes y activas de la región. Únete a nuestros servidores y siente la verdadera adrenalina del Mix,Público y TTT.</p>
-        <h3>Nuestro Dato de Comunidad</h3>
-        <p>Contamos con 100 miembros en Discord. ¡Gracias por ser parte de esta familia!</p>
-        <a href="#servidores" class="btn-primary">Ver Servidores Activos <i class="fas fa-arrow-right"></i></a>
-      </div>
-    </section>
+    <main>
+        <section id="inicio" class="content-section">
+            <div class="welcome-container">
+                <h2>¡Bienvenido a Los Pibes Del Mix!</h2>
+                <p>Somos una de las comunidades de gaming más grandes y activas de la región. Únete a nuestros servidores y siente la verdadera adrenalina del Mix y el Público.</p>
+                <h3>Nuestro Dato de Comunidad</h3>
+                <p>Contamos con **más de 50,000 miembros** en Discord y más de 300 jugadores activos diariamente en nuestros servidores de juego. ¡Gracias por ser parte de esta familia!</p>
+                <a href="#servidores" class="btn-primary">Ver Servidores Activos <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </section>
 
-                <section id="servidores" class="content-section active">
-      <div class="container">
-                <div class="server-card">
-          <h2>LOS PIBES DEL MIX [MIX]</h2>
-          <p class="server-info">IP: <span id="ip1">45.235.98.220:27262</span></p>
-          <button onclick="copyIP('ip1')">Copiar IP</button>
-        </div>
+        <section id="servidores" class="content-section">
+            <div class="container">
+                <div class="server-card">
+                    <h2>LOS PIBES DEL MIX [MIX]</h2>
+                    <p class="server-info">IP: <span id="ip1">45.235.98.220:27262</span></p>
+                    <button onclick="copyIP('ip1')">Copiar IP</button>
+                </div>
 
-                <div class="server-card">
-          <h2>LOS PIBES DEL MIX [PUBLICO]</h2>
-          <p class="server-info">IP: <span id="ip2">45.235.98.220:27310</span></p>
-          <button onclick="copyIP('ip2')">Copiar IP</button>
-        </div>
+                <div class="server-card">
+                    <h2>LOS PIBES DEL MIX [PUBLICO]</h2>
+                    <p class="server-info">IP: <span id="ip2">45.235.98.220:27310</span></p>
+                    <button onclick="copyIP('ip2')">Copiar IP</button>
+                </div>
 
-                <div class="server-card">
-          <h2>LOS PIBES DEL MIX [MATA AL TRAIDOR]</h2>
-          <p class="server-info">IP: <span id="ip3">45.235.99.105:27643</span></p>
-          <button onclick="copyIP('ip3')">Copiar IP</button>
-        </div>
-      </div>
-    </section>
+                <div class="server-card">
+                    <h2>LOS PIBES DEL MIX [MATA AL TRAIDOR]</h2>
+                    <p class="server-info">IP: <span id="ip3">45.235.99.105:27643</span></p>
+                    <button onclick="copyIP('ip3')">Copiar IP</button>
+                </div>
+            </div>
+        </section>
 
-                <section id="descargas" class="content-section">
-      <div class="simple-content">
-        <h2><i class="fas fa-download"></i> Zona de Descargas</h2>
-        <p>Aquí encontrarás archivos esenciales para una experiencia de juego óptima, como mapas personalizados, configs y packs de texturas.</p>
-        <ul>
-          <li><a href="#">Config. Base Los Pibes Del Mix</a></li>
-          <li><a href="#">Mapas Clásicos de Mix</a></li>
-        </ul>
-      </div>
-    </section>
+        <section id="descargas" class="content-section">
+            <div class="simple-content">
+                <h2><i class="fas fa-download"></i> Zona de Descargas</h2>
+                <p>Aquí encontrarás archivos esenciales para una experiencia de juego óptima, como mapas personalizados, configs y packs de texturas.</p>
+                <ul>
+                    <li><a href="#">Config. Base Los Pibes Del Mix</a></li>
+                    <li><a href="#">Mapas Clásicos de Mix</a></li>
+                </ul>
+            </div>
+        </section>
 
-                <section id="ventas" class="content-section">
-      <div class="simple-content">
-        <h2><i class="fas fa-shopping-cart"></i> Tienda y Ventas</h2>
-        <p>Apoya a la comunidad y obtén beneficios exclusivos en nuestros servidores. ¡Tu ayuda mantiene los servidores online!</p>
-        <ul>
-          <li><a href="#">VIP Permanente</a> - Acceso a slots especiales.</li>
-          <li><a href="#">Skins Exclusivas</a> - Destaca en el servidor.</li>
-        </ul>
-      </div>
-    </section>
-  </main>
+        <section id="ventas" class="content-section">
+            <div class="simple-content">
+                <h2><i class="fas fa-shopping-cart"></i> Tienda y Ventas</h2>
+                <p>Apoya a la comunidad y obtén beneficios exclusivos en nuestros servidores. ¡Tu ayuda mantiene los servidores online!</p>
+                <ul>
+                    <li><a href="#">VIP Permanente</a> - Acceso a slots especiales.</li>
+                    <li><a href="#">Skins Exclusivas</a> - Destaca en el servidor.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
 
-  <footer>
-    © 2025 Los Pibes Del Mix | Unite en 
-    <a href="https://discord.gg/bSRR7AyYuh" target="_blank"><i class="fab fa-discord"></i> Discord</a>
-  </footer>
+    <footer>
+        © 2025 Los Pibes Del Mix | Unite en 
+        <a href="https://discord.gg/bSRR7AyYuh" target="_blank"><i class="fab fa-discord"></i> Discord</a>
+    </footer>
 
-  <script src="script.js"></script>
+    <script>
+        function copyIP(id) {
+            const ipElement = document.getElementById(id);
+            const ip = ipElement.textContent;
+            navigator.clipboard.writeText(ip)
+                .then(() => {
+                    alert('IP copiada: ' + ip);
+                })
+                .catch(err => {
+                    console.error('Error al intentar copiar: ', err);
+                });
+        }
+    </script>
 </body>
 </html>
-
-
