@@ -1,51 +1,86 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Los Pibes Del Mix - Servidores</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Los Pibes Del Mix - Inicio</title>
+  <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
-  <header>
-    <h1>Los Pibes Del Mix</h1>
-    <nav>
-      <a href="#">Servidores</a>
-      <a href="#">Descargas</a>
-      <a href="#">Ventas</a>
-      <a href="https://discord.gg/bSRR7AyYuh" target="_blank">Discord</a>
-    </nav>
-  </header>
+  <header>
+    <h1>Los Pibes Del Mix</h1>
+    <nav>
+            <a href="#inicio"><i class="fas fa-home"></i> Inicio</a>
+            <a href="#servidores"><i class="fas fa-server"></i> Servidores</a>
+      <a href="#descargas"><i class="fas fa-download"></i> Descargas</a>
+      <a href="#ventas"><i class="fas fa-shopping-cart"></i> Ventas</a>
+      <a href="https://discord.gg/bSRR7AyYuh" target="_blank"><i class="fab fa-discord"></i> Discord</a>
+    </nav>
+  </header>
 
-  <div class="container">
-    <!-- Server 1 -->
-    <div class="server-card">
-      <h2>LOS PIBES DEL MIX [MIX]</h2>
-      <p class="server-info">IP: <span id="ip1">45.235.98.220:27262</span></p>
-      <button onclick="copyIP('ip1')">Copiar IP</button>
-    </div>
+  <main>
+                <section id="inicio" class="content-section">
+      <div class="welcome-container">
+        <h2>¡Bienvenido a Los Pibes Del Mix!</h2>
+        <p>Somos una de las comunidades de gaming más grandes y activas de la región. Únete a nuestros servidores y siente la verdadera adrenalina del Mix y el Público.</p>
+        <h3>Nuestro Dato de Comunidad</h3>
+        <p>Contamos con **más de 50,000 miembros** en Discord y más de 300 jugadores activos diariamente en nuestros servidores de juego. ¡Gracias por ser parte de esta familia!</p>
+        <a href="#servidores" class="btn-primary">Ver Servidores Activos <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </section>
 
-    <!-- Server 2 -->
-    <div class="server-card">
-      <h2>LOS PIBES DEL MIX [PUBLICO]</h2>
-      <p class="server-info">IP: <span id="ip2">45.235.98.220:27310</span></p>
-      <button onclick="copyIP('ip2')">Copiar IP</button>
-    </div>
+                <section id="servidores" class="content-section active">
+      <div class="container">
+                <div class="server-card">
+          <h2>LOS PIBES DEL MIX [MIX]</h2>
+          <p class="server-info">IP: <span id="ip1">45.235.98.220:27262</span></p>
+          <button onclick="copyIP('ip1')">Copiar IP</button>
+        </div>
 
-    <!-- Server 3 -->
-    <div class="server-card">
-      <h2>LOS PIBES DEL MIX [MATA AL TRAIDOR]</h2>
-      <p class="server-info">IP: <span id="ip3">45.235.99.105:27643</span></p>
-      <button onclick="copyIP('ip3')">Copiar IP</button>
-    </div>
-  </div>
+                <div class="server-card">
+          <h2>LOS PIBES DEL MIX [PUBLICO]</h2>
+          <p class="server-info">IP: <span id="ip2">45.235.98.220:27310</span></p>
+          <button onclick="copyIP('ip2')">Copiar IP</button>
+        </div>
 
-  <footer>
-    © 2025 Los Pibes Del Mix | Unite en 
-    <a href="https://discord.gg/bSRR7AyYuh" target="_blank">Discord</a>
-  </footer>
+                <div class="server-card">
+          <h2>LOS PIBES DEL MIX [MATA AL TRAIDOR]</h2>
+          <p class="server-info">IP: <span id="ip3">45.235.99.105:27643</span></p>
+          <button onclick="copyIP('ip3')">Copiar IP</button>
+        </div>
+      </div>
+    </section>
 
-  <script src="script.js"></script>
+                <section id="descargas" class="content-section">
+      <div class="simple-content">
+        <h2><i class="fas fa-download"></i> Zona de Descargas</h2>
+        <p>Aquí encontrarás archivos esenciales para una experiencia de juego óptima, como mapas personalizados, configs y packs de texturas.</p>
+        <ul>
+          <li><a href="#">Config. Base Los Pibes Del Mix</a></li>
+          <li><a href="#">Mapas Clásicos de Mix</a></li>
+        </ul>
+      </div>
+    </section>
+
+                <section id="ventas" class="content-section">
+      <div class="simple-content">
+        <h2><i class="fas fa-shopping-cart"></i> Tienda y Ventas</h2>
+        <p>Apoya a la comunidad y obtén beneficios exclusivos en nuestros servidores. ¡Tu ayuda mantiene los servidores online!</p>
+        <ul>
+          <li><a href="#">VIP Permanente</a> - Acceso a slots especiales.</li>
+          <li><a href="#">Skins Exclusivas</a> - Destaca en el servidor.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 Los Pibes Del Mix | Unite en 
+    <a href="https://discord.gg/bSRR7AyYuh" target="_blank"><i class="fab fa-discord"></i> Discord</a>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
 
