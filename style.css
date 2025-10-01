@@ -1,96 +1,214 @@
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #111; /* Fondo neutro oscuro */
-  color: #fff;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #111; /* Fondo neutro oscuro */
+  color: #fff;
 }
 
 header {
-  background: rgba(0,0,0,0.85);
-  padding: 15px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  background: rgba(0,0,0,0.85);
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky; /* Fija el header */
+  top: 0;
+  z-index: 1000;
 }
 
 header h1 {
-  margin: 0;
-  font-size: 22px;
-  color: #ffcc00;
+  margin: 0;
+  font-size: 22px;
+  color: #ffcc00;
 }
 
 nav a {
-  margin-left: 20px;
-  text-decoration: none;
-  color: #fff;
-  font-weight: bold;
-  transition: 0.3s;
+  margin-left: 20px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+/* Estilo para los íconos */
+nav a i {
+  margin-right: 5px; 
 }
 
 nav a:hover {
-  color: #ffcc00;
+  color: #ffcc00;
 }
 
-/* 🔥 Fondo nuevo solo para la sección de servidores */
-.container {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 40px 20px;
-  border-radius: 12px;
+/* ======================================================= */
+/* 🆕 GESTIÓN DE SECCIONES - Esconder/Mostrar */
+/* ======================================================= */
 
-  background: url('60bc2663-2c50-462d-b192-c8dabbb5687d.png') no-repeat center center;
-  background-size: cover;
+/* 1. Esconde todas las secciones de contenido */
+.content-section {
+  display: none;
+  padding: 40px 0;
+}
 
-  box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+/* 2. Muestra solo la sección que coincida con el #ancla de la URL */
+/* La regla :target se activa cuando el hash de la URL coincide con el ID del elemento */
+.content-section:target {
+  display: block;
+}
+
+/* 3. Muestra la sección #inicio por defecto si no hay #ancla en la URL */
+#inicio {
+  display: block;
+}
+
+/* Si se recarga la página en #servidores, se esconde #inicio */
+:target#inicio {
+  display: block; /* Asegura que Inicio se vea si el ancla es #inicio */
+}
+
+/* Si hay un ancla diferente a #inicio, ocultamos #inicio */
+.content-section:target ~ #inicio {
+  display: none;
+}
+
+/* ======================================================= */
+/* 🆕 ESTILOS DE LA SECCIÓN DE INICIO */
+/* ======================================================= */
+
+.welcome-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 60px 30px;
+  text-align: center;
+  background: #222; /* Fondo para la bienvenida */
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.8);
+  border-top: 3px solid #ffcc00; /* Borde de color */
+}
+
+.welcome-container h2 {
+  font-size: 36px;
+  color: #ffcc00;
+  margin-bottom: 15px;
+}
+
+.welcome-container h3 {
+  margin-top: 30px;
+  font-size: 24px;
+  color: #fff;
+  border-bottom: 2px solid rgba(255, 204, 0, 0.3);
+  padding-bottom: 10px;
+}
+
+.btn-primary {
+  display: inline-block;
+  margin-top: 25px;
+  background: #ffcc00;
+  color: #111;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  background: #e6b800;
+}
+
+/* ======================================================= */
+/* 🆕 ESTILOS PARA SECCIONES DE CONTENIDO SIMPLE (Descargas/Ventas) */
+/* ======================================================= */
+.simple-content {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 40px;
+  background: rgba(0,0,0,0.8);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+.simple-content h2 {
+  color: #ffcc00;
+  border-bottom: 1px solid #444;
+  padding-bottom: 10px;
+}
+.simple-content ul {
+  list-style: none;
+  padding: 0;
+}
+.simple-content li {
+  background: rgba(255,255,255,0.05);
+  margin-bottom: 8px;
+  padding: 10px;
+  border-radius: 5px;
+}
+.simple-content a {
+  color: #99d6ff; /* Un color para enlaces de descarga/venta */
+  text-decoration: none;
+  font-weight: bold;
+}
+/* ======================================================= */
+
+
+/* 🔥 Fondo nuevo solo para la sección de servidores (manteniendo tu estilo) */
+/* NOTA: El contenedor de servidores ahora es la clase .container DENTRO de #servidores */
+#servidores .container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 40px 20px;
+  border-radius: 12px;
+  background: url('60bc2663-2c50-462d-b192-c8dabbb5687d.png') no-repeat center center;
+  background-size: cover;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.7);
 }
 
 .server-card {
-  background: rgba(0,0,0,0.85);
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-  transition: transform 0.2s;
+  background: rgba(0,0,0,0.85);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  transition: transform 0.2s;
 }
 
 .server-card:hover {
-  transform: scale(1.02);
+  transform: scale(1.02);
 }
 
 .server-card h2 {
-  margin-top: 0;
-  font-size: 20px;
-  color: #ffcc00;
+  margin-top: 0;
+  font-size: 20px;
+  color: #ffcc00;
 }
 
 .server-info {
-  margin: 10px 0;
-  font-size: 15px;
+  margin: 10px 0;
+  font-size: 15px;
 }
 
 button {
-  background: #ffcc00;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s;
+  background: #ffcc00;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
 }
 
 button:hover {
-  background: #e6b800;
+  background: #e6b800;
 }
 
 footer {
-  text-align: center;
-  padding: 20px;
-  margin-top: 30px;
-  background: rgba(0,0,0,0.8);
+  text-align: center;
+  padding: 20px;
+  margin-top: 30px;
+  background: rgba(0,0,0,0.8);
 }
 
 footer a {
-  color: #ffcc00;
-  text-decoration: none;
-  font-weight: bold;
+  color: #ffcc00;
+  text-decoration: none;
+  font-weight: bold;
 }
+
