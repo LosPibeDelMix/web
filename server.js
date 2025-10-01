@@ -46,5 +46,5 @@ app.get("/servers", async (req, res) => {
   res.json(results);
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => console.log(`API corriendo en puerto ${PORT}`));
