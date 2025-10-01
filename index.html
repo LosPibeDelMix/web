@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Los Pibes Del Mix - Servidores</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Los Pibes Del Mix</h1>
+    <nav>
+      <a href="#">Servidores</a>
+      <a href="#">Descargas</a>
+      <a href="#">Ventas</a>
+      <a href="https://discord.gg/bSRR7AyYuh" target="_blank">Discord</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <!-- Server 1 -->
+    <div class="server-card">
+      <h2>[MIX]</h2>
+      <p class="server-info">IP: <span id="ip1">45.235.98.220:27262</span></p>
+      <button onclick="copyIP('ip1')">Copiar IP</button>
+    </div>
+
+    <!-- Server 2 -->
+    <div class="server-card">
+      <h2>[PUBLICO]</h2>
+      <p class="server-info">IP: <span id="ip2">45.235.98.220:27310</span></p>
+      <button onclick="copyIP('ip2')">Copiar IP</button>
+    </div>
+
+    <!-- Server 3 -->
+    <div class="server-card">
+      <h2>[MATA AL TRAIDOR]</h2>
+      <p class="server-info">IP: <span id="ip3">45.235.99.105:27643</span></p>
+      <button onclick="copyIP('ip3')">Copiar IP</button>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 Los Pibes Del Mix | Unite en 
+    <a href="https://discord.gg/bSRR7AyYuh" target="_blank">Discord</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
