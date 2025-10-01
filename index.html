@@ -7,15 +7,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     
     <style>
+        /* Animación suave al hacer clic en enlaces de ancla */
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: #111; /* Fondo neutro oscuro */
-            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Fondo más colorido y oscuro */
+            background: linear-gradient(135deg, #0c0f15 0%, #1a0a29 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
         }
 
         header {
-            background: rgba(0,0,0,0.85);
+            background: rgba(0,0,0,0.95);
             padding: 15px 30px;
             display: flex;
             justify-content: space-between;
@@ -23,20 +30,23 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
         header h1 {
             margin: 0;
-            font-size: 22px;
-            color: #ffcc00;
+            font-size: 24px;
+            color: #ffcc00; /* Color principal */
         }
 
         nav a {
             margin-left: 20px;
             text-decoration: none;
-            color: #fff;
-            font-weight: bold;
-            transition: 0.3s;
+            color: #e0e0e0;
+            font-weight: 600;
+            transition: color 0.3s, transform 0.2s;
+            padding: 5px 10px;
+            border-radius: 5px;
         }
 
         nav a i {
@@ -44,28 +54,38 @@
         }
 
         nav a:hover {
-            color: #ffcc00;
+            color: #ffedb3;
+            background-color: rgba(255, 204, 0, 0.1);
+            transform: translateY(-2px);
         }
 
-        /* GESTIÓN DE SECCIONES - Esconder/Mostrar (Truco con :target) */
+        /* GESTIÓN DE SECCIONES - Truco con :target */
         .content-section {
             display: none;
-            padding: 40px 0;
+            padding: 40px 20px;
+            min-height: 80vh; /* Para asegurar que el footer esté abajo */
+            transition: opacity 0.5s ease-in-out;
         }
 
-        /* Muestra la sección #inicio si la URL no tiene ningún #ancla (comportamiento por defecto) */
-        /* Nota: El selector :not(:has) puede no ser soportado en navegadores muy antiguos. */
-        body:not(:has(:target)) #inicio {
+        /* Mostrar la primera sección (#inicio) por defecto */
+        #inicio {
             display: block;
         }
 
-        /* Muestra la sección que coincida con el #ancla de la URL */
+        /* Mostrar la sección que coincida con el #ancla de la URL */
         .content-section:target {
             display: block;
         }
-        
-        /* Oculta explícitamente #inicio si cualquier OTRA sección es el :target. */
-        :target:not(#inicio) ~ * #inicio {
+
+        /* Ocultar todas las demás secciones si hay un target definido */
+        /* Este selector oculta todas las secciones si alguna está :target */
+        :target ~ .content-section:not(:target),
+        .content-section:target ~ #inicio {
+            display: none;
+        }
+
+        /* Estilo para manejar la visibilidad cuando se usa el target */
+        .content-section:target ~ #inicio:not(.content-section:target) {
             display: none;
         }
 
@@ -75,40 +95,44 @@
             margin: 40px auto;
             padding: 60px 30px;
             text-align: center;
-            background: #222;
-            border-radius: 12px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.8);
-            border-top: 3px solid #ffcc00;
+            background: rgba(255, 255, 255, 0.05); /* Más transparente */
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            border-top: 5px solid #ffcc00;
+            transition: all 0.5s ease;
         }
 
         .welcome-container h2 {
-            font-size: 36px;
+            font-size: 40px;
             color: #ffcc00;
             margin-bottom: 15px;
+            text-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
         }
 
         .welcome-container h3 {
             margin-top: 30px;
             font-size: 24px;
             color: #fff;
-            border-bottom: 2px solid rgba(255, 204, 0, 0.3);
+            border-bottom: 2px solid rgba(255, 204, 0, 0.5);
             padding-bottom: 10px;
         }
 
         .btn-primary {
             display: inline-block;
-            margin-top: 25px;
+            margin-top: 30px;
             background: #ffcc00;
             color: #111;
             text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 12px 25px;
+            border-radius: 8px;
             font-weight: bold;
-            transition: 0.3s;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
         }
 
         .btn-primary:hover {
             background: #e6b800;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 204, 0, 0.4);
         }
 
         /* ESTILOS PARA SECCIONES DE CONTENIDO SIMPLE (Descargas/Ventas) */
@@ -116,9 +140,13 @@
             max-width: 700px;
             margin: 20px auto;
             padding: 40px;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.7);
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+        }
+        .simple-content:hover {
+            background: rgba(0,0,0,0.8);
         }
         .simple-content h2 {
             color: #ffcc00;
@@ -130,15 +158,23 @@
             padding: 0;
         }
         .simple-content li {
-            background: rgba(255,255,255,0.05);
-            margin-bottom: 8px;
-            padding: 10px;
-            border-radius: 5px;
+            background: rgba(255,255,255,0.08);
+            margin-bottom: 12px;
+            padding: 15px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+        .simple-content li:hover {
+            background: rgba(255,255,255,0.15);
         }
         .simple-content a {
-            color: #99d6ff;
+            color: #79caff; 
             text-decoration: none;
             font-weight: bold;
+            transition: color 0.3s;
+        }
+        .simple-content a:hover {
+            color: #a0dfff;
         }
 
         /* Estilos de la sección de servidores */
@@ -147,10 +183,9 @@
             margin: 40px auto;
             padding: 40px 20px;
             border-radius: 12px;
-            /* Nota: Si no tienes el archivo '60bc2663-2c50-462d-b192-c8dabbb5687d.png', este fondo no aparecerá. */
-            background: url('60bc2663-2c50-462d-b192-c8dabbb5687d.png') no-repeat center center;
-            background-size: cover;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+            /* Fondo con degradado para simular un ambiente oscuro y vibrante sin la imagen */
+            background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.7), rgba(40, 0, 60, 0.7));
+            box-shadow: 0 4px 25px rgba(0,0,0,0.9);
         }
 
         .server-card {
@@ -158,50 +193,74 @@
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            transition: transform 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.7);
+            border-left: 5px solid #ffcc00;
+            transition: transform 0.3s, background 0.3s;
         }
 
         .server-card:hover {
-            transform: scale(1.02);
+            transform: scale(1.03);
+            background: rgba(20, 0, 30, 0.85);
         }
 
         .server-card h2 {
             margin-top: 0;
-            font-size: 20px;
+            font-size: 22px;
             color: #ffcc00;
         }
 
         .server-info {
             margin: 10px 0;
-            font-size: 15px;
+            font-size: 16px;
+            font-weight: 300;
         }
 
         button {
             background: #ffcc00;
             border: none;
-            padding: 8px 16px;
+            padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
-            transition: 0.3s;
+            color: #111;
+            transition: 0.3s, background 0.3s, transform 0.1s;
         }
 
         button:hover {
             background: #e6b800;
+            transform: translateY(-1px);
+        }
+        
+        /* ESTILO PARA EL MENSAJE DE COPIADO */
+        button.copied {
+            background: #4CAF50; /* Verde de éxito */
+            color: white;
         }
 
+        /* FOOTER DISCRETO Y BAJO */
         footer {
+            position: fixed; /* Lo fija en la ventana */
+            bottom: 0; /* Lo empuja hacia abajo */
+            left: 0;
+            width: 100%;
             text-align: center;
-            padding: 20px;
-            margin-top: 30px;
-            background: rgba(0,0,0,0.8);
+            padding: 10px;
+            background: rgba(0,0,0,0.6); /* Fondo semi-transparente */
+            opacity: 0.8; /* Menor opacidad para que sea más discreto */
+            transition: opacity 0.3s;
+            z-index: 999;
+            font-size: 13px;
+        }
+
+        footer:hover {
+            opacity: 1; /* Se ilumina al pasar el ratón */
         }
 
         footer a {
             color: #ffcc00;
             text-decoration: none;
             font-weight: bold;
+            transition: color 0.3s;
         }
     </style>
 </head>
@@ -233,19 +292,19 @@
                 <div class="server-card">
                     <h2>LOS PIBES DEL MIX [MIX]</h2>
                     <p class="server-info">IP: <span id="ip1">45.235.98.220:27262</span></p>
-                    <button onclick="copyIP('ip1')">Copiar IP</button>
+                    <button onclick="copyIP('ip1', this)">Copiar IP</button>
                 </div>
 
                 <div class="server-card">
                     <h2>LOS PIBES DEL MIX [PUBLICO]</h2>
                     <p class="server-info">IP: <span id="ip2">45.235.98.220:27310</span></p>
-                    <button onclick="copyIP('ip2')">Copiar IP</button>
+                    <button onclick="copyIP('ip2', this)">Copiar IP</button>
                 </div>
 
                 <div class="server-card">
                     <h2>LOS PIBES DEL MIX [MATA AL TRAIDOR]</h2>
                     <p class="server-info">IP: <span id="ip3">45.235.99.105:27643</span></p>
-                    <button onclick="copyIP('ip3')">Copiar IP</button>
+                    <button onclick="copyIP('ip3', this)">Copiar IP</button>
                 </div>
             </div>
         </section>
@@ -279,15 +338,32 @@
     </footer>
 
     <script>
-        function copyIP(id) {
+        function copyIP(id, buttonElement) {
             const ipElement = document.getElementById(id);
             const ip = ipElement.textContent;
+            
+            // 1. Guarda el texto original
+            const originalText = buttonElement.textContent;
+
             navigator.clipboard.writeText(ip)
                 .then(() => {
-                    alert('IP copiada: ' + ip);
+                    // 2. Muestra el mensaje de éxito y cambia el estilo
+                    buttonElement.textContent = '¡Copiado!';
+                    buttonElement.classList.add('copied');
+
+                    // 3. Vuelve al estado original después de un tiempo
+                    setTimeout(() => {
+                        buttonElement.textContent = originalText;
+                        buttonElement.classList.remove('copied');
+                    }, 1500); // 1.5 segundos
                 })
                 .catch(err => {
-                    console.error('Error al intentar copiar: ', err);
+                    // Mensaje de error más sencillo en caso de fallo
+                    console.error('Error al intentar copiar:', err);
+                    buttonElement.textContent = 'Error';
+                    setTimeout(() => {
+                        buttonElement.textContent = originalText;
+                    }, 1500);
                 });
         }
     </script>
