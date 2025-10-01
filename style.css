@@ -1,8 +1,7 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: url('https://i.ibb.co/5cNhdgY/de-inferno-bg.jpg') no-repeat center center fixed;
-  background-size: cover;
+  background: #111; /* Fondo neutro oscuro */
   color: #fff;
 }
 
@@ -32,10 +31,17 @@ nav a:hover {
   color: #ffcc00;
 }
 
+/* 🔥 Fondo nuevo solo para la sección de servidores */
 .container {
   max-width: 900px;
   margin: 40px auto;
-  padding: 10px;
+  padding: 40px 20px;
+  border-radius: 12px;
+
+  background: url('60bc2663-2c50-462d-b192-c8dabbb5687d.png') no-repeat center center;
+  background-size: cover;
+
+  box-shadow: 0 4px 20px rgba(0,0,0,0.7);
 }
 
 .server-card {
