@@ -6,25 +6,30 @@
     <title>Los Pibes Del Mix - Inicio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* Deshabilita el desplazamiento suave para evitar transiciones de ancla */
+        /* Deshabilita el desplazamiento vertical */
         html {
-            scroll-behavior: auto; /* IMPORTANTE: Deshabilita el scroll suave */
+            scroll-behavior: auto;
         }
         
         body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* Colores más apagados: un azul grisáceo muy oscuro */
-            background: #11151A; 
-            color: #d1d4d9; /* Texto gris claro */
+            color: #d1d4d9; 
             min-height: 100vh;
             overflow-x: hidden;
-            overflow-y: hidden; /* IMPORTANTE: Deshabilita el scroll del cuerpo */
+            overflow-y: hidden; 
+            
+            /* Fondo inspirado en CS 1.6 (textura de metal/militar oscuro) */
+            background-color: #11151A;
+            background-image: repeating-linear-gradient(45deg, #181d24 0, #181d24 1px, #11151A 0, #11151A 50px);
+            background-size: 80px 80px;
         }
 
         header {
-            background: #0D1013; /* Header aún más oscuro */
+            background: #0D1013;
             padding: 15px 30px;
             display: flex;
             justify-content: space-between;
@@ -35,10 +40,14 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.7);
         }
 
+        /* 🚀 Nuevo Estilo de Fuente para el Nombre (Orbitron) */
         header h1 {
             margin: 0;
-            font-size: 24px;
-            color: #C0A040; /* Tono dorado apagado */
+            font-family: 'Orbitron', sans-serif; /* Fuente tecnológica/gaming */
+            font-size: 28px; /* Más grande */
+            color: #C0A040;
+            text-shadow: 0 0 5px rgba(255, 204, 0, 0.5), 0 0 10px rgba(192, 160, 64, 0.3); /* Efecto neón/resplandor */
+            letter-spacing: 1px;
         }
 
         nav a {
@@ -56,47 +65,51 @@
         }
 
         nav a:hover {
-            color: #F0E0A0; /* Dorado un poco más brillante al pasar el ratón */
-            background-color: rgba(192, 160, 64, 0.1);
+            color: #F0E0A0; 
+            background-color: rgba(192, 160, 64, 0.15);
         }
 
-        /* GESTIÓN DE SECCIONES - Truco con :target */
+        /* GESTIÓN DE SECCIONES - Corrección de Bugs */
         main {
             position: relative;
-            height: 100%; /* Asegura que main ocupe el espacio */
+            /* Alto de la ventana menos el header y el footer */
+            min-height: calc(100vh - 80px); 
         }
         
         .content-section {
             display: none;
             padding: 40px 20px;
-            min-height: calc(100vh - 80px); /* Ocupa casi toda la vista */
-            transition: opacity 0.4s ease-in-out;
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
+            min-height: 100%;
+            opacity: 0; /* Para la transición de opacidad */
+            transition: opacity 0.4s ease-in-out;
+            z-index: 1;
         }
 
-        /* 🚀 Solución para que #inicio inicie visible y se oculte si hay otro target */
+        /* 1. Hace visible la sección por defecto (Inicio) */
         #inicio {
-            display: block; /* Siempre visible por defecto */
+            display: block; 
+            opacity: 1;
+            z-index: 5;
         }
         
+        /* 2. Muestra y trae al frente el target */
         .content-section:target {
-            display: block; /* Muestra el target */
+            display: block; 
+            opacity: 1;
             z-index: 10;
         }
 
-        /* Oculta #inicio si cualquier otra sección es el target */
+        /* 3. Oculta la sección #inicio (y el resto) cuando hay un target */
         :target ~ #inicio {
             display: none;
+            opacity: 0;
         }
         
-        /* Oculta TODAS las secciones si hay un target, excepto el target mismo */
-        .content-section:target ~ .content-section:not(:target) {
-            display: none;
-        }
-        /* Esto asegura que al cargar index.html se vea #inicio, y al ir a #servidores se muestre solo #servidores. */
+        /* Esto asegura que al hacer clic, solo el target sea visible y traído al frente. */
 
 
         /* ESTILOS DE LA SECCIÓN DE INICIO */
@@ -105,17 +118,15 @@
             margin: 40px auto;
             padding: 60px 30px;
             text-align: center;
-            background: rgba(40, 45, 50, 0.5); /* Fondo gris azulado apagado */
+            background: rgba(40, 45, 50, 0.6); 
             border-radius: 15px;
             box-shadow: 0 5px 25px rgba(0,0,0,0.5);
             border-top: 5px solid #C0A040;
-            transition: all 0.3s ease;
         }
 
         .welcome-container h2 {
             font-size: 40px;
             color: #C0A040;
-            margin-bottom: 15px;
         }
 
         .welcome-container h3 {
@@ -157,10 +168,6 @@
             border-bottom: 1px solid #303840;
             padding-bottom: 10px;
         }
-        .simple-content ul {
-            list-style: none;
-            padding: 0;
-        }
         .simple-content li {
             background: rgba(255,255,255,0.05);
             margin-bottom: 12px;
@@ -168,9 +175,7 @@
             border-radius: 6px;
         }
         .simple-content a {
-            color: #A0D0FF; /* Azul suave para enlaces */
-            text-decoration: none;
-            font-weight: bold;
+            color: #A0D0FF; 
         }
 
         /* Estilos de la sección de servidores */
@@ -179,13 +184,12 @@
             margin: 40px auto;
             padding: 40px 20px;
             border-radius: 12px;
-            /* Fondo muy oscuro y sutil */
             background: #1A2027; 
             box-shadow: 0 4px 25px rgba(0,0,0,0.6);
         }
 
         .server-card {
-            background: #0D1013; /* Fondo de tarjeta muy oscuro */
+            background: #0D1013; 
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 20px;
@@ -200,23 +204,11 @@
         }
 
         .server-card h2 {
-            margin-top: 0;
-            font-size: 22px;
             color: #C0A040;
-        }
-
-        .server-info {
-            margin: 10px 0;
-            font-size: 16px;
         }
 
         button {
             background: #C0A040;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
             color: #11151A;
             transition: background 0.3s;
         }
@@ -227,20 +219,20 @@
         
         /* ESTILO PARA EL MENSAJE DE COPIADO */
         button.copied {
-            background: #4682B4; /* Azul de acero para éxito (apagado) */
+            background: #4682B4; 
             color: white;
         }
 
-        /* FOOTER DISCRETO Y BAJO (Aún más discreto) */
+        /* FOOTER DISCRETO Y BAJO */
         footer {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
             text-align: center;
-            padding: 8px; /* Menos padding */
+            padding: 8px;
             background: #0D1013;
-            opacity: 0.6; /* Más opaco/discreto */
+            opacity: 0.6; 
             transition: opacity 0.3s;
             z-index: 999;
             font-size: 12px;
@@ -252,8 +244,6 @@
 
         footer a {
             color: #C0A040;
-            text-decoration: none;
-            font-weight: bold;
         }
     </style>
 </head>
