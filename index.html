@@ -11,8 +11,11 @@
     :root {
       --color-accent: #FFD700;
       --color-dark-bg: #0c0c0c;
+      --color-dark-section: rgba(20,20,20,0.85);
       --color-dark-text: #e0e0e0;
-      --color-light-bg: #f9f9f9;
+
+      --color-light-bg: #f5f5f5;
+      --color-light-section: rgba(255,255,255,0.85);
       --color-light-text: #111;
     }
 
@@ -31,7 +34,7 @@
 
     /* === HEADER === */
     header {
-      background: rgba(0, 0, 0, 0.85);
+      background: rgba(0,0,0,0.8);
       padding: 12px 25px;
       display: flex;
       justify-content: space-between;
@@ -42,6 +45,11 @@
       z-index: 1000;
       border-bottom: 2px solid var(--color-accent);
       backdrop-filter: blur(8px);
+      transition: background 0.5s;
+    }
+
+    body.light header {
+      background: rgba(255,255,255,0.8);
     }
 
     header h1 {
@@ -58,7 +66,7 @@
 
     nav a {
       text-decoration: none;
-      color: #bbb;
+      color: inherit;
       font-weight: 700;
       font-size: 14px;
       padding: 6px 12px;
@@ -89,10 +97,7 @@
       display: none;
       padding: 100px 20px 60px;
       min-height: 100vh;
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      animation: fadeIn 0.8s ease;
+      animation: fadeIn 0.6s ease;
     }
 
     .page.active {
@@ -104,42 +109,48 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* Secciones con fondos sólidos adaptables */
+    #inicio { background: var(--color-dark-section); }
+    #servidores { background: rgba(40,40,40,0.85); }
+    #ventas { background: rgba(30,30,30,0.85); }
+    #redes { background: rgba(25,25,25,0.85); }
+
+    body.light #inicio { background: var(--color-light-section); }
+    body.light #servidores { background: rgba(250,250,250,0.9); }
+    body.light #ventas { background: rgba(245,245,245,0.9); }
+    body.light #redes { background: rgba(240,240,240,0.9); }
+
     .content-box {
       max-width: 900px;
       margin: auto;
       padding: 30px;
-      background: rgba(15, 15, 15, 0.65);
       border-radius: 12px;
       border: 1px solid rgba(255, 215, 0, 0.4);
-      box-shadow: 0 0 25px rgba(0,0,0,0.8);
+      box-shadow: 0 0 25px rgba(0,0,0,0.6);
       backdrop-filter: blur(8px);
-    }
-
-    body.light .content-box {
-      background: rgba(255, 255, 255, 0.8);
-      border: 1px solid #ccc;
-      color: #111;
+      text-align: center;
+      transition: background 0.3s, color 0.3s;
     }
 
     .content-box h2 {
       color: var(--color-accent);
       font-family: 'Orbitron', sans-serif;
-      text-align: center;
       margin-bottom: 20px;
     }
 
     /* === SERVIDORES === */
     .server-card {
-      background: rgba(0,0,0,0.65);
+      background: rgba(0,0,0,0.6);
       border-left: 6px solid var(--color-accent);
       border-radius: 10px;
       padding: 20px;
       margin-bottom: 20px;
+      text-align: left;
+      transition: background 0.3s;
     }
 
     body.light .server-card {
       background: rgba(255,255,255,0.9);
-      border-left: 6px solid var(--color-accent);
     }
 
     .server-card h3 {
@@ -203,6 +214,11 @@
       border-top: 2px solid var(--color-accent);
     }
 
+    body.light footer {
+      background: rgba(255,255,255,0.9);
+      color: #444;
+    }
+
     .discord-btn {
       display: inline-flex;
       align-items: center;
@@ -251,8 +267,8 @@
   </header>
 
   <!-- INICIO -->
-  <div id="inicio" class="page active" style="background-image:url('https://wallpapercave.com/wp/wp4048451.jpg');">
-    <div class="content-box" style="text-align:center;">
+  <div id="inicio" class="page active">
+    <div class="content-box">
       <h2>¡Bienvenido a Los Pibes Del Mix!</h2>
       <p>Comunidad de <b>Counter-Strike 1.6</b> con servidores <b>Mix</b>, <b>Público</b> y <b>Mata al Traidor</b>.</p>
       <a href="#servidores" class="btn"><i class="fas fa-bolt"></i> Ver Servidores</a>
@@ -260,7 +276,7 @@
   </div>
 
   <!-- SERVIDORES -->
-  <div id="servidores" class="page" style="background-image:url('https://wallpapercave.com/wp/wp4048489.jpg');">
+  <div id="servidores" class="page">
     <div class="content-box">
       <h2>Servidores</h2>
 
@@ -288,8 +304,8 @@
   </div>
 
   <!-- VENTAS -->
-  <div id="ventas" class="page" style="background-image:url('https://wallpapercave.com/wp/wp1835867.jpg');">
-    <div class="content-box" style="text-align:center;">
+  <div id="ventas" class="page">
+    <div class="content-box">
       <h2>Tienda</h2>
       <p>¿Querés VIP, rangos especiales o skins en nuestros servidores? Unite a nuestro <b>Discord oficial</b> 🔥</p>
       <a href="https://discord.gg/bSRR7AyYuh" target="_blank" class="btn"><i class="fab fa-discord"></i> Ir al Discord</a>
@@ -297,8 +313,8 @@
   </div>
 
   <!-- REDES -->
-  <div id="redes" class="page" style="background-image:url('https://wallpapercave.com/wp/wp1835844.jpg');">
-    <div class="content-box" style="text-align:center;">
+  <div id="redes" class="page">
+    <div class="content-box">
       <h2>Nuestras Redes</h2>
       <div class="social-links">
         <a href="https://www.instagram.com/lospibesdelmixcs" target="_blank" class="instagram"><i class="fab fa-instagram"></i></a>
