@@ -5,18 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Los Pibes Del Mix - Comunidad</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
+    /* === ESTILO BASE === */
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #ddd;
+      font-family: 'Share Tech Mono', monospace;
+      color: #e0e0e0;
+      background: #0c0c0c;
       overflow-x: hidden;
-      transition: background 0.8s ease-in-out;
     }
 
     header {
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.95);
       padding: 15px 30px;
       display: flex;
       justify-content: space-between;
@@ -24,23 +25,24 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+      border-bottom: 2px solid #FFD700;
+      box-shadow: 0 0 20px rgba(0,0,0,0.8);
     }
 
     header h1 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 28px;
+      font-size: 30px;
       color: #FFD700;
       margin: 0;
+      text-shadow: 0 0 10px #FFD700, 0 0 25px #000;
       letter-spacing: 2px;
-      text-shadow: 0 0 10px #000, 0 0 20px #FFD700;
     }
 
     nav a {
       margin-left: 20px;
       text-decoration: none;
-      color: #ccc;
-      font-weight: 600;
+      color: #bbb;
+      font-weight: 700;
       transition: all 0.3s ease;
       padding: 6px 12px;
       border-radius: 5px;
@@ -49,27 +51,27 @@
     nav a:hover {
       color: #111;
       background: #FFD700;
-      box-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700;
+      box-shadow: 0 0 15px #FFD700;
     }
 
+    /* === PÁGINAS === */
     .page {
       display: none;
-      padding: 60px 20px;
+      padding: 70px 20px;
       min-height: calc(100vh - 80px);
-      background: rgba(0, 0, 0, 0.7);
-      overflow-y: auto;
-      transition: opacity 0.6s ease-in-out;
       background-size: cover;
       background-position: center;
+      background-attachment: fixed;
+      transition: opacity 0.6s ease-in-out;
     }
 
     .page.active {
       display: block;
-      animation: fadeIn 0.8s;
+      animation: fadeIn 0.8s ease-in-out;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -77,9 +79,11 @@
       max-width: 900px;
       margin: auto;
       padding: 30px;
-      background: rgba(20, 20, 20, 0.85);
+      background: rgba(15, 15, 15, 0.9);
       border-radius: 12px;
-      box-shadow: 0 6px 25px rgba(0,0,0,0.8);
+      border: 2px solid #FFD700;
+      box-shadow: 0 0 20px rgba(0,0,0,0.9);
+      animation: fadeIn 1s ease;
     }
 
     .content-box h2 {
@@ -87,28 +91,31 @@
       margin-bottom: 20px;
       font-family: 'Orbitron', sans-serif;
       text-align: center;
-      text-shadow: 0 0 8px #000, 0 0 12px #FFD700;
+      font-size: 28px;
+      text-shadow: 0 0 10px #FFD700, 0 0 25px #000;
     }
 
-    /* Servidores */
+    /* === SERVIDORES === */
     .server-card {
       background: rgba(0,0,0,0.85);
-      border-left: 5px solid #FFD700;
+      border-left: 6px solid #FFD700;
       border-radius: 10px;
       padding: 20px;
       margin-bottom: 20px;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.6);
-      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 0 15px rgba(0,0,0,0.8);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
     }
 
     .server-card:hover {
       transform: scale(1.02);
-      box-shadow: 0 0 15px #FFD700;
+      box-shadow: 0 0 20px #FFD700;
     }
 
     .server-card h3 {
       margin: 0 0 10px;
       color: #FFD700;
+      font-size: 22px;
       font-family: 'Orbitron', sans-serif;
     }
 
@@ -118,42 +125,55 @@
       text-shadow: 0 0 8px lime;
     }
 
-    .server-status.offline {
-      color: red;
-      font-weight: bold;
-      text-shadow: 0 0 8px red;
+    .copy-btn {
+      background: #FFD700;
+      color: #111;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 8px;
+      transition: all 0.3s ease;
     }
 
+    .copy-btn:hover {
+      background: #FFA500;
+      box-shadow: 0 0 12px #FFD700;
+    }
+
+    /* === BOTONES GENERALES === */
     a.btn {
       display: inline-block;
       margin-top: 20px;
       background: #FFD700;
       color: #111;
-      padding: 12px 25px;
+      padding: 14px 28px;
       border-radius: 8px;
       text-decoration: none;
       font-weight: bold;
+      font-size: 16px;
       transition: all 0.3s ease;
       box-shadow: 0 0 8px #FFD700;
     }
 
     a.btn:hover {
       background: #FFA500;
-      box-shadow: 0 0 15px #FFA500, 0 0 25px #FFD700;
+      box-shadow: 0 0 20px #FFA500;
       transform: scale(1.05);
     }
 
-    /* Redes sociales */
+    /* === REDES === */
     .social-links a {
       display: inline-block;
       margin: 10px;
-      font-size: 35px;
-      transition: transform 0.3s, color 0.3s, text-shadow 0.3s;
+      font-size: 40px;
+      transition: transform 0.3s, text-shadow 0.3s;
     }
 
     .social-links a:hover {
       transform: scale(1.3);
-      text-shadow: 0 0 12px currentColor, 0 0 25px currentColor;
+      text-shadow: 0 0 15px currentColor, 0 0 25px currentColor;
     }
 
     .social-links .instagram { color: #E4405F; }
@@ -161,19 +181,21 @@
     .social-links .discord { color: #5865F2; }
 
     footer {
-      background: rgba(0,0,0,0.9);
+      background: rgba(0,0,0,0.95);
       text-align: center;
       padding: 12px;
       color: #888;
       font-size: 13px;
       border-top: 2px solid #FFD700;
     }
+
     footer a {
       color: #FFD700;
       text-decoration: none;
     }
+
     footer a:hover {
-      text-shadow: 0 0 8px #FFD700;
+      text-shadow: 0 0 10px #FFD700;
     }
   </style>
 </head>
@@ -192,8 +214,8 @@
   <div id="inicio" class="page active" style="background-image:url('https://wallpapercave.com/wp/wp4048451.jpg');">
     <div class="content-box" style="text-align:center;">
       <h2>¡Bienvenido a Los Pibes Del Mix!</h2>
-      <p>Comunidad de <b>Counter-Strike 1.6</b> con servidores Mix, Público y Mata al Traidor. <br>
-      Unite a la acción y reviví la nostalgia del CS clásico 🎮.</p>
+      <p>Comunidad de <b>Counter-Strike 1.6</b> con servidores <b>Mix</b>, <b>Público</b> y <b>Mata al Traidor</b>.  
+      ¡Unite a la acción y reviví la nostalgia del CS clásico 🎮!</p>
       <a href="#servidores" class="btn"><i class="fas fa-bolt"></i> Ver Servidores</a>
     </div>
   </div>
@@ -202,20 +224,26 @@
   <div id="servidores" class="page" style="background-image:url('https://wallpapercave.com/wp/wp4048489.jpg');">
     <div class="content-box">
       <h2>Servidores</h2>
+
       <div class="server-card">
         <h3>[MIX] Los Pibes Del Mix</h3>
         <p class="server-status online">🟢 Activo</p>
         <p>IP: 45.235.98.220:27262</p>
+        <button class="copy-btn" onclick="copyIP('45.235.98.220:27262')"><i class="fas fa-copy"></i> Copiar IP</button>
       </div>
+
       <div class="server-card">
         <h3>[PUBLICO] Los Pibes Del Mix</h3>
         <p class="server-status online">🟢 Activo</p>
         <p>IP: 45.235.98.220:27310</p>
+        <button class="copy-btn" onclick="copyIP('45.235.98.220:27310')"><i class="fas fa-copy"></i> Copiar IP</button>
       </div>
+
       <div class="server-card">
         <h3>[MATA AL TRAIDOR] Los Pibes Del Mix</h3>
         <p class="server-status online">🟢 Activo</p>
         <p>IP: 45.235.99.105:27643</p>
+        <button class="copy-btn" onclick="copyIP('45.235.99.105:27643')"><i class="fas fa-copy"></i> Copiar IP</button>
       </div>
     </div>
   </div>
@@ -224,8 +252,9 @@
   <div id="ventas" class="page" style="background-image:url('https://wallpapercave.com/wp/wp1835867.jpg');">
     <div class="content-box" style="text-align:center;">
       <h2>Tienda</h2>
-      <p>Compra rangos VIP y skins exclusivas para apoyar la comunidad y mantener los servidores online 🔥.</p>
-      <a href="#" class="btn"><i class="fas fa-star"></i> Comprar VIP</a>
+      <p>¿Querés VIP, rangos especiales o skins en nuestros servidores?  
+      Hacelo a través de nuestro <b>Discord oficial</b>. Ahí podés comprar y apoyar la comunidad 🔥.</p>
+      <a href="https://discord.gg/bSRR7AyYuh" target="_blank" class="btn"><i class="fab fa-discord"></i> Ir al Discord</a>
     </div>
   </div>
 
@@ -241,12 +270,13 @@
     </div>
   </div>
 
+  <!-- Footer -->
   <footer>
     © 2025 Los Pibes Del Mix | <a href="https://discord.gg/bSRR7AyYuh" target="_blank"><i class="fab fa-discord"></i> Discord</a>
   </footer>
 
   <script>
-    // Navegación entre páginas
+    // Navegación
     const pages = document.querySelectorAll('.page');
     function showPage(hash) {
       pages.forEach(p => p.classList.remove('active'));
@@ -255,6 +285,13 @@
     }
     window.addEventListener('hashchange', () => showPage(location.hash || '#inicio'));
     showPage(location.hash || '#inicio');
+
+    // Copiar IP
+    function copyIP(ip) {
+      navigator.clipboard.writeText(ip).then(() => {
+        alert("IP copiada: " + ip);
+      });
+    }
   </script>
 </body>
 </html>
