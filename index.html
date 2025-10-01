@@ -7,22 +7,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     
     <style>
-        /* Animación suave al hacer clic en enlaces de ancla */
+        /* Deshabilita el desplazamiento suave para evitar transiciones de ancla */
         html {
-            scroll-behavior: smooth;
+            scroll-behavior: auto; /* IMPORTANTE: Deshabilita el scroll suave */
         }
-
+        
         body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* Fondo más colorido y oscuro */
-            background: linear-gradient(135deg, #0c0f15 0%, #1a0a29 100%);
-            color: #e0e0e0;
+            /* Colores más apagados: un azul grisáceo muy oscuro */
+            background: #11151A; 
+            color: #d1d4d9; /* Texto gris claro */
             min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: hidden; /* IMPORTANTE: Deshabilita el scroll del cuerpo */
         }
 
         header {
-            background: rgba(0,0,0,0.95);
+            background: #0D1013; /* Header aún más oscuro */
             padding: 15px 30px;
             display: flex;
             justify-content: space-between;
@@ -30,21 +32,21 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.7);
         }
 
         header h1 {
             margin: 0;
             font-size: 24px;
-            color: #ffcc00; /* Color principal */
+            color: #C0A040; /* Tono dorado apagado */
         }
 
         nav a {
             margin-left: 20px;
             text-decoration: none;
-            color: #e0e0e0;
+            color: #d1d4d9;
             font-weight: 600;
-            transition: color 0.3s, transform 0.2s;
+            transition: color 0.3s, background-color 0.3s;
             padding: 5px 10px;
             border-radius: 5px;
         }
@@ -54,40 +56,48 @@
         }
 
         nav a:hover {
-            color: #ffedb3;
-            background-color: rgba(255, 204, 0, 0.1);
-            transform: translateY(-2px);
+            color: #F0E0A0; /* Dorado un poco más brillante al pasar el ratón */
+            background-color: rgba(192, 160, 64, 0.1);
         }
 
         /* GESTIÓN DE SECCIONES - Truco con :target */
+        main {
+            position: relative;
+            height: 100%; /* Asegura que main ocupe el espacio */
+        }
+        
         .content-section {
             display: none;
             padding: 40px 20px;
-            min-height: 80vh; /* Para asegurar que el footer esté abajo */
-            transition: opacity 0.5s ease-in-out;
+            min-height: calc(100vh - 80px); /* Ocupa casi toda la vista */
+            transition: opacity 0.4s ease-in-out;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
         }
 
-        /* Mostrar la primera sección (#inicio) por defecto */
+        /* 🚀 Solución para que #inicio inicie visible y se oculte si hay otro target */
         #inicio {
-            display: block;
+            display: block; /* Siempre visible por defecto */
         }
-
-        /* Mostrar la sección que coincida con el #ancla de la URL */
+        
         .content-section:target {
-            display: block;
+            display: block; /* Muestra el target */
+            z-index: 10;
         }
 
-        /* Ocultar todas las demás secciones si hay un target definido */
-        /* Este selector oculta todas las secciones si alguna está :target */
-        :target ~ .content-section:not(:target),
-        .content-section:target ~ #inicio {
+        /* Oculta #inicio si cualquier otra sección es el target */
+        :target ~ #inicio {
             display: none;
         }
+        
+        /* Oculta TODAS las secciones si hay un target, excepto el target mismo */
+        .content-section:target ~ .content-section:not(:target) {
+            display: none;
+        }
+        /* Esto asegura que al cargar index.html se vea #inicio, y al ir a #servidores se muestre solo #servidores. */
 
-        /* Estilo para manejar la visibilidad cuando se usa el target */
-        .content-section:target ~ #inicio:not(.content-section:target) {
-            display: none;
-        }
 
         /* ESTILOS DE LA SECCIÓN DE INICIO */
         .welcome-container {
@@ -95,44 +105,42 @@
             margin: 40px auto;
             padding: 60px 30px;
             text-align: center;
-            background: rgba(255, 255, 255, 0.05); /* Más transparente */
+            background: rgba(40, 45, 50, 0.5); /* Fondo gris azulado apagado */
             border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-            border-top: 5px solid #ffcc00;
-            transition: all 0.5s ease;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+            border-top: 5px solid #C0A040;
+            transition: all 0.3s ease;
         }
 
         .welcome-container h2 {
             font-size: 40px;
-            color: #ffcc00;
+            color: #C0A040;
             margin-bottom: 15px;
-            text-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
         }
 
         .welcome-container h3 {
             margin-top: 30px;
             font-size: 24px;
-            color: #fff;
-            border-bottom: 2px solid rgba(255, 204, 0, 0.5);
+            color: #e0e0e0;
+            border-bottom: 2px solid rgba(192, 160, 64, 0.3);
             padding-bottom: 10px;
         }
 
         .btn-primary {
             display: inline-block;
             margin-top: 30px;
-            background: #ffcc00;
-            color: #111;
+            background: #C0A040;
+            color: #11151A;
             text-decoration: none;
             padding: 12px 25px;
             border-radius: 8px;
             font-weight: bold;
-            transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+            transition: background 0.3s, transform 0.2s;
         }
 
         .btn-primary:hover {
-            background: #e6b800;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 204, 0, 0.4);
+            background: #A08030;
+            transform: translateY(-1px);
         }
 
         /* ESTILOS PARA SECCIONES DE CONTENIDO SIMPLE (Descargas/Ventas) */
@@ -140,17 +148,13 @@
             max-width: 700px;
             margin: 20px auto;
             padding: 40px;
-            background: rgba(0,0,0,0.7);
+            background: rgba(20, 25, 30, 0.9);
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            transition: all 0.3s ease;
-        }
-        .simple-content:hover {
-            background: rgba(0,0,0,0.8);
         }
         .simple-content h2 {
-            color: #ffcc00;
-            border-bottom: 1px solid #444;
+            color: #C0A040;
+            border-bottom: 1px solid #303840;
             padding-bottom: 10px;
         }
         .simple-content ul {
@@ -158,23 +162,15 @@
             padding: 0;
         }
         .simple-content li {
-            background: rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.05);
             margin-bottom: 12px;
             padding: 15px;
             border-radius: 6px;
-            transition: background 0.2s;
-        }
-        .simple-content li:hover {
-            background: rgba(255,255,255,0.15);
         }
         .simple-content a {
-            color: #79caff; 
+            color: #A0D0FF; /* Azul suave para enlaces */
             text-decoration: none;
             font-weight: bold;
-            transition: color 0.3s;
-        }
-        .simple-content a:hover {
-            color: #a0dfff;
         }
 
         /* Estilos de la sección de servidores */
@@ -183,84 +179,81 @@
             margin: 40px auto;
             padding: 40px 20px;
             border-radius: 12px;
-            /* Fondo con degradado para simular un ambiente oscuro y vibrante sin la imagen */
-            background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.7), rgba(40, 0, 60, 0.7));
-            box-shadow: 0 4px 25px rgba(0,0,0,0.9);
+            /* Fondo muy oscuro y sutil */
+            background: #1A2027; 
+            box-shadow: 0 4px 25px rgba(0,0,0,0.6);
         }
 
         .server-card {
-            background: rgba(0,0,0,0.85);
+            background: #0D1013; /* Fondo de tarjeta muy oscuro */
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.7);
-            border-left: 5px solid #ffcc00;
-            transition: transform 0.3s, background 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+            border-left: 5px solid #C0A040;
+            transition: transform 0.3s;
         }
 
         .server-card:hover {
-            transform: scale(1.03);
-            background: rgba(20, 0, 30, 0.85);
+            transform: scale(1.01);
+            background: #151A1F; 
         }
 
         .server-card h2 {
             margin-top: 0;
             font-size: 22px;
-            color: #ffcc00;
+            color: #C0A040;
         }
 
         .server-info {
             margin: 10px 0;
             font-size: 16px;
-            font-weight: 300;
         }
 
         button {
-            background: #ffcc00;
+            background: #C0A040;
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
-            color: #111;
-            transition: 0.3s, background 0.3s, transform 0.1s;
+            color: #11151A;
+            transition: background 0.3s;
         }
 
         button:hover {
-            background: #e6b800;
-            transform: translateY(-1px);
+            background: #A08030;
         }
         
         /* ESTILO PARA EL MENSAJE DE COPIADO */
         button.copied {
-            background: #4CAF50; /* Verde de éxito */
+            background: #4682B4; /* Azul de acero para éxito (apagado) */
             color: white;
         }
 
-        /* FOOTER DISCRETO Y BAJO */
+        /* FOOTER DISCRETO Y BAJO (Aún más discreto) */
         footer {
-            position: fixed; /* Lo fija en la ventana */
-            bottom: 0; /* Lo empuja hacia abajo */
+            position: fixed;
+            bottom: 0;
             left: 0;
             width: 100%;
             text-align: center;
-            padding: 10px;
-            background: rgba(0,0,0,0.6); /* Fondo semi-transparente */
-            opacity: 0.8; /* Menor opacidad para que sea más discreto */
+            padding: 8px; /* Menos padding */
+            background: #0D1013;
+            opacity: 0.6; /* Más opaco/discreto */
             transition: opacity 0.3s;
             z-index: 999;
-            font-size: 13px;
+            font-size: 12px;
         }
 
         footer:hover {
-            opacity: 1; /* Se ilumina al pasar el ratón */
+            opacity: 0.9;
         }
 
         footer a {
-            color: #ffcc00;
+            color: #C0A040;
             text-decoration: none;
             font-weight: bold;
-            transition: color 0.3s;
         }
     </style>
 </head>
@@ -342,16 +335,16 @@
             const ipElement = document.getElementById(id);
             const ip = ipElement.textContent;
             
-            // 1. Guarda el texto original
+            // Guarda el texto original
             const originalText = buttonElement.textContent;
 
             navigator.clipboard.writeText(ip)
                 .then(() => {
-                    // 2. Muestra el mensaje de éxito y cambia el estilo
+                    // Muestra el mensaje de éxito y cambia el estilo
                     buttonElement.textContent = '¡Copiado!';
                     buttonElement.classList.add('copied');
 
-                    // 3. Vuelve al estado original después de un tiempo
+                    // Vuelve al estado original después de un tiempo
                     setTimeout(() => {
                         buttonElement.textContent = originalText;
                         buttonElement.classList.remove('copied');
