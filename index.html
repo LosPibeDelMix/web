@@ -10,14 +10,14 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: url('https://wallpapercave.com/wp/wp5730422.jpg') no-repeat center center fixed;
-      background-size: cover;
+      background: #000;
       color: #ddd;
       overflow-x: hidden;
+      transition: background 0.8s ease-in-out;
     }
 
     header {
-      background: rgba(0, 0, 0, 0.85);
+      background: rgba(0, 0, 0, 0.9);
       padding: 15px 30px;
       display: flex;
       justify-content: space-between;
@@ -57,12 +57,14 @@
       display: none;
       padding: 60px 20px;
       min-height: calc(100vh - 80px);
-      background: rgba(0, 0, 0, 0.75);
+      background: rgba(0, 0, 0, 0.7);
+      overflow-y: auto;
+      transition: opacity 0.6s ease-in-out;
     }
 
     .page.active {
       display: block;
-      animation: fadeIn 0.5s;
+      animation: fadeIn 0.8s;
     }
 
     @keyframes fadeIn {
@@ -73,16 +75,10 @@
     .content-box {
       max-width: 900px;
       margin: auto;
-      padding: 40px;
-      background: rgba(25, 25, 25, 0.85);
+      padding: 30px;
+      background: rgba(20, 20, 20, 0.85);
       border-radius: 12px;
       box-shadow: 0 6px 25px rgba(0,0,0,0.8);
-      animation: glowBox 2s infinite alternate;
-    }
-
-    @keyframes glowBox {
-      from { box-shadow: 0 0 10px rgba(255,215,0,0.3); }
-      to { box-shadow: 0 0 25px rgba(255,215,0,0.8); }
     }
 
     .content-box h2 {
@@ -162,6 +158,23 @@
       transform: scale(1.05);
     }
 
+    /* Redes sociales */
+    .social-links a {
+      display: inline-block;
+      margin: 10px;
+      font-size: 28px;
+      transition: transform 0.3s, color 0.3s, text-shadow 0.3s;
+    }
+
+    .social-links a:hover {
+      transform: scale(1.2);
+      text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+    }
+
+    .social-links .instagram { color: #E4405F; }
+    .social-links .tiktok { color: #00F2EA; }
+    .social-links .discord { color: #5865F2; }
+
     footer {
       background: rgba(0,0,0,0.9);
       text-align: center;
@@ -191,7 +204,7 @@
   </header>
 
   <!-- Inicio -->
-  <div id="inicio" class="page active">
+  <div id="inicio" class="page active" data-bg="https://i.imgur.com/ttbP1lS.jpeg">
     <div class="content-box" style="text-align:center;">
       <h2>¡Bienvenido a Los Pibes Del Mix!</h2>
       <p>Comunidad de <b>Counter-Strike 1.6</b> con servidores Mix, Público y Mata al Traidor. <br>
@@ -201,15 +214,15 @@
   </div>
 
   <!-- Servidores -->
-  <div id="servidores" class="page">
+  <div id="servidores" class="page" data-bg="https://i.imgur.com/WiXj2mQ.jpeg">
     <div class="content-box">
-      <h2>Servidores en Tiempo Real</h2>
+      <h2>Servidores</h2>
       <div id="servers-list">Cargando servidores...</div>
     </div>
   </div>
 
   <!-- Ventas -->
-  <div id="ventas" class="page">
+  <div id="ventas" class="page" data-bg="https://i.imgur.com/9Q8mfXY.jpeg">
     <div class="content-box" style="text-align:center;">
       <h2>Tienda</h2>
       <p>Compra rangos VIP y skins exclusivas para apoyar la comunidad y mantener los servidores online 🔥.</p>
@@ -218,12 +231,14 @@
   </div>
 
   <!-- Redes -->
-  <div id="redes" class="page">
+  <div id="redes" class="page" data-bg="https://i.imgur.com/2V1EwKg.jpeg">
     <div class="content-box" style="text-align:center;">
       <h2>Nuestras Redes</h2>
-      <p><a href="https://www.instagram.com/lospibesdelmixcs" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></p>
-      <p><a href="https://www.tiktok.com" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a></p>
-      <p><a href="https://discord.gg/bSRR7AyYuh" target="_blank"><i class="fab fa-discord"></i> Discord</a></p>
+      <div class="social-links">
+        <a href="https://www.instagram.com/lospibesdelmixcs" target="_blank" class="instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com" target="_blank" class="tiktok"><i class="fab fa-tiktok"></i></a>
+        <a href="https://discord.gg/bSRR7AyYuh" target="_blank" class="discord"><i class="fab fa-discord"></i></a>
+      </div>
     </div>
   </div>
 
@@ -232,54 +247,66 @@
   </footer>
 
   <script>
-    // Navegación entre páginas
+    // Navegación entre páginas + fondos dinámicos
     const pages = document.querySelectorAll('.page');
     function showPage(hash) {
       pages.forEach(p => p.classList.remove('active'));
       const active = document.querySelector(hash);
-      if (active) active.classList.add('active');
+      if (active) {
+        active.classList.add('active');
+        document.body.style.backgroundImage = `url('${active.dataset.bg}')`;
+        document.body.style.backgroundSize = "cover";
+        document.body.style.backgroundAttachment = "fixed";
+      }
     }
     window.addEventListener('hashchange', () => showPage(location.hash || '#inicio'));
     showPage(location.hash || '#inicio');
 
-    // Conectar con API del backend
-    const API_URL = "https://lospibes-backend.onrender.com/servers"; // tu API aquí
+    // API con fallback
+    const API_URL = "https://lospibes-backend.onrender.com/servers"; 
+    const fallbackServers = [
+      { name: "Mix #1", ip: "123.45.67.89", port: "27015", online: true, players: 8, maxPlayers: 16, map: "de_dust2" },
+      { name: "Público #1", ip: "123.45.67.90", port: "27016", online: true, players: 12, maxPlayers: 24, map: "cs_assault" },
+      { name: "Mata al Traidor", ip: "123.45.67.91", port: "27017", online: false, players: 0, maxPlayers: 16, map: "-" }
+    ];
 
     async function loadServers() {
       try {
-        const res = await fetch(API_URL);
+        const res = await fetch(API_URL, { cache: "no-store" });
+        if (!res.ok) throw new Error("API no disponible");
         const servers = await res.json();
-
-        const container = document.getElementById("servers-list");
-        container.innerHTML = "";
-
-        servers.forEach(srv => {
-          let percent = srv.maxPlayers > 0 ? Math.round((srv.players / srv.maxPlayers) * 100) : 0;
-
-          container.innerHTML += `
-            <div class="server-card">
-              <h3>${srv.name}</h3>
-              <p class="server-status ${srv.online ? 'online' : 'offline'}">
-                ${srv.online ? '🟢 Online' : '🔴 Offline'}
-              </p>
-              <p>IP: ${srv.ip}:${srv.port}</p>
-              ${srv.online ? `
-                <p>Jugadores: ${srv.players}/${srv.maxPlayers}</p>
-                <p>Mapa: ${srv.map}</p>
-                <div class="progress-bar">
-                  <div class="progress-fill" style="width:${percent}%"></div>
-                </div>
-              ` : `<p>No disponible</p>`}
-            </div>
-          `;
-        });
+        renderServers(servers);
       } catch (e) {
-        document.getElementById("servers-list").innerHTML = "<p>⚠️ Error al cargar servidores.</p>";
+        renderServers(fallbackServers);
       }
     }
 
-    setInterval(loadServers, 30000);
+    function renderServers(servers) {
+      const container = document.getElementById("servers-list");
+      container.innerHTML = "";
+      servers.forEach(srv => {
+        let percent = srv.maxPlayers > 0 ? Math.round((srv.players / srv.maxPlayers) * 100) : 0;
+        container.innerHTML += `
+          <div class="server-card">
+            <h3>${srv.name}</h3>
+            <p class="server-status ${srv.online ? 'online' : 'offline'}">
+              ${srv.online ? '🟢 Online' : '🔴 Offline'}
+            </p>
+            <p>IP: ${srv.ip}:${srv.port}</p>
+            ${srv.online ? `
+              <p>Jugadores: ${srv.players}/${srv.maxPlayers}</p>
+              <p>Mapa: ${srv.map}</p>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width:${percent}%"></div>
+              </div>
+            ` : `<p>No disponible</p>`}
+          </div>
+        `;
+      });
+    }
+
     loadServers();
   </script>
 </body>
 </html>
+
