@@ -3,24 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Los Pibes Del Mix - CS 1.6</title>
+  <title>Los Pibes Del Mix - Comunidad</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* === ESTILO BASE === */
     body {
+      margin: 0;
       font-family: 'Share Tech Mono', monospace;
-      color: #f5f5f5;
-      background: #0a0a0a;
+      color: #e0e0e0;
+      background: #0c0c0c;
       overflow-x: hidden;
     }
 
-    /* HEADER */
     header {
-      background: rgba(15, 15, 15, 0.6);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      padding: 15px 40px;
+      background: rgba(0, 0, 0, 0.75);
+      padding: 15px 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -28,155 +26,174 @@
       top: 0;
       width: 100%;
       z-index: 1000;
-      border-bottom: 1px solid rgba(255, 215, 0, 0.4);
+      border-bottom: 2px solid #FFD700;
+      backdrop-filter: blur(8px);
     }
+
     header h1 {
       font-family: 'Orbitron', sans-serif;
       font-size: 26px;
       color: #FFD700;
-      text-shadow: 0 0 12px #FFD700;
+      margin: 0;
+      text-shadow: 0 0 12px #FFD700, 0 0 25px #000;
+      letter-spacing: 2px;
     }
+
     nav a {
-      margin-left: 20px;
+      margin-left: 15px;
       text-decoration: none;
-      color: #ddd;
-      font-weight: bold;
+      color: #ccc;
+      font-weight: 700;
       transition: all 0.3s ease;
-      padding: 8px 14px;
-      border-radius: 6px;
-      font-size: 15px;
+      padding: 6px 12px;
+      border-radius: 5px;
+      font-size: 14px;
     }
-    nav a:hover, nav a.active {
+
+    nav a:hover {
       color: #111;
       background: #FFD700;
       box-shadow: 0 0 15px #FFD700;
     }
 
-    /* SECCIONES */
+    /* === PÁGINAS === */
     .page {
       display: none;
-      padding: 120px 20px 40px;
+      padding: 100px 20px 40px;
       min-height: 100vh;
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
       transition: opacity 0.6s ease-in-out;
     }
-    .page.active { display: block; animation: fadeIn 0.8s ease-in-out; }
+
+    .page.active {
+      display: block;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     .content-box {
-      max-width: 950px;
+      max-width: 900px;
       margin: auto;
-      padding: 35px;
-      background: rgba(15, 15, 15, 0.65);
-      border-radius: 14px;
+      padding: 30px;
+      background: rgba(15, 15, 15, 0.6);
+      border-radius: 12px;
       border: 1px solid rgba(255, 215, 0, 0.4);
-      box-shadow: 0 0 30px rgba(0,0,0,0.85);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 0 25px rgba(0,0,0,0.8);
+      backdrop-filter: blur(8px);
+      animation: fadeIn 1s ease;
     }
+
     .content-box h2 {
       color: #FFD700;
       margin-bottom: 20px;
       font-family: 'Orbitron', sans-serif;
       text-align: center;
       font-size: 28px;
-      text-shadow: 0 0 12px #FFD700;
+      text-shadow: 0 0 10px #FFD700, 0 0 25px #000;
     }
 
-    /* SERVIDORES */
+    /* === SERVIDORES === */
     .server-card {
-      background: rgba(0,0,0,0.7);
+      background: rgba(0,0,0,0.65);
       border-left: 6px solid #FFD700;
       border-radius: 10px;
       padding: 20px;
       margin-bottom: 20px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.85);
-      transition: transform 0.3s ease;
+      box-shadow: 0 0 15px rgba(0,0,0,0.8);
+      backdrop-filter: blur(6px);
     }
-    .server-card:hover { transform: scale(1.02); }
+
     .server-card h3 {
       margin: 0 0 10px;
       color: #FFD700;
       font-size: 20px;
       font-family: 'Orbitron', sans-serif;
     }
+
     .server-status.online {
       color: limegreen;
       font-weight: bold;
       text-shadow: 0 0 8px lime;
     }
+
     .copy-btn {
       background: #FFD700;
       color: #111;
       border: none;
-      padding: 8px 14px;
+      padding: 6px 12px;
       border-radius: 6px;
       cursor: pointer;
       font-size: 14px;
-      margin-top: 10px;
+      margin-top: 8px;
       transition: all 0.3s ease;
     }
-    .copy-btn:hover { background: #FFA500; box-shadow: 0 0 12px #FFD700; }
 
-    /* BOTONES */
+    .copy-btn:hover {
+      background: #FFA500;
+      box-shadow: 0 0 12px #FFD700;
+    }
+
+    /* === BOTONES GENERALES === */
     a.btn {
       display: inline-block;
-      margin-top: 25px;
+      margin-top: 20px;
       background: #FFD700;
       color: #111;
-      padding: 14px 26px;
+      padding: 12px 22px;
       border-radius: 8px;
       text-decoration: none;
       font-weight: bold;
-      font-size: 16px;
+      font-size: 15px;
       transition: all 0.3s ease;
       box-shadow: 0 0 8px #FFD700;
     }
-    a.btn:hover { background: #FFA500; box-shadow: 0 0 20px #FFA500; transform: scale(1.05); }
 
-    /* REDES */
-    .social-links {
-      display: flex;
-      justify-content: center;
-      gap: 25px;
-      flex-wrap: wrap;
-      margin-top: 20px;
+    a.btn:hover {
+      background: #FFA500;
+      box-shadow: 0 0 20px #FFA500;
+      transform: scale(1.05);
     }
+
+    /* === REDES === */
     .social-links a {
-      width: 65px;
-      height: 65px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 30px;
-      color: #fff;
-      transition: all 0.3s ease;
-    }
-    .social-links a.instagram { background: #E4405F; }
-    .social-links a.tiktok { background: #010101; border: 2px solid #00F2EA; }
-    .social-links a.discord { background: #5865F2; }
-    .social-links a:hover {
-      transform: scale(1.2);
-      box-shadow: 0 0 20px currentColor;
+      display: inline-block;
+      margin: 12px;
+      font-size: 42px;
+      transition: transform 0.3s, text-shadow 0.3s;
     }
 
-    /* FOOTER */
+    .social-links a:hover {
+      transform: scale(1.25);
+      text-shadow: 0 0 15px currentColor, 0 0 25px currentColor;
+    }
+
+    .social-links .instagram { color: #E4405F; }
+    .social-links .tiktok { color: #00F2EA; }
+    .social-links .discord { color: #5865F2; }
+
     footer {
       background: rgba(0,0,0,0.85);
       text-align: center;
       padding: 12px;
-      color: #888;
+      color: #aaa;
       font-size: 13px;
-      border-top: 1px solid rgba(255, 215, 0, 0.4);
+      border-top: 2px solid #FFD700;
     }
-    footer a { color: #FFD700; text-decoration: none; }
-    footer a:hover { text-shadow: 0 0 10px #FFD700; }
+
+    footer a {
+      color: #FFD700;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-shadow: 0 0 10px #FFD700;
+    }
   </style>
 </head>
 <body>
@@ -195,7 +212,7 @@
     <div class="content-box" style="text-align:center;">
       <h2>¡Bienvenido a Los Pibes Del Mix!</h2>
       <p>Comunidad de <b>Counter-Strike 1.6</b> con servidores <b>Mix</b>, <b>Público</b> y <b>Mata al Traidor</b>.  
-      Unite a la acción y revive la nostalgia del CS clásico 🎮</p>
+      Unite a la acción y reviví la nostalgia del CS clásico 🎮</p>
       <a href="#servidores" class="btn"><i class="fas fa-bolt"></i> Ver Servidores</a>
     </div>
   </div>
@@ -204,18 +221,21 @@
   <div id="servidores" class="page" style="background-image:url('https://wallpapercave.com/wp/wp4048489.jpg');">
     <div class="content-box">
       <h2>Servidores</h2>
+
       <div class="server-card">
         <h3>[MIX] Los Pibes Del Mix</h3>
         <p class="server-status online">🟢 Activo</p>
         <p>IP: 45.235.98.220:27262</p>
         <button class="copy-btn" onclick="copyIP('45.235.98.220:27262')"><i class="fas fa-copy"></i> Copiar IP</button>
       </div>
+
       <div class="server-card">
         <h3>[PUBLICO] Los Pibes Del Mix</h3>
         <p class="server-status online">🟢 Activo</p>
         <p>IP: 45.235.98.220:27310</p>
         <button class="copy-btn" onclick="copyIP('45.235.98.220:27310')"><i class="fas fa-copy"></i> Copiar IP</button>
       </div>
+
       <div class="server-card">
         <h3>[MATA AL TRAIDOR] Los Pibes Del Mix</h3>
         <p class="server-status online">🟢 Activo</p>
@@ -230,7 +250,7 @@
     <div class="content-box" style="text-align:center;">
       <h2>Tienda</h2>
       <p>¿Querés VIP, rangos especiales o skins en nuestros servidores?  
-      Todo se compra desde nuestro <b>Discord oficial</b>. Ahí apoyás la comunidad 🔥</p>
+      Hacelo a través de nuestro <b>Discord oficial</b>. Ahí podés comprar y apoyar la comunidad 🔥</p>
       <a href="https://discord.gg/bSRR7AyYuh" target="_blank" class="btn"><i class="fab fa-discord"></i> Ir al Discord</a>
     </div>
   </div>
@@ -247,21 +267,18 @@
     </div>
   </div>
 
+  <!-- Footer -->
   <footer>
     © 2025 Los Pibes Del Mix | <a href="https://discord.gg/bSRR7AyYuh" target="_blank"><i class="fab fa-discord"></i> Discord</a>
   </footer>
 
   <script>
-    // Navegación entre páginas
+    // Navegación
     const pages = document.querySelectorAll('.page');
-    const navLinks = document.querySelectorAll('nav a');
     function showPage(hash) {
       pages.forEach(p => p.classList.remove('active'));
-      navLinks.forEach(l => l.classList.remove('active'));
       const active = document.querySelector(hash);
-      const link = document.querySelector(`nav a[href="${hash}"]`);
       if (active) active.classList.add('active');
-      if (link) link.classList.add('active');
     }
     window.addEventListener('hashchange', () => showPage(location.hash || '#inicio'));
     showPage(location.hash || '#inicio');
