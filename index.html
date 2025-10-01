@@ -13,7 +13,8 @@
       margin: 0;
       padding: 0;
     }
-    body {
+    html, body {
+      height: 100%;
       font-family: 'Share Tech Mono', monospace;
       color: #e0e0e0;
       background: #0a0a0a;
@@ -24,16 +25,28 @@
       color: inherit;
     }
 
+    /* Partículas de fondo usando canvas simple */
+    #particle-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
     /* HEADER / MENÚ */
     header {
-      background: rgba(20, 20, 20, 0.8);
-      backdrop-filter: blur(10px);
+      background: rgba(15, 15, 15, 0.9);
+      backdrop-filter: blur(12px);
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       z-index: 1000;
       border-bottom: 2px solid #FFD700;
+      transition: background 0.3s ease;
     }
     .menu-container {
       max-width: 1200px;
@@ -45,17 +58,17 @@
     }
     header h1 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 24px;
+      font-size: 26px;
       color: #FFD700;
       letter-spacing: 2px;
-      text-shadow: 0 0 10px #FFD700;
+      text-shadow: 0 0 12px #FFD700;
     }
     nav {
       display: flex;
-      gap: 16px;
+      gap: 20px;
     }
     nav a {
-      padding: 8px 14px;
+      padding: 10px 16px;
       border-radius: 6px;
       background: rgba(255, 255, 255, 0.05);
       color: #ccc;
@@ -65,33 +78,31 @@
       align-items: center;
     }
     nav a i {
-      margin-right: 6px;
+      margin-right: 8px;
     }
     nav a:hover {
       background: #FFD700;
       color: #111;
-      box-shadow: 0 0 15px #FFD700;
+      box-shadow: 0 0 20px #FFD700;
+      transform: scale(1.1);
     }
 
-    /* SECCIONES / PÁGINAS con fondos dinámicos */
+    /* SECCIONES / PÁGINAS */
     .page {
       display: none;
       min-height: 100vh;
-      padding: 100px 20px 40px;
-      transition: opacity 0.6s ease, transform 0.6s ease, background-image 1s ease-in-out;
-      /* background default en caso de que no haya imagen */
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
+      padding: 110px 20px 40px; /* para compensar header fijo */
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      position: relative;
     }
     .page.active {
       display: block;
-      animation: fadeInUp 0.8s ease-in-out;
+      animation: fadeInUpBig 0.8s ease-in-out;
     }
-    @keyframes fadeInUp {
+    @keyframes fadeInUpBig {
       from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(40px);
       }
       to {
         opacity: 1;
@@ -103,56 +114,62 @@
       max-width: 800px;
       margin: auto;
       background: rgba(20, 20, 20, 0.85);
-      border: 1px solid rgba(255, 215, 0, 0.6);
+      border: 1px solid rgba(255, 215, 0, 0.7);
       border-radius: 12px;
-      padding: 25px;
-      box-shadow: 0 0 30px rgba(0,0,0,0.9);
-      backdrop-filter: blur(8px);
+      padding: 30px;
+      box-shadow: 0 0 35px rgba(0,0,0,0.9);
+      backdrop-filter: blur(10px);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+    }
+    .content-wrapper:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 45px rgba(255, 215, 0, 0.8);
     }
     .content-wrapper h2 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 26px;
+      font-size: 28px;
       color: #FFD700;
       text-align: center;
-      margin-bottom: 18px;
-      text-shadow: 0 0 10px #FFD700;
+      margin-bottom: 20px;
+      text-shadow: 0 0 14px #FFD700;
     }
     .content-wrapper p {
       line-height: 1.6;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
 
     /* SERVIDORES CARD */
     .server-card {
       background: rgba(5,5,5,0.75);
-      border-left: 5px solid #FFD700;
+      border-left: 6px solid #FFD700;
       border-radius: 10px;
-      padding: 18px;
-      margin-bottom: 18px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.85);
-      transition: transform 0.3s;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.9);
+      transition: transform 0.3s, background 0.3s;
       position: relative;
     }
     .server-card:hover {
-      transform: scale(1.02);
+      transform: scale(1.03);
+      background: rgba(30, 30, 30, 0.85);
     }
     .server-card h3 {
       font-family: 'Orbitron', sans-serif;
       color: #FFD700;
-      font-size: 20px;
-      margin-bottom: 8px;
+      font-size: 22px;
+      margin-bottom: 10px;
     }
     .server-status.online {
       color: #7CFC00;
       font-weight: bold;
-      text-shadow: 0 0 6px #7CFC00;
+      text-shadow: 0 0 8px #7CFC00;
     }
     .copy-btn {
-      margin-top: 10px;
+      margin-top: 12px;
       background: #FFD700;
       color: #111;
       border: none;
-      padding: 8px 14px;
+      padding: 10px 16px;
       border-radius: 6px;
       cursor: pointer;
       font-size: 15px;
@@ -160,7 +177,7 @@
     }
     .copy-btn:hover {
       background: #FFA500;
-      box-shadow: 0 0 12px #FFD700;
+      box-shadow: 0 0 18px #FFD700;
     }
     .copy-notice {
       font-size: 14px;
@@ -173,34 +190,34 @@
     /* BOTONES GENERALES */
     .btn {
       display: inline-block;
-      margin-top: 20px;
+      margin-top: 24px;
       background: #FFD700;
       color: #111;
-      padding: 12px 20px;
+      padding: 14px 22px;
       border-radius: 8px;
       font-weight: bold;
-      font-size: 15px;
+      font-size: 16px;
       text-align: center;
-      box-shadow: 0 0 8px #FFD700;
+      box-shadow: 0 0 12px #FFD700;
       transition: all 0.3s;
     }
     .btn:hover {
       background: #FFA500;
-      box-shadow: 0 0 16px #FFA500;
-      transform: scale(1.05);
+      box-shadow: 0 0 24px #FFA500;
+      transform: scale(1.08);
     }
 
     /* REDES SOCIALES */
     .social-links {
       display: flex;
       justify-content: center;
-      gap: 22px;
-      margin-top: 28px;
+      gap: 24px;
+      margin-top: 30px;
     }
     .social-links a {
-      width: 56px;
-      height: 56px;
-      border: 2px solid #FFD700;
+      width: 60px;
+      height: 60px;
+      border: 3px solid #FFD700;
       border-radius: 50%;
       background: rgba(0,0,0,0.6);
       display: flex;
@@ -216,10 +233,10 @@
       color: #111;
       border-color: #FFA500;
       box-shadow: 0 0 20px rgba(255, 215, 0, 0.9);
-      transform: scale(1.1);
+      transform: scale(1.15);
     }
     .social-links a i {
-      font-size: 26px;
+      font-size: 28px;
       z-index: 2;
     }
     .social-links a::before {
@@ -240,7 +257,7 @@
     /* FOOTER */
     footer {
       background: rgba(15,15,15,0.9);
-      padding: 14px;
+      padding: 16px;
       text-align: center;
       color: #aaa;
       border-top: 2px solid #FFD700;
@@ -256,32 +273,35 @@
     /* RESPONSIVE */
     @media (max-width: 768px) {
       header h1 {
-        font-size: 20px;
+        font-size: 22px;
       }
       nav a {
-        font-size: 13px;
-        padding: 6px 10px;
+        font-size: 14px;
+        padding: 8px 12px;
       }
       .content-wrapper {
-        padding: 18px;
+        padding: 20px;
       }
       .server-card h3 {
-        font-size: 18px;
+        font-size: 20px;
       }
       .btn {
-        padding: 10px 18px;
+        padding: 12px 20px;
       }
       .social-links a {
-        width: 48px;
-        height: 48px;
+        width: 50px;
+        height: 50px;
       }
       .social-links a i {
-        font-size: 22px;
+        font-size: 24px;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Canvas para partículas -->
+  <canvas id="particle-bg"></canvas>
+
   <header>
     <div class="menu-container">
       <h1>Los Pibes Del Mix</h1>
@@ -294,7 +314,7 @@
     </div>
   </header>
 
-  <section id="inicio" class="page active" style="background-image: url('https://example.com/bg1.jpg');">
+  <section id="inicio" class="page active">
     <div class="content-wrapper">
       <h2>Bienvenido a Los Pibes Del Mix</h2>
       <p>Comunidad de <b>Counter-Strike 1.6</b> con servidores <b>Mix</b>, <b>Público</b> y <b>Mata al Traidor</b>.  
@@ -303,7 +323,7 @@
     </div>
   </section>
 
-  <section id="servidores" class="page" style="background-image: url('https://example.com/bg2.jpg');">
+  <section id="servidores" class="page">
     <div class="content-wrapper">
       <h2>Servidores</h2>
       <div class="server-card">
@@ -330,7 +350,7 @@
     </div>
   </section>
 
-  <section id="ventas" class="page" style="background-image: url('https://example.com/bg3.jpg');">
+  <section id="ventas" class="page">
     <div class="content-wrapper">
       <h2>Tienda / Ventas</h2>
       <p>¿Querés VIP, rangos especiales o skins en nuestros servidores?  
@@ -339,7 +359,7 @@
     </div>
   </section>
 
-  <section id="redes" class="page" style="background-image: url('https://example.com/bg4.jpg');">
+  <section id="redes" class="page">
     <div class="content-wrapper">
       <h2>Nuestras Redes</h2>
       <div class="social-links">
@@ -361,7 +381,63 @@
   </footer>
 
   <script>
-    // función para recargar la página al clicar un menú (con hash específico)
+    // CONTROL DE PARTÍCULAS (canvas)
+    const canvas = document.getElementById('particle-bg');
+    const ctx = canvas.getContext('2d');
+    let particlesArray = [];
+    const numberOfParticles = 80;
+
+    // ajustar tamaño canvas
+    function initCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', initCanvas);
+    initCanvas();
+
+    class Particle {
+      constructor() {
+        this.size = Math.random() * 3 + 1;
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.speedX = (Math.random() - 0.5) * 0.5;
+        this.speedY = (Math.random() - 0.5) * 0.5;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        // rebote
+        if (this.x < 0 || this.x > canvas.width) this.speedX = -this.speedX;
+        if (this.y < 0 || this.y > canvas.height) this.speedY = -this.speedY;
+      }
+      draw() {
+        ctx.fillStyle = 'rgba(255,215,0,0.5)';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particlesArray = [];
+      for (let i = 0; i < numberOfParticles; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateParticles);
+    }
+
+    initParticles();
+    animateParticles();
+
+    // navegación recarga
     function goReload(hash) {
       location.hash = hash;
       setTimeout(() => {
@@ -369,13 +445,7 @@
       }, 50);
     }
 
-    // al recargar la página, mostrar la sección correcta
-    window.addEventListener('load', () => {
-      const hash = location.hash || '#inicio';
-      showPage(hash);
-    });
-
-    // control de navegación sin recargar la página
+    // mostrar sección correcta
     const pages = document.querySelectorAll('.page');
     function showPage(hash) {
       pages.forEach(p => p.classList.remove('active'));
@@ -386,15 +456,18 @@
         document.querySelector('#inicio').classList.add('active');
       }
     }
-
+    window.addEventListener('load', () => {
+      const hash = location.hash || '#inicio';
+      showPage(hash);
+    });
     window.addEventListener('hashchange', () => {
       showPage(location.hash);
     });
 
-    // función copiar IP con aviso sencillo
+    // copiar IP con aviso sencillo
     function copyIP(ip, btn) {
       navigator.clipboard.writeText(ip).then(() => {
-        const notice = btn.nextElementSibling; // .copy-notice
+        const notice = btn.nextElementSibling;
         if (notice) {
           notice.style.opacity = 1;
           setTimeout(() => {
