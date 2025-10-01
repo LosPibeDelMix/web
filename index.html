@@ -1,86 +1,79 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Los Pibes Del Mix</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&family=Russo+One&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#0b0d10;
-    --panel: rgba(20,20,23,0.7);
-    --muted:#bfc6cd;
-    --accent:#c9a93b;
-    --accent-darker:#a07f2d;
-    --green:#4cd964;
-    --danger:#e04848;
-    --glass: rgba(255,255,255,0.03);
-  }
-  html,body{height:100%;margin:0;font-family:Orbitron,Segoe UI,Arial;background:var(--bg);overflow:hidden;color:var(--muted)}
-  /* fondo sutil */
-  body{
-    background-image: url('https://wallpaperaccess.com/full/184297.jpg');
-    background-size:cover;background-position:center;
-  }
-  body::before{
-    content:"";position:fixed;inset:0;background:rgba(6,8,10,0.7);backdrop-filter:blur(4px);z-index:-1;
-  }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Los Pibes Del Mix</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&family=Russo+One&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0d10;
+      --panel: rgba(20,20,23,0.7);
+      --muted:#bfc6cd;
+      --accent:#c9a93b;
+      --accent-darker:#a07f2d;
+      --green:#4cd964;
+      --danger:#e04848;
+      --glass: rgba(255,255,255,0.03);
+    }
+    html,body{height:100%;margin:0;font-family:Orbitron,Segoe UI,Arial;background:var(--bg);overflow:hidden;color:var(--muted)}
+    body{
+      background-image: url('https://wallpaperaccess.com/full/184297.jpg');
+      background-size:cover;background-position:center;
+    }
+    body::before{
+      content:"";position:fixed;inset:0;background:rgba(6,8,10,0.7);backdrop-filter:blur(4px);z-index:-1;
+    }
 
-  header{
-    height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(10,12,14,0.55);backdrop-filter:blur(4px);border-bottom:1px solid rgba(255,255,255,0.03)
-  }
-  header .brand{display:flex;align-items:center;gap:12px;color:var(--accent)}
-  header .brand i{font-size:20px}
-  header nav{display:flex;align-items:center;gap:10px}
-  header nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600;font-size:14px;transition:all .18s}
-  header nav a:hover{background:var(--glass);color:var(--accent)}
-  header nav a.icon{display:flex;gap:8px;align-items:center}
+    header{
+      height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(10,12,14,0.55);backdrop-filter:blur(4px);border-bottom:1px solid rgba(255,255,255,0.03)
+    }
+    header .brand{display:flex;align-items:center;gap:12px;color:var(--accent)}
+    header .brand i{font-size:20px}
+    header nav{display:flex;align-items:center;gap:10px}
+    header nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600;font-size:14px;transition:all .18s}
+    header nav a:hover{background:var(--glass);color:var(--accent)}
+    header nav a.icon{display:flex;gap:8px;align-items:center}
 
-  main{height:calc(100vh - 64px);display:flex;align-items:center;justify-content:center;position:relative}
-  .page{position:absolute;inset:0;display:none;align-items:center;justify-content:center;padding:30px;box-sizing:border-box;transition:opacity .35s}
-  .page.active{display:flex;opacity:1}
-  .panel{width:100%;max-width:980px;background:var(--panel);border-radius:12px;padding:20px;box-shadow:0 8px 30px rgba(0,0,0,0.6);backdrop-filter:blur(6px)}
-  .panel h2{margin:0 0 10px;color:var(--accent);font-size:18px}
+    main{height:calc(100vh - 64px);display:flex;align-items:center;justify-content:center;position:relative}
+    .page{position:absolute;inset:0;display:none;align-items:center;justify-content:center;padding:30px;box-sizing:border-box;transition:opacity .35s}
+    .page.active{display:flex;opacity:1}
+    .panel{width:100%;max-width:980px;background:var(--panel);border-radius:12px;padding:20px;box-shadow:0 8px 30px rgba(0,0,0,0.6);backdrop-filter:blur(6px)}
+    .panel h2{margin:0 0 10px;color:var(--accent);font-size:18px}
 
-  /* SERVERS LIST */
-  .servers-grid{display:flex;flex-direction:column;gap:14px}
-  .server-card{display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));border:1px solid rgba(255,255,255,0.03)}
-  .server-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
-  .server-title{font-weight:700;color:#fff;font-size:16px}
-  .server-status{display:flex;align-items:center;gap:8px;font-size:13px}
-  .dot{width:10px;height:10px;border-radius:50%}
-  .status-online{background:var(--green);box-shadow:0 0 6px rgba(76,217,100,0.15)}
-  .status-off{background:var(--danger);box-shadow:0 0 6px rgba(224,72,72,0.12)}
+    .servers-grid{display:flex;flex-direction:column;gap:14px}
+    .server-card{display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));border:1px solid rgba(255,255,255,0.03)}
+    .server-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .server-title{font-weight:700;color:#fff;font-size:16px}
+    .server-status{display:flex;align-items:center;gap:8px;font-size:13px}
+    .dot{width:10px;height:10px;border-radius:50%}
+    .status-online{background:var(--green);box-shadow:0 0 6px rgba(76,217,100,0.15)}
+    .status-off{background:var(--danger);box-shadow:0 0 6px rgba(224,72,72,0.12)}
 
-  .server-ip{font-family:monospace;color:var(--muted);font-size:13px}
-  .server-stats{display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-  .stat{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:13px}
-  .stat i{color:var(--accent);width:18px;text-align:center}
+    .server-ip{font-family:monospace;color:var(--muted);font-size:13px}
+    .server-stats{display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .stat{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:13px}
+    .stat i{color:var(--accent);width:18px;text-align:center}
 
-  .occup-bar{height:10px;background:rgba(255,255,255,0.04);border-radius:6px;overflow:hidden;margin-top:6px}
-  .occup-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-darker));width:0%;transition:width .6s ease}
+    .occup-bar{height:10px;background:rgba(255,255,255,0.04);border-radius:6px;overflow:hidden;margin-top:6px}
+    .occup-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-darker));width:0%;transition:width .6s ease}
 
-  .server-actions{display:flex;justify-content:space-between;align-items:center;margin-top:8px;gap:10px}
-  .players-list{font-size:13px;color:var(--muted);max-height:120px;overflow:auto;padding-right:8px}
-  .copy-btn{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 12px;border-radius:8px;color:var(--muted);cursor:pointer}
-  .copy-btn.copied{background:var(--green);color:#05110a;border-color:transparent}
+    .copy-btn{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 12px;border-radius:8px;color:var(--muted);cursor:pointer}
+    .copy-btn.copied{background:var(--green);color:#05110a;border-color:transparent}
 
-  /* estilos de botones */
-  .btn-primary{background:var(--accent);color:#07110b;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:700;border:none;cursor:pointer}
-  .btn-primary:hover{background:var(--accent-darker)}
+    .btn-primary{background:var(--accent);color:#07110b;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:700;border:none;cursor:pointer}
+    .btn-primary:hover{background:var(--accent-darker)}
 
-  /* footer redes */
-  footer{position:fixed;bottom:10px;right:16px;display:flex;gap:8px;align-items:center}
-  .social-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.03);padding:8px 10px;border-radius:10px;color:var(--muted);text-decoration:none;font-weight:700}
-  .social-btn i{font-size:16px;color:var(--accent)}
+    footer{position:fixed;bottom:10px;right:16px;display:flex;gap:8px;align-items:center}
+    .social-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.03);padding:8px 10px;border-radius:10px;color:var(--muted);text-decoration:none;font-weight:700}
+    .social-btn i{font-size:16px;color:var(--accent)}
 
-  /* pequeña responsividad */
-  @media(max-width:720px){
-    .server-stats{flex-direction:column;align-items:flex-start;gap:8px}
-    main{padding:10px}
-  }
-</style>
+    @media(max-width:720px){
+      .server-stats{flex-direction:column;align-items:flex-start;gap:8px}
+      main{padding:10px}
+    }
+  </style>
 </head>
 <body>
 <header>
@@ -96,7 +89,6 @@
 </header>
 
 <main>
-  <!-- INICIO -->
   <section id="inicio" class="page active">
     <div class="panel" style="text-align:center">
       <h2>¡Bienvenido a Los Pibes Del Mix!</h2>
@@ -105,17 +97,13 @@
     </div>
   </section>
 
-  <!-- SERVIDORES -->
   <section id="servidores" class="page">
     <div class="panel">
       <h2>Servidores Activos</h2>
-      <div id="servers" class="servers-grid">
-        <!-- tarjetas se inyectan aquí -->
-      </div>
+      <div id="servers" class="servers-grid"></div>
     </div>
   </section>
 
-  <!-- VENTAS -->
   <section id="ventas" class="page">
     <div class="panel" style="text-align:center">
       <h2>Tienda</h2>
@@ -134,21 +122,17 @@
 </footer>
 
 <script>
-/*
-  FRONTEND:
-  - Cambiá API_URL si el backend está en otro host/puerto.
-  - Hace polling cada 10s para mantener real-time-ish.
-*/
-const API_URL = 'http://localhost:3000/servers'; // Cambiá si lo subís a otro host
-let REFRESH_MS = 10000; // 10 segundos
+const API_URL = 'https://lospibedelmix.github.io/web/api/servers.json'; 
+// 👆 Aquí tenés que poner la URL de tu API backend real.
+// GitHub Pages NO soporta Node, deberías hostear tu API en otro lado (ej: VPS, Heroku, Render, etc.)
+
+let REFRESH_MS = 10000;
 
 function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  const page = document.getElementById(id);
-  page.classList.add('active');
+  document.getElementById(id).classList.add('active');
 }
 
-/* función para crear una tarjeta de servidor */
 function renderServerCard(srv){
   const percent = (srv.maxPlayers > 0) ? Math.round((srv.players / srv.maxPlayers)*100) : 0;
   const statusColor = srv.online ? 'status-online' : 'status-off';
@@ -165,26 +149,17 @@ function renderServerCard(srv){
 
     ${srv.online ? `
       <div class="server-stats">
-        <div class="stat"><i class="fas fa-users"></i> <div>Jugadores <strong>${srv.players}/${srv.maxPlayers}</strong></div></div>
-        <div class="stat"><i class="fas fa-map"></i> <div>Mapa <strong>${srv.map}</strong></div></div>
-        <div class="stat"><i class="fas fa-clock"></i> <div>Actualizado <strong>ahora</strong></div></div>
+        <div class="stat"><i class="fas fa-users"></i> Jugadores <strong>${srv.players}/${srv.maxPlayers}</strong></div>
+        <div class="stat"><i class="fas fa-map"></i> Mapa <strong>${srv.map}</strong></div>
+        <div class="stat"><i class="fas fa-clock"></i> Actualizado <strong>ahora</strong></div>
       </div>
-
       <div class="occup-bar"><div class="occup-fill" style="width:${percent}%"></div></div>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
         <div style="color:var(--muted);font-size:13px">${percent}% ocupación</div>
-        <div style="display:flex;gap:8px">
-          <button class="copy-btn" data-ip="${ipLabel}"><i class="fas fa-copy"></i> Copiar IP</button>
-        </div>
+        <button class="copy-btn" data-ip="${ipLabel}"><i class="fas fa-copy"></i> Copiar IP</button>
       </div>
-
-      ${srv.rawPlayers && srv.rawPlayers.length ? `<div style="margin-top:10px" class="players-list">${srv.rawPlayers.map(p=>`<div style="padding:4px 0;border-bottom:1px dashed rgba(255,255,255,0.02)">${p.name || 'Anon'}${p.score!==undefined ? ` — ${p.score}` : ''}</div>`).join('')}</div>` : ''}
-    ` : `
-      <div style="margin-top:8px;color:var(--muted);font-size:13px">El servidor no está disponible en este momento.</div>
-      <div style="display:flex;justify-content:flex-end;margin-top:8px"><button class="copy-btn" disabled>Copiar IP</button></div>
-    `}
+    ` : `<div style="margin-top:8px;color:var(--muted);font-size:13px">Servidor no disponible</div>`}
   `;
-  // add copy handler
   div.querySelectorAll('.copy-btn').forEach(btn=>{
     btn.addEventListener('click', async ()=>{
       const ip = btn.dataset.ip;
@@ -194,36 +169,24 @@ function renderServerCard(srv){
         const prev = btn.innerHTML;
         btn.innerHTML = '<i class="fas fa-check"></i> ¡Copiado!';
         setTimeout(()=>{ btn.classList.remove('copied'); btn.innerHTML = prev; }, 1500);
-      }catch(e){
-        console.error('Clipboard error', e);
-      }
+      }catch(e){ console.error(e); }
     });
   });
-
   return div;
 }
 
-/* request to API and render */
 async function loadServers(){
   const container = document.getElementById('servers');
   container.innerHTML = '<div style="color:var(--muted);padding:10px">Cargando servidores...</div>';
   try{
     const resp = await fetch(API_URL, {cache: 'no-store'});
-    if(!resp.ok) throw new Error('API error '+resp.status);
     const data = await resp.json();
-    if(!data.success){ throw new Error('API returned success:false') }
-
     container.innerHTML = '';
-    data.servers.forEach(s=>{
-      container.appendChild(renderServerCard(s));
-    });
+    data.servers.forEach(s=> container.appendChild(renderServerCard(s)) );
   }catch(err){
-    console.error('Error cargando servidores', err);
-    container.innerHTML = `<div style="color:var(--muted);padding:10px">No se pudo conectar con la API de servidores. Revisa que el backend esté corriendo en <strong>${API_URL}</strong></div>`;
+    container.innerHTML = `<div style="color:var(--muted);padding:10px">No se pudo conectar a la API</div>`;
   }
 }
-
-/* polling */
 loadServers();
 setInterval(loadServers, REFRESH_MS);
 </script>
