@@ -16,8 +16,6 @@
     html, body {
       height: 100%;
       font-family: 'Share Tech Mono', monospace;
-      color: #e0e0e0;
-      background: #0a0a0a;
       overflow-x: hidden;
     }
     a {
@@ -25,28 +23,45 @@
       color: inherit;
     }
 
-    /* Partículas de fondo usando canvas simple */
-    #particle-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      pointer-events: none;
+    /* Variables CSS para tema */
+    :root {
+      --bg-dark: #0a0a0a;
+      --bg-light: #f5f5f5;
+      --text-dark: #e0e0e0;
+      --text-light: #111111;
+      --accent: #FFD700;
+      --accent-dark: #FFA500;
+      --menu-bg: rgba(15,15,15,0.9);
+      --menu-bg-light: rgba(240,240,240,0.9);
+      --content-bg: rgba(20,20,20,0.85);
+      --content-bg-light: rgba(250,250,250,0.85);
+      --card-bg: rgba(5,5,5,0.75);
+      --card-bg-light: rgba(230,230,230,0.75);
+    }
+    body.dark {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+    body.light {
+      background: var(--bg-light);
+      color: var(--text-light);
     }
 
     /* HEADER / MENÚ */
     header {
-      background: rgba(15, 15, 15, 0.9);
+      background: var(--menu-bg);
       backdrop-filter: blur(12px);
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       z-index: 1000;
-      border-bottom: 2px solid #FFD700;
-      transition: background 0.3s ease;
+      border-bottom: 2px solid var(--accent);
+      transition: background 0.3s;
+    }
+    body.light header {
+      background: var(--menu-bg-light);
+      border-bottom: 2px solid var(--accent);
     }
     .menu-container {
       max-width: 1200px;
@@ -59,12 +74,13 @@
     header h1 {
       font-family: 'Orbitron', sans-serif;
       font-size: 26px;
-      color: #FFD700;
+      color: var(--accent);
       letter-spacing: 2px;
-      text-shadow: 0 0 12px #FFD700;
+      text-shadow: 0 0 12px var(--accent);
     }
     nav {
       display: flex;
+      align-items: center;
       gap: 20px;
     }
     nav a {
@@ -77,71 +93,75 @@
       display: flex;
       align-items: center;
     }
+    body.light nav a {
+      background: rgba(0,0,0,0.05);
+      color: #333;
+    }
     nav a i {
       margin-right: 8px;
     }
     nav a:hover {
-      background: #FFD700;
+      background: var(--accent);
       color: #111;
-      box-shadow: 0 0 20px #FFD700;
+      box-shadow: 0 0 20px var(--accent);
       transform: scale(1.1);
     }
 
     /* SECCIONES / PÁGINAS */
     .page {
-      display: none;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
       min-height: 100vh;
-      padding: 110px 20px 40px; /* para compensar header fijo */
-      transition: opacity 0.8s ease, transform 0.8s ease;
-      position: relative;
+      padding: 110px 20px 40px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
     }
     .page.active {
-      display: block;
-      animation: fadeInUpBig 0.8s ease-in-out;
-    }
-    @keyframes fadeInUpBig {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
     }
 
     .content-wrapper {
       max-width: 800px;
       margin: auto;
-      background: rgba(20, 20, 20, 0.85);
+      background: var(--content-bg);
       border: 1px solid rgba(255, 215, 0, 0.7);
       border-radius: 12px;
       padding: 30px;
       box-shadow: 0 0 35px rgba(0,0,0,0.9);
       backdrop-filter: blur(10px);
-      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      transition: transform 0.5s ease, box-shadow 0.5s ease, background 0.3s;
+    }
+    body.light .content-wrapper {
+      background: var(--content-bg-light);
     }
     .content-wrapper:hover {
       transform: scale(1.02);
-      box-shadow: 0 0 45px rgba(255, 215, 0, 0.8);
+      box-shadow: 0 0 45px var(--accent);
     }
     .content-wrapper h2 {
       font-family: 'Orbitron', sans-serif;
       font-size: 28px;
-      color: #FFD700;
+      color: var(--accent);
       text-align: center;
       margin-bottom: 20px;
-      text-shadow: 0 0 14px #FFD700;
+      text-shadow: 0 0 14px var(--accent);
     }
     .content-wrapper p {
       line-height: 1.6;
       margin-bottom: 22px;
+      color: inherit;
     }
 
     /* SERVIDORES CARD */
     .server-card {
-      background: rgba(5,5,5,0.75);
-      border-left: 6px solid #FFD700;
+      background: var(--card-bg);
+      border-left: 6px solid var(--accent);
       border-radius: 10px;
       padding: 20px;
       margin-bottom: 20px;
@@ -149,15 +169,21 @@
       transition: transform 0.3s, background 0.3s;
       position: relative;
     }
+    body.light .server-card {
+      background: var(--card-bg-light);
+    }
     .server-card:hover {
       transform: scale(1.03);
       background: rgba(30, 30, 30, 0.85);
     }
+    body.light .server-card:hover {
+      background: rgba(240, 240, 240, 0.9);
+    }
     .server-card h3 {
       font-family: 'Orbitron', sans-serif;
-      color: #FFD700;
       font-size: 22px;
       margin-bottom: 10px;
+      color: var(--accent);
     }
     .server-status.online {
       color: #7CFC00;
@@ -166,7 +192,7 @@
     }
     .copy-btn {
       margin-top: 12px;
-      background: #FFD700;
+      background: var(--accent);
       color: #111;
       border: none;
       padding: 10px 16px;
@@ -176,8 +202,8 @@
       transition: all 0.3s;
     }
     .copy-btn:hover {
-      background: #FFA500;
-      box-shadow: 0 0 18px #FFD700;
+      background: var(--accent-dark);
+      box-shadow: 0 0 18px var(--accent);
     }
     .copy-notice {
       font-size: 14px;
@@ -191,19 +217,19 @@
     .btn {
       display: inline-block;
       margin-top: 24px;
-      background: #FFD700;
+      background: var(--accent);
       color: #111;
       padding: 14px 22px;
       border-radius: 8px;
       font-weight: bold;
       font-size: 16px;
       text-align: center;
-      box-shadow: 0 0 12px #FFD700;
+      box-shadow: 0 0 12px var(--accent);
       transition: all 0.3s;
     }
     .btn:hover {
-      background: #FFA500;
-      box-shadow: 0 0 24px #FFA500;
+      background: var(--accent-dark);
+      box-shadow: 0 0 24px var(--accent-dark);
       transform: scale(1.08);
     }
 
@@ -217,21 +243,25 @@
     .social-links a {
       width: 60px;
       height: 60px;
-      border: 3px solid #FFD700;
+      border: 3px solid var(--accent);
       border-radius: 50%;
       background: rgba(0,0,0,0.6);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #FFD700;
+      color: var(--accent);
       position: relative;
       overflow: hidden;
       transition: all 0.3s;
     }
+    body.light .social-links a {
+      background: rgba(255,255,255,0.6);
+      color: var(--accent);
+    }
     .social-links a:hover {
       background: rgba(255, 215, 0, 0.9);
       color: #111;
-      border-color: #FFA500;
+      border-color: var(--accent-dark);
       box-shadow: 0 0 20px rgba(255, 215, 0, 0.9);
       transform: scale(1.15);
     }
@@ -260,14 +290,19 @@
       padding: 16px;
       text-align: center;
       color: #aaa;
-      border-top: 2px solid #FFD700;
+      border-top: 2px solid var(--accent);
       font-size: 14px;
+      transition: background 0.3s;
+    }
+    body.light footer {
+      background: rgba(240,240,240,0.9);
+      color: #555;
     }
     footer a {
-      color: #FFD700;
+      color: var(--accent);
     }
     footer a:hover {
-      text-shadow: 0 0 10px #FFD700;
+      text-shadow: 0 0 10px var(--accent);
     }
 
     /* RESPONSIVE */
@@ -299,9 +334,6 @@
   </style>
 </head>
 <body>
-  <!-- Canvas para partículas -->
-  <canvas id="particle-bg"></canvas>
-
   <header>
     <div class="menu-container">
       <h1>Los Pibes Del Mix</h1>
@@ -310,6 +342,9 @@
         <a href="#servidores" onclick="goReload('#servidores')"><i class="fas fa-network-wired"></i> Servidores</a>
         <a href="#ventas" onclick="goReload('#ventas')"><i class="fas fa-tag"></i> Ventas</a>
         <a href="#redes" onclick="goReload('#redes')"><i class="fas fa-hashtag"></i> Redes</a>
+        <button id="theme-toggle" style="margin-left: 20px; background: transparent; border: none; color: var(--accent); cursor: pointer;" title="Cambiar tema">
+          <i class="fas fa-adjust"></i>
+        </button>
       </nav>
     </div>
   </header>
@@ -381,61 +416,22 @@
   </footer>
 
   <script>
-    // CONTROL DE PARTÍCULAS (canvas)
-    const canvas = document.getElementById('particle-bg');
-    const ctx = canvas.getContext('2d');
-    let particlesArray = [];
-    const numberOfParticles = 80;
-
-    // ajustar tamaño canvas
-    function initCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    // Modo claro / oscuro
+    const toggleBtn = document.getElementById('theme-toggle');
+    function setTheme(theme) {
+      document.body.classList.remove('light', 'dark');
+      document.body.classList.add(theme);
+      localStorage.setItem('theme', theme);
     }
-    window.addEventListener('resize', initCanvas);
-    initCanvas();
-
-    class Particle {
-      constructor() {
-        this.size = Math.random() * 3 + 1;
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.speedX = (Math.random() - 0.5) * 0.5;
-        this.speedY = (Math.random() - 0.5) * 0.5;
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        // rebote
-        if (this.x < 0 || this.x > canvas.width) this.speedX = -this.speedX;
-        if (this.y < 0 || this.y > canvas.height) this.speedY = -this.speedY;
-      }
-      draw() {
-        ctx.fillStyle = 'rgba(255,215,0,0.5)';
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    function initParticles() {
-      particlesArray = [];
-      for (let i = 0; i < numberOfParticles; i++) {
-        particlesArray.push(new Particle());
-      }
-    }
-
-    function animateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particlesArray.forEach(p => {
-        p.update();
-        p.draw();
-      });
-      requestAnimationFrame(animateParticles);
-    }
-
-    initParticles();
-    animateParticles();
+    toggleBtn.addEventListener('click', () => {
+      const current = document.body.classList.contains('light') ? 'light' : 'dark';
+      const next = current === 'light' ? 'dark' : 'light';
+      setTheme(next);
+    });
+    window.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('theme') || 'dark';
+      setTheme(saved);
+    });
 
     // navegación recarga
     function goReload(hash) {
@@ -445,10 +441,12 @@
       }, 50);
     }
 
-    // mostrar sección correcta
+    // lógica para cambiar sección sin recorte bug
     const pages = document.querySelectorAll('.page');
     function showPage(hash) {
-      pages.forEach(p => p.classList.remove('active'));
+      pages.forEach(p => {
+        p.classList.remove('active');
+      });
       const target = document.querySelector(hash);
       if (target) {
         target.classList.add('active');
@@ -457,14 +455,13 @@
       }
     }
     window.addEventListener('load', () => {
-      const hash = location.hash || '#inicio';
-      showPage(hash);
+      showPage(location.hash || '#inicio');
     });
     window.addEventListener('hashchange', () => {
       showPage(location.hash);
     });
 
-    // copiar IP con aviso sencillo
+    // copiar IP con aviso simple
     function copyIP(ip, btn) {
       navigator.clipboard.writeText(ip).then(() => {
         const notice = btn.nextElementSibling;
