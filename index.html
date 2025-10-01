@@ -25,13 +25,16 @@
       position: sticky;
       top: 0;
       z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.8);
     }
 
     header h1 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 26px;
+      font-size: 28px;
       color: #FFD700;
       margin: 0;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px #000, 0 0 20px #FFD700;
     }
 
     nav a {
@@ -39,14 +42,15 @@
       text-decoration: none;
       color: #ccc;
       font-weight: 600;
-      transition: color 0.3s, background 0.3s;
-      padding: 6px 10px;
+      transition: all 0.3s ease;
+      padding: 6px 12px;
       border-radius: 5px;
     }
 
     nav a:hover {
-      color: #FFD700;
-      background: rgba(255, 215, 0, 0.15);
+      color: #111;
+      background: #FFD700;
+      box-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700;
     }
 
     .page {
@@ -62,8 +66,8 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .content-box {
@@ -72,51 +76,106 @@
       padding: 40px;
       background: rgba(25, 25, 25, 0.85);
       border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.8);
+      animation: glowBox 2s infinite alternate;
+    }
+
+    @keyframes glowBox {
+      from { box-shadow: 0 0 10px rgba(255,215,0,0.3); }
+      to { box-shadow: 0 0 25px rgba(255,215,0,0.8); }
     }
 
     .content-box h2 {
       color: #FFD700;
       margin-bottom: 20px;
       font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      text-shadow: 0 0 8px #000, 0 0 12px #FFD700;
     }
 
     /* Servidores */
     .server-card {
-      background: rgba(0,0,0,0.8);
+      background: rgba(0,0,0,0.85);
       border-left: 5px solid #FFD700;
-      border-radius: 8px;
+      border-radius: 10px;
       padding: 20px;
       margin-bottom: 20px;
       box-shadow: 0 3px 12px rgba(0,0,0,0.6);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .server-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 15px #FFD700;
     }
 
     .server-card h3 {
       margin: 0 0 10px;
       color: #FFD700;
+      font-family: 'Orbitron', sans-serif;
     }
 
     .server-status.online {
       color: limegreen;
+      font-weight: bold;
+      text-shadow: 0 0 8px lime;
     }
 
     .server-status.offline {
       color: red;
+      font-weight: bold;
+      text-shadow: 0 0 8px red;
     }
 
     .progress-bar {
       background: #222;
       border-radius: 6px;
-      height: 10px;
+      height: 12px;
       overflow: hidden;
       margin-top: 10px;
+      box-shadow: inset 0 0 6px #000;
     }
 
     .progress-fill {
       height: 100%;
-      background: #FFD700;
+      background: linear-gradient(90deg, #FFD700, #FFB400);
       width: 0%;
-      transition: width 0.5s;
+      transition: width 0.8s ease-in-out;
+    }
+
+    a.btn {
+      display: inline-block;
+      margin-top: 20px;
+      background: #FFD700;
+      color: #111;
+      padding: 12px 25px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 8px #FFD700;
+    }
+
+    a.btn:hover {
+      background: #FFA500;
+      box-shadow: 0 0 15px #FFA500, 0 0 25px #FFD700;
+      transform: scale(1.05);
+    }
+
+    footer {
+      background: rgba(0,0,0,0.9);
+      text-align: center;
+      padding: 12px;
+      color: #888;
+      font-size: 13px;
+      border-top: 2px solid #FFD700;
+    }
+    footer a {
+      color: #FFD700;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-shadow: 0 0 8px #FFD700;
     }
   </style>
 </head>
@@ -135,7 +194,9 @@
   <div id="inicio" class="page active">
     <div class="content-box" style="text-align:center;">
       <h2>¡Bienvenido a Los Pibes Del Mix!</h2>
-      <p>Comunidad de Counter-Strike 1.6 con servidores Mix, Público y Mata al Traidor.</p>
+      <p>Comunidad de <b>Counter-Strike 1.6</b> con servidores Mix, Público y Mata al Traidor. <br>
+      Unite a la acción y reviví la nostalgia del CS clásico 🎮.</p>
+      <a href="#servidores" class="btn"><i class="fas fa-bolt"></i> Ver Servidores</a>
     </div>
   </div>
 
@@ -149,9 +210,10 @@
 
   <!-- Ventas -->
   <div id="ventas" class="page">
-    <div class="content-box">
+    <div class="content-box" style="text-align:center;">
       <h2>Tienda</h2>
-      <p>Compra rangos VIP y skins para apoyar la comunidad.</p>
+      <p>Compra rangos VIP y skins exclusivas para apoyar la comunidad y mantener los servidores online 🔥.</p>
+      <a href="#" class="btn"><i class="fas fa-star"></i> Comprar VIP</a>
     </div>
   </div>
 
@@ -161,11 +223,16 @@
       <h2>Nuestras Redes</h2>
       <p><a href="https://www.instagram.com/lospibesdelmixcs" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></p>
       <p><a href="https://www.tiktok.com" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a></p>
+      <p><a href="https://discord.gg/bSRR7AyYuh" target="_blank"><i class="fab fa-discord"></i> Discord</a></p>
     </div>
   </div>
 
+  <footer>
+    © 2025 Los Pibes Del Mix | <a href="https://discord.gg/bSRR7AyYuh" target="_blank"><i class="fab fa-discord"></i> Discord</a>
+  </footer>
+
   <script>
-    // Navegación
+    // Navegación entre páginas
     const pages = document.querySelectorAll('.page');
     function showPage(hash) {
       pages.forEach(p => p.classList.remove('active'));
@@ -176,7 +243,7 @@
     showPage(location.hash || '#inicio');
 
     // Conectar con API del backend
-    const API_URL = "https://lospibes-backend.onrender.com/servers"; // cambia esto con tu URL de Render
+    const API_URL = "https://lospibes-backend.onrender.com/servers"; // tu API aquí
 
     async function loadServers() {
       try {
