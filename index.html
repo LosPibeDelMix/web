@@ -22,10 +22,13 @@
             overflow-x: hidden;
             overflow-y: hidden; 
             
-            /* Fondo inspirado en CS 1.6 (textura de metal/militar oscuro) */
+            /* 🚀 Fondo de Counter-Strike 1.6 usando la imagen proporcionada */
             background-color: #11151A;
-            background-image: repeating-linear-gradient(45deg, #181d24 0, #181d24 1px, #11151A 0, #11151A 50px);
-            background-size: 80px 80px;
+            /* IMPORTANTE: Asegúrate de que "image_77e1c4.png" esté en la misma carpeta que este archivo HTML */
+            background-image: url('image_77e1c4.png');
+            background-size: cover; /* Cubre toda el área */
+            background-attachment: fixed; /* Mantiene la imagen fija al desplazarse (aunque el scroll está desactivado) */
+            background-position: center center;
         }
 
         header {
@@ -40,13 +43,13 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.7);
         }
 
-        /* 🚀 Nuevo Estilo de Fuente para el Nombre (Orbitron) */
+        /* Estilo de Fuente para el Nombre (Orbitron) */
         header h1 {
             margin: 0;
-            font-family: 'Orbitron', sans-serif; /* Fuente tecnológica/gaming */
-            font-size: 28px; /* Más grande */
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
             color: #C0A040;
-            text-shadow: 0 0 5px rgba(255, 204, 0, 0.5), 0 0 10px rgba(192, 160, 64, 0.3); /* Efecto neón/resplandor */
+            text-shadow: 0 0 5px rgba(255, 204, 0, 0.5), 0 0 10px rgba(192, 160, 64, 0.3);
             letter-spacing: 1px;
         }
 
@@ -72,7 +75,6 @@
         /* GESTIÓN DE SECCIONES - Corrección de Bugs */
         main {
             position: relative;
-            /* Alto de la ventana menos el header y el footer */
             min-height: calc(100vh - 80px); 
         }
         
@@ -84,9 +86,11 @@
             left: 0;
             width: 100%;
             min-height: 100%;
-            opacity: 0; /* Para la transición de opacidad */
+            opacity: 0; 
             transition: opacity 0.4s ease-in-out;
             z-index: 1;
+            /* El fondo de las secciones es semi-transparente para que se vea la imagen de CS */
+            background-color: rgba(17, 21, 26, 0.85); 
         }
 
         /* 1. Hace visible la sección por defecto (Inicio) */
@@ -103,14 +107,24 @@
             z-index: 10;
         }
 
-        /* 3. Oculta la sección #inicio (y el resto) cuando hay un target */
-        :target ~ #inicio {
+        /* 3. 🚀 CORRECCIÓN CLAVE: Oculta TODAS las secciones que no sean el target. */
+        /* Esta regla sobreescribe la regla de #inicio si hay un :target. */
+        :not(:target) + .content-section:target ~ .content-section {
             display: none;
             opacity: 0;
         }
         
-        /* Esto asegura que al hacer clic, solo el target sea visible y traído al frente. */
-
+        /* Regla de respaldo y limpieza: asegura que todo excepto el target esté oculto */
+        .content-section:not(:target) {
+            display: none;
+            opacity: 0;
+        }
+        
+        /* Se asegura que #inicio se muestre solo si no hay un target */
+        body:not(:has(:target)) #inicio {
+            display: block;
+            opacity: 1;
+        }
 
         /* ESTILOS DE LA SECCIÓN DE INICIO */
         .welcome-container {
@@ -118,7 +132,7 @@
             margin: 40px auto;
             padding: 60px 30px;
             text-align: center;
-            background: rgba(40, 45, 50, 0.6); 
+            background: rgba(40, 45, 50, 0.7); /* Mayor opacidad para mejorar lectura sobre el fondo */
             border-radius: 15px;
             box-shadow: 0 5px 25px rgba(0,0,0,0.5);
             border-top: 5px solid #C0A040;
@@ -184,7 +198,7 @@
             margin: 40px auto;
             padding: 40px 20px;
             border-radius: 12px;
-            background: #1A2027; 
+            background: rgba(26, 32, 39, 0.9); /* Más opaco para lectura */
             box-shadow: 0 4px 25px rgba(0,0,0,0.6);
         }
 
