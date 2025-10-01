@@ -24,7 +24,7 @@
       font-family: 'Share Tech Mono', monospace;
       background: var(--color-dark-bg);
       color: var(--color-dark-text);
-      transition: background 0.5s, color 0.5s;
+      transition: background 0.6s ease, color 0.6s ease;
     }
 
     body.light {
@@ -45,11 +45,17 @@
       z-index: 1000;
       border-bottom: 2px solid var(--color-accent);
       backdrop-filter: blur(8px);
-      transition: background 0.5s;
+      transition: background 0.6s ease;
+      animation: slideDown 0.8s ease;
     }
 
     body.light header {
       background: rgba(255,255,255,0.8);
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     header h1 {
@@ -57,6 +63,12 @@
       font-size: 22px;
       color: var(--color-accent);
       margin: 0;
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 5px var(--color-accent); }
+      to { text-shadow: 0 0 20px var(--color-accent), 0 0 40px var(--color-accent); }
     }
 
     nav {
@@ -77,6 +89,7 @@
     nav a:hover {
       background: var(--color-accent);
       color: #111;
+      transform: scale(1.1);
     }
 
     /* === BOTÓN DARK MODE === */
@@ -84,11 +97,11 @@
       cursor: pointer;
       font-size: 20px;
       color: var(--color-accent);
-      transition: transform 0.5s ease, color 0.3s;
+      transition: transform 0.6s ease, color 0.3s ease;
     }
 
     .theme-toggle:hover {
-      transform: rotate(180deg) scale(1.2);
+      transform: rotate(360deg) scale(1.3);
       color: orange;
     }
 
@@ -97,7 +110,7 @@
       display: none;
       padding: 100px 20px 60px;
       min-height: 100vh;
-      animation: fadeIn 0.6s ease;
+      animation: fadeIn 0.8s ease;
     }
 
     .page.active {
@@ -109,7 +122,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Secciones con fondos sólidos adaptables */
     #inicio { background: var(--color-dark-section); }
     #servidores { background: rgba(40,40,40,0.85); }
     #ventas { background: rgba(30,30,30,0.85); }
@@ -129,13 +141,20 @@
       box-shadow: 0 0 25px rgba(0,0,0,0.6);
       backdrop-filter: blur(8px);
       text-align: center;
-      transition: background 0.3s, color 0.3s;
+      transition: all 0.5s ease;
+      animation: popUp 1s ease;
+    }
+
+    @keyframes popUp {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
 
     .content-box h2 {
       color: var(--color-accent);
       font-family: 'Orbitron', sans-serif;
       margin-bottom: 20px;
+      animation: glow 2s infinite alternate;
     }
 
     /* === SERVIDORES === */
@@ -146,11 +165,16 @@
       padding: 20px;
       margin-bottom: 20px;
       text-align: left;
-      transition: background 0.3s;
+      transition: transform 0.3s ease, background 0.3s ease;
     }
 
     body.light .server-card {
       background: rgba(255,255,255,0.9);
+    }
+
+    .server-card:hover {
+      transform: translateX(8px) scale(1.02);
+      box-shadow: 0 0 20px rgba(255,215,0,0.6);
     }
 
     .server-card h3 {
@@ -171,6 +195,12 @@
       background: var(--color-accent);
       cursor: pointer;
       font-weight: bold;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .copy-btn:hover {
+      transform: scale(1.1);
+      background: orange;
     }
 
     /* === BOTONES === */
@@ -187,22 +217,23 @@
     }
     a.btn:hover {
       background: orange;
-      transform: scale(1.05);
+      transform: scale(1.1);
     }
 
     /* === REDES === */
     .social-links a {
-      font-size: 36px;
-      margin: 10px;
-      transition: transform 0.3s, text-shadow 0.3s;
+      font-size: 42px;
+      margin: 15px;
+      transition: transform 0.3s ease, filter 0.3s ease;
     }
     .social-links a:hover {
-      transform: scale(1.2);
-      text-shadow: 0 0 10px currentColor;
+      transform: scale(1.3) rotate(8deg);
+      filter: drop-shadow(0 0 10px currentColor);
     }
     .instagram { color: #E4405F; }
     .tiktok { color: #00F2EA; }
     .discord { color: #5865F2; }
+    .youtube { color: #FF0000; }
 
     /* === FOOTER === */
     footer {
@@ -212,6 +243,7 @@
       color: #aaa;
       font-size: 14px;
       border-top: 2px solid var(--color-accent);
+      animation: fadeIn 1.5s ease;
     }
 
     body.light footer {
@@ -235,7 +267,7 @@
 
     .discord-btn:hover {
       background: #4752C4;
-      transform: scale(1.05);
+      transform: scale(1.1);
     }
 
     /* === RESPONSIVE === */
@@ -320,6 +352,7 @@
         <a href="https://www.instagram.com/lospibesdelmixcs" target="_blank" class="instagram"><i class="fab fa-instagram"></i></a>
         <a href="https://www.tiktok.com" target="_blank" class="tiktok"><i class="fab fa-tiktok"></i></a>
         <a href="https://discord.gg/bSRR7AyYuh" target="_blank" class="discord"><i class="fab fa-discord"></i></a>
+        <a href="https://youtube.com" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
       </div>
     </div>
   </div>
@@ -343,10 +376,9 @@
     window.addEventListener('hashchange', () => showPage(location.hash || '#inicio'));
     showPage(location.hash || '#inicio');
 
-    // Copiar IP
+    // Copiar IP sin mensaje
     function copyIP(ip) {
       navigator.clipboard.writeText(ip);
-      alert("IP copiada: " + ip);
     }
 
     // Toggle Dark/Light Mode
