@@ -1,368 +1,274 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Los Pibes Del Mix - Inicio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* Deshabilita el desplazamiento vertical */
-        html {
-            scroll-behavior: auto;
-        }
-        
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #d1d4d9; 
-            min-height: 100vh;
-            overflow-x: hidden;
-            overflow-y: hidden; 
-            
-            /* 🚀 Fondo de Counter-Strike 1.6 usando la imagen proporcionada */
-            background-color: #11151A;
-            /* IMPORTANTE: Asegúrate de que "image_77e1c4.png" esté en la misma carpeta que este archivo HTML */
-            background-image: url('image_77e1c4.png');
-            background-size: cover; /* Cubre toda el área */
-            background-attachment: fixed; /* Mantiene la imagen fija al desplazarse (aunque el scroll está desactivado) */
-            background-position: center center;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Los Pibes Del Mix - Counter Style</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&family=Russo+One&display=swap" rel="stylesheet">
 
-        header {
-            background: #0D1013;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.7);
-        }
+  <style>
+    /* Estilo base */
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: #0c0f12 url('https://wallpaperaccess.com/full/184297.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #eaeaea;
+      overflow-x: hidden;
+    }
 
-        /* Estilo de Fuente para el Nombre (Orbitron) */
-        header h1 {
-            margin: 0;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 28px;
-            color: #C0A040;
-            text-shadow: 0 0 5px rgba(255, 204, 0, 0.5), 0 0 10px rgba(192, 160, 64, 0.3);
-            letter-spacing: 1px;
-        }
+    /* Efecto overlay oscuro */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(3px);
+      z-index: -1;
+    }
 
-        nav a {
-            margin-left: 20px;
-            text-decoration: none;
-            color: #d1d4d9;
-            font-weight: 600;
-            transition: color 0.3s, background-color 0.3s;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
+    /* Header estilo Counter */
+    header {
+      background: rgba(15, 15, 20, 0.9);
+      border-bottom: 2px solid #c0a040;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+    }
 
-        nav a i {
-            margin-right: 5px; 
-        }
+    header h1 {
+      margin: 0;
+      font-family: 'Russo One', sans-serif;
+      font-size: 28px;
+      color: #FFD700;
+      text-shadow: 0 0 8px #ffda6b, 0 0 15px rgba(255,215,0,0.5);
+    }
 
-        nav a:hover {
-            color: #F0E0A0; 
-            background-color: rgba(192, 160, 64, 0.15);
-        }
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #eaeaea;
+      font-weight: bold;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: 0.3s;
+    }
 
-        /* GESTIÓN DE SECCIONES - Corrección de Bugs */
-        main {
-            position: relative;
-            min-height: calc(100vh - 80px); 
-        }
-        
-        .content-section {
-            display: none;
-            padding: 40px 20px;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            min-height: 100%;
-            opacity: 0; 
-            transition: opacity 0.4s ease-in-out;
-            z-index: 1;
-            /* El fondo de las secciones es semi-transparente para que se vea la imagen de CS */
-            background-color: rgba(17, 21, 26, 0.85); 
-        }
+    nav a:hover {
+      color: #111;
+      background: #FFD700;
+      box-shadow: 0 0 10px #FFD700, 0 0 20px rgba(255,215,0,0.5);
+    }
 
-        /* 1. Hace visible la sección por defecto (Inicio) */
-        #inicio {
-            display: block; 
-            opacity: 1;
-            z-index: 5;
-        }
-        
-        /* 2. Muestra y trae al frente el target */
-        .content-section:target {
-            display: block; 
-            opacity: 1;
-            z-index: 10;
-        }
+    /* Secciones */
+    main {
+      padding: 50px 20px;
+    }
 
-        /* 3. 🚀 CORRECCIÓN CLAVE: Oculta TODAS las secciones que no sean el target. */
-        /* Esta regla sobreescribe la regla de #inicio si hay un :target. */
-        :not(:target) + .content-section:target ~ .content-section {
-            display: none;
-            opacity: 0;
-        }
-        
-        /* Regla de respaldo y limpieza: asegura que todo excepto el target esté oculto */
-        .content-section:not(:target) {
-            display: none;
-            opacity: 0;
-        }
-        
-        /* Se asegura que #inicio se muestre solo si no hay un target */
-        body:not(:has(:target)) #inicio {
-            display: block;
-            opacity: 1;
-        }
+    .content-section {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px;
+      background: rgba(20,20,25,0.85);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.7);
+      margin-bottom: 50px;
+    }
 
-        /* ESTILOS DE LA SECCIÓN DE INICIO */
-        .welcome-container {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 60px 30px;
-            text-align: center;
-            background: rgba(40, 45, 50, 0.7); /* Mayor opacidad para mejorar lectura sobre el fondo */
-            border-radius: 15px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
-            border-top: 5px solid #C0A040;
-        }
+    .content-section h2 {
+      font-size: 30px;
+      color: #FFD700;
+      text-transform: uppercase;
+      border-bottom: 2px solid #FFD700;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
 
-        .welcome-container h2 {
-            font-size: 40px;
-            color: #C0A040;
-        }
+    .welcome-container p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
 
-        .welcome-container h3 {
-            margin-top: 30px;
-            font-size: 24px;
-            color: #e0e0e0;
-            border-bottom: 2px solid rgba(192, 160, 64, 0.3);
-            padding-bottom: 10px;
-        }
+    .btn-primary {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 20px;
+      background: #FFD700;
+      color: #111;
+      font-weight: bold;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
 
-        .btn-primary {
-            display: inline-block;
-            margin-top: 30px;
-            background: #C0A040;
-            color: #11151A;
-            text-decoration: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: background 0.3s, transform 0.2s;
-        }
+    .btn-primary:hover {
+      background: #caa500;
+      box-shadow: 0 0 12px #FFD700, 0 0 25px rgba(255,215,0,0.5);
+    }
 
-        .btn-primary:hover {
-            background: #A08030;
-            transform: translateY(-1px);
-        }
+    /* Servidores */
+    .server-card {
+      background: #111;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      border-left: 6px solid #FFD700;
+      transition: transform 0.2s;
+    }
 
-        /* ESTILOS PARA SECCIONES DE CONTENIDO SIMPLE (Descargas/Ventas) */
-        .simple-content {
-            max-width: 700px;
-            margin: 20px auto;
-            padding: 40px;
-            background: rgba(20, 25, 30, 0.9);
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-        .simple-content h2 {
-            color: #C0A040;
-            border-bottom: 1px solid #303840;
-            padding-bottom: 10px;
-        }
-        .simple-content li {
-            background: rgba(255,255,255,0.05);
-            margin-bottom: 12px;
-            padding: 15px;
-            border-radius: 6px;
-        }
-        .simple-content a {
-            color: #A0D0FF; 
-        }
+    .server-card:hover {
+      transform: scale(1.03);
+      background: #1a1a1a;
+    }
 
-        /* Estilos de la sección de servidores */
-        #servidores .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 40px 20px;
-            border-radius: 12px;
-            background: rgba(26, 32, 39, 0.9); /* Más opaco para lectura */
-            box-shadow: 0 4px 25px rgba(0,0,0,0.6);
-        }
+    .server-card h3 {
+      margin: 0 0 10px;
+      color: #FFD700;
+    }
 
-        .server-card {
-            background: #0D1013; 
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.6);
-            border-left: 5px solid #C0A040;
-            transition: transform 0.3s;
-        }
+    .server-info {
+      font-family: monospace;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
 
-        .server-card:hover {
-            transform: scale(1.01);
-            background: #151A1F; 
-        }
+    button {
+      background: #FFD700;
+      color: #111;
+      font-weight: bold;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
 
-        .server-card h2 {
-            color: #C0A040;
-        }
+    button:hover {
+      background: #caa500;
+    }
 
-        button {
-            background: #C0A040;
-            color: #11151A;
-            transition: background 0.3s;
-        }
+    button.copied {
+      background: #28a745;
+      color: #fff;
+    }
 
-        button:hover {
-            background: #A08030;
-        }
-        
-        /* ESTILO PARA EL MENSAJE DE COPIADO */
-        button.copied {
-            background: #4682B4; 
-            color: white;
-        }
+    /* Descargas/Ventas */
+    ul li {
+      margin-bottom: 10px;
+      background: rgba(255,255,255,0.05);
+      padding: 10px;
+      border-radius: 6px;
+    }
 
-        /* FOOTER DISCRETO Y BAJO */
-        footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            padding: 8px;
-            background: #0D1013;
-            opacity: 0.6; 
-            transition: opacity 0.3s;
-            z-index: 999;
-            font-size: 12px;
-        }
+    ul li a {
+      color: #4da6ff;
+      text-decoration: none;
+    }
+    ul li a:hover {
+      text-decoration: underline;
+    }
 
-        footer:hover {
-            opacity: 0.9;
-        }
+    /* Footer */
+    footer {
+      background: rgba(15,15,20,0.95);
+      color: #aaa;
+      text-align: center;
+      padding: 12px;
+      font-size: 14px;
+      border-top: 2px solid #FFD700;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
 
-        footer a {
-            color: #C0A040;
-        }
-    </style>
+    footer a {
+      color: #FFD700;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Los Pibes Del Mix</h1>
-        <nav>
-            <a href="#inicio"><i class="fas fa-home"></i> Inicio</a>
-            <a href="#servidores"><i class="fas fa-server"></i> Servidores</a>
-            <a href="#descargas"><i class="fas fa-download"></i> Descargas</a>
-            <a href="#ventas"><i class="fas fa-shopping-cart"></i> Ventas</a>
-            <a href="https://discord.gg/bSRR7AyYuh" target="_blank"><i class="fab fa-discord"></i> Discord</a>
-        </nav>
-    </header>
+  <header>
+    <h1><i class="fas fa-crosshairs"></i> Los Pibes Del Mix</h1>
+    <nav>
+      <a href="#inicio"><i class="fas fa-home"></i> Inicio</a>
+      <a href="#servidores"><i class="fas fa-server"></i> Servidores</a>
+      <a href="#descargas"><i class="fas fa-download"></i> Descargas</a>
+      <a href="#ventas"><i class="fas fa-shopping-cart"></i> Ventas</a>
+      <a href="https://discord.gg/bSRR7AyYuh" target="_blank"><i class="fab fa-discord"></i> Discord</a>
+    </nav>
+  </header>
 
-    <main>
-        <section id="inicio" class="content-section">
-            <div class="welcome-container">
-                <h2>¡Bienvenido a Los Pibes Del Mix!</h2>
-                <p>Somos una de las comunidades de gaming más grandes y activas de la región. Únete a nuestros servidores y siente la verdadera adrenalina del Mix y el Público.</p>
-                <h3>Nuestro Dato de Comunidad</h3>
-                <p>Contamos con **más de 50,000 miembros** en Discord y más de 300 jugadores activos diariamente en nuestros servidores de juego. ¡Gracias por ser parte de esta familia!</p>
-                <a href="#servidores" class="btn-primary">Ver Servidores Activos <i class="fas fa-arrow-right"></i></a>
-            </div>
-        </section>
+  <main>
+    <section id="inicio" class="content-section welcome-container">
+      <h2>¡Bienvenido!</h2>
+      <p>Somos una comunidad gamer dedicada a Counter-Strike. Servidores activos, comunidad gigante y diversión asegurada.</p>
+      <p><b>Más de 50,000 miembros</b> en Discord y más de <b>300 jugadores activos diarios</b>.</p>
+      <a href="#servidores" class="btn-primary">Ver servidores activos <i class="fas fa-arrow-right"></i></a>
+    </section>
 
-        <section id="servidores" class="content-section">
-            <div class="container">
-                <div class="server-card">
-                    <h2>LOS PIBES DEL MIX [MIX]</h2>
-                    <p class="server-info">IP: <span id="ip1">45.235.98.220:27262</span></p>
-                    <button onclick="copyIP('ip1', this)">Copiar IP</button>
-                </div>
+    <section id="servidores" class="content-section">
+      <h2><i class="fas fa-server"></i> Nuestros Servidores</h2>
 
-                <div class="server-card">
-                    <h2>LOS PIBES DEL MIX [PUBLICO]</h2>
-                    <p class="server-info">IP: <span id="ip2">45.235.98.220:27310</span></p>
-                    <button onclick="copyIP('ip2', this)">Copiar IP</button>
-                </div>
+      <div class="server-card">
+        <h3>[MIX] Los Pibes Del Mix</h3>
+        <p class="server-info">IP: <span id="ip1">45.235.98.220:27262</span></p>
+        <button onclick="copyIP('ip1', this)">Copiar IP</button>
+      </div>
 
-                <div class="server-card">
-                    <h2>LOS PIBES DEL MIX [MATA AL TRAIDOR]</h2>
-                    <p class="server-info">IP: <span id="ip3">45.235.99.105:27643</span></p>
-                    <button onclick="copyIP('ip3', this)">Copiar IP</button>
-                </div>
-            </div>
-        </section>
+      <div class="server-card">
+        <h3>[PUBLICO] Los Pibes Del Mix</h3>
+        <p class="server-info">IP: <span id="ip2">45.235.98.220:27310</span></p>
+        <button onclick="copyIP('ip2', this)">Copiar IP</button>
+      </div>
 
-        <section id="descargas" class="content-section">
-            <div class="simple-content">
-                <h2><i class="fas fa-download"></i> Zona de Descargas</h2>
-                <p>Aquí encontrarás archivos esenciales para una experiencia de juego óptima, como mapas personalizados, configs y packs de texturas.</p>
-                <ul>
-                    <li><a href="#">Config. Base Los Pibes Del Mix</a></li>
-                    <li><a href="#">Mapas Clásicos de Mix</a></li>
-                </ul>
-            </div>
-        </section>
+      <div class="server-card">
+        <h3>[MATA AL TRAIDOR] Los Pibes Del Mix</h3>
+        <p class="server-info">IP: <span id="ip3">45.235.99.105:27643</span></p>
+        <button onclick="copyIP('ip3', this)">Copiar IP</button>
+      </div>
+    </section>
 
-        <section id="ventas" class="content-section">
-            <div class="simple-content">
-                <h2><i class="fas fa-shopping-cart"></i> Tienda y Ventas</h2>
-                <p>Apoya a la comunidad y obtén beneficios exclusivos en nuestros servidores. ¡Tu ayuda mantiene los servidores online!</p>
-                <ul>
-                    <li><a href="#">VIP Permanente</a> - Acceso a slots especiales.</li>
-                    <li><a href="#">Skins Exclusivas</a> - Destaca en el servidor.</li>
-                </ul>
-            </div>
-        </section>
-    </main>
+    <section id="descargas" class="content-section">
+      <h2><i class="fas fa-download"></i> Descargas</h2>
+      <ul>
+        <li><a href="#">Config Base Los Pibes Del Mix</a></li>
+        <li><a href="#">Mapas Clásicos de Mix</a></li>
+      </ul>
+    </section>
 
-    <footer>
-        © 2025 Los Pibes Del Mix | Unite en 
-        <a href="https://discord.gg/bSRR7AyYuh" target="_blank"><i class="fab fa-discord"></i> Discord</a>
-    </footer>
+    <section id="ventas" class="content-section">
+      <h2><i class="fas fa-shopping-cart"></i> Tienda</h2>
+      <ul>
+        <li><a href="#">VIP Permanente</a> - Slots reservados exclusivos</li>
+        <li><a href="#">Skins Especiales</a> - Personaliza tu experiencia</li>
+      </ul>
+    </section>
+  </main>
 
-    <script>
-        function copyIP(id, buttonElement) {
-            const ipElement = document.getElementById(id);
-            const ip = ipElement.textContent;
-            
-            // Guarda el texto original
-            const originalText = buttonElement.textContent;
+  <footer>
+    © 2025 Los Pibes Del Mix | Unite en <a href="https://discord.gg/bSRR7AyYuh" target="_blank"><i class="fab fa-discord"></i> Discord</a>
+  </footer>
 
-            navigator.clipboard.writeText(ip)
-                .then(() => {
-                    // Muestra el mensaje de éxito y cambia el estilo
-                    buttonElement.textContent = '¡Copiado!';
-                    buttonElement.classList.add('copied');
-
-                    // Vuelve al estado original después de un tiempo
-                    setTimeout(() => {
-                        buttonElement.textContent = originalText;
-                        buttonElement.classList.remove('copied');
-                    }, 1500); // 1.5 segundos
-                })
-                .catch(err => {
-                    // Mensaje de error más sencillo en caso de fallo
-                    console.error('Error al intentar copiar:', err);
-                    buttonElement.textContent = 'Error';
-                    setTimeout(() => {
-                        buttonElement.textContent = originalText;
-                    }, 1500);
-                });
-        }
-    </script>
+  <script>
+    function copyIP(id, btn) {
+      const ip = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(ip).then(() => {
+        const original = btn.innerText;
+        btn.innerText = "¡Copiado!";
+        btn.classList.add("copied");
+        setTimeout(() => {
+          btn.innerText = original;
+          btn.classList.remove("copied");
+        }, 1500);
+      });
+    }
+  </script>
 </body>
 </html>
