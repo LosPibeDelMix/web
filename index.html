@@ -73,12 +73,16 @@
       box-shadow: 0 0 15px #FFD700;
     }
 
-    /* SECCIONES / PÁGINAS */
+    /* SECCIONES / PÁGINAS con fondos dinámicos */
     .page {
       display: none;
       min-height: 100vh;
       padding: 100px 20px 40px;
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      transition: opacity 0.6s ease, transform 0.6s ease, background-image 1s ease-in-out;
+      /* background default en caso de que no haya imagen */
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
     }
     .page.active {
       display: block;
@@ -127,6 +131,7 @@
       margin-bottom: 18px;
       box-shadow: 0 0 15px rgba(0,0,0,0.85);
       transition: transform 0.3s;
+      position: relative;
     }
     .server-card:hover {
       transform: scale(1.02);
@@ -156,6 +161,13 @@
     .copy-btn:hover {
       background: #FFA500;
       box-shadow: 0 0 12px #FFD700;
+    }
+    .copy-notice {
+      font-size: 14px;
+      color: #7CFC00;
+      margin-top: 6px;
+      opacity: 0;
+      transition: opacity 0.5s;
     }
 
     /* BOTONES GENERALES */
@@ -282,7 +294,7 @@
     </div>
   </header>
 
-  <section id="inicio" class="page active">
+  <section id="inicio" class="page active" style="background-image: url('https://example.com/bg1.jpg');">
     <div class="content-wrapper">
       <h2>Bienvenido a Los Pibes Del Mix</h2>
       <p>Comunidad de <b>Counter-Strike 1.6</b> con servidores <b>Mix</b>, <b>Público</b> y <b>Mata al Traidor</b>.  
@@ -291,31 +303,34 @@
     </div>
   </section>
 
-  <section id="servidores" class="page">
+  <section id="servidores" class="page" style="background-image: url('https://example.com/bg2.jpg');">
     <div class="content-wrapper">
       <h2>Servidores</h2>
       <div class="server-card">
         <h3>[MIX] Los Pibes Del Mix</h3>
         <p class="server-status online">🟢 Activo</p>
         <p>IP: 45.235.98.220:27262</p>
-        <button class="copy-btn" onclick="copyIP('45.235.98.220:27262')"><i class="fas fa-copy"></i> Copiar IP</button>
+        <button class="copy-btn" onclick="copyIP('45.235.98.220:27262', this)"><i class="fas fa-copy"></i> Copiar IP</button>
+        <div class="copy-notice">IP copiada</div>
       </div>
       <div class="server-card">
         <h3>[PÚBLICO] Los Pibes Del Mix</h3>
         <p class="server-status online">🟢 Activo</p>
         <p>IP: 45.235.98.220:27310</p>
-        <button class="copy-btn" onclick="copyIP('45.235.98.220:27310')"><i class="fas fa-copy"></i> Copiar IP</button>
+        <button class="copy-btn" onclick="copyIP('45.235.98.220:27310', this)"><i class="fas fa-copy"></i> Copiar IP</button>
+        <div class="copy-notice">IP copiada</div>
       </div>
       <div class="server-card">
         <h3>[MATA AL TRAIDOR] Los Pibes Del Mix</h3>
         <p class="server-status online">🟢 Activo</p>
         <p>IP: 45.235.99.105:27643</p>
-        <button class="copy-btn" onclick="copyIP('45.235.99.105:27643')"><i class="fas fa-copy"></i> Copiar IP</button>
+        <button class="copy-btn" onclick="copyIP('45.235.99.105:27643', this)"><i class="fas fa-copy"></i> Copiar IP</button>
+        <div class="copy-notice">IP copiada</div>
       </div>
     </div>
   </section>
 
-  <section id="ventas" class="page">
+  <section id="ventas" class="page" style="background-image: url('https://example.com/bg3.jpg');">
     <div class="content-wrapper">
       <h2>Tienda / Ventas</h2>
       <p>¿Querés VIP, rangos especiales o skins en nuestros servidores?  
@@ -324,7 +339,7 @@
     </div>
   </section>
 
-  <section id="redes" class="page">
+  <section id="redes" class="page" style="background-image: url('https://example.com/bg4.jpg');">
     <div class="content-wrapper">
       <h2>Nuestras Redes</h2>
       <div class="social-links">
@@ -348,9 +363,7 @@
   <script>
     // función para recargar la página al clicar un menú (con hash específico)
     function goReload(hash) {
-      // primero cambiar el hash
       location.hash = hash;
-      // luego forzar recarga de la página
       setTimeout(() => {
         location.reload();
       }, 50);
@@ -378,10 +391,16 @@
       showPage(location.hash);
     });
 
-    // función copiar IP
-    function copyIP(ip) {
+    // función copiar IP con aviso sencillo
+    function copyIP(ip, btn) {
       navigator.clipboard.writeText(ip).then(() => {
-        alert("IP copiada: " + ip);
+        const notice = btn.nextElementSibling; // .copy-notice
+        if (notice) {
+          notice.style.opacity = 1;
+          setTimeout(() => {
+            notice.style.opacity = 0;
+          }, 1500);
+        }
       }).catch(err => {
         console.error("Error al copiar: ", err);
       });
