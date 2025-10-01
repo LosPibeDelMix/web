@@ -23,19 +23,19 @@
       color: inherit;
     }
 
-    /* Variables CSS para tema */
+    /* Variables de tema */
     :root {
       --bg-dark: #0a0a0a;
-      --bg-light: #f5f5f5;
+      --bg-light: #ececec;
       --text-dark: #e0e0e0;
-      --text-light: #111111;
+      --text-light: #222222;
       --accent: #FFD700;
-      --accent-dark: #FFA500;
-      --menu-bg: rgba(15,15,15,0.9);
+      --accent-dark: #E5C100;
+      --menu-bg-dark: rgba(15,15,15,0.9);
       --menu-bg-light: rgba(240,240,240,0.9);
-      --content-bg: rgba(20,20,20,0.85);
-      --content-bg-light: rgba(250,250,250,0.85);
-      --card-bg: rgba(5,5,5,0.75);
+      --content-bg-dark: rgba(20,20,20,0.85);
+      --content-bg-light: rgba(240,240,240,0.85);
+      --card-bg-dark: rgba(5,5,5,0.75);
       --card-bg-light: rgba(230,230,230,0.75);
     }
     body.dark {
@@ -49,8 +49,8 @@
 
     /* HEADER / MENÚ */
     header {
-      background: var(--menu-bg);
-      backdrop-filter: blur(12px);
+      background: var(--menu-bg-dark);
+      backdrop-filter: blur(10px);
       position: fixed;
       top: 0;
       left: 0;
@@ -61,7 +61,6 @@
     }
     body.light header {
       background: var(--menu-bg-light);
-      border-bottom: 2px solid var(--accent);
     }
     .menu-container {
       max-width: 1200px;
@@ -81,38 +80,51 @@
     nav {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 18px;
     }
     nav a {
       padding: 10px 16px;
       border-radius: 6px;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255,255,255,0.05);
       color: #ccc;
       font-weight: bold;
-      transition: all 0.3s;
+      transition: background 0.3s, transform 0.3s;
       display: flex;
       align-items: center;
     }
     body.light nav a {
       background: rgba(0,0,0,0.05);
-      color: #333;
+      color: #444;
     }
     nav a i {
-      margin-right: 8px;
+      margin-right: 6px;
     }
     nav a:hover {
       background: var(--accent);
       color: #111;
-      box-shadow: 0 0 20px var(--accent);
-      transform: scale(1.1);
+      box-shadow: 0 0 18px var(--accent);
+      transform: scale(1.08);
+    }
+
+    /* Sección de transición para compatibilidad */
+    @view-transition {
+      navigation: auto;
+    }
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation: fadeTransition 0.4s ease both;
+    }
+    @keyframes fadeTransition {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     /* SECCIONES / PÁGINAS */
     .page {
       opacity: 0;
       pointer-events: none;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: translateY(30px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
       min-height: 100vh;
       padding: 110px 20px 40px;
       position: absolute;
@@ -129,42 +141,40 @@
     .content-wrapper {
       max-width: 800px;
       margin: auto;
-      background: var(--content-bg);
-      border: 1px solid rgba(255, 215, 0, 0.7);
+      background: var(--content-bg-dark);
+      border: 1px solid rgba(255,215,0,0.7);
       border-radius: 12px;
       padding: 30px;
       box-shadow: 0 0 35px rgba(0,0,0,0.9);
       backdrop-filter: blur(10px);
-      transition: transform 0.5s ease, box-shadow 0.5s ease, background 0.3s;
+      transition: transform 0.4s ease, background 0.3s;
     }
     body.light .content-wrapper {
       background: var(--content-bg-light);
     }
     .content-wrapper:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 45px var(--accent);
+      transform: scale(1.01);
     }
     .content-wrapper h2 {
       font-family: 'Orbitron', sans-serif;
       font-size: 28px;
       color: var(--accent);
-      text-align: center;
-      margin-bottom: 20px;
-      text-shadow: 0 0 14px var(--accent);
+      margin-bottom: 18px;
+      text-shadow: 0 0 10px var(--accent);
     }
     .content-wrapper p {
       line-height: 1.6;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
       color: inherit;
     }
 
-    /* SERVIDORES CARD */
+    /* Tarjetas de servidor */
     .server-card {
-      background: var(--card-bg);
+      background: var(--card-bg-dark);
       border-left: 6px solid var(--accent);
       border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 20px;
+      padding: 18px;
+      margin-bottom: 18px;
       box-shadow: 0 0 20px rgba(0,0,0,0.9);
       transition: transform 0.3s, background 0.3s;
       position: relative;
@@ -182,7 +192,7 @@
     .server-card h3 {
       font-family: 'Orbitron', sans-serif;
       font-size: 22px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       color: var(--accent);
     }
     .server-status.online {
@@ -191,7 +201,7 @@
       text-shadow: 0 0 8px #7CFC00;
     }
     .copy-btn {
-      margin-top: 12px;
+      margin-top: 10px;
       background: var(--accent);
       color: #111;
       border: none;
@@ -199,11 +209,11 @@
       border-radius: 6px;
       cursor: pointer;
       font-size: 15px;
-      transition: all 0.3s;
+      transition: background 0.3s;
     }
     .copy-btn:hover {
       background: var(--accent-dark);
-      box-shadow: 0 0 18px var(--accent);
+      box-shadow: 0 0 14px var(--accent);
     }
     .copy-notice {
       font-size: 14px;
@@ -213,36 +223,35 @@
       transition: opacity 0.5s;
     }
 
-    /* BOTONES GENERALES */
+    /* Botones generales */
     .btn {
       display: inline-block;
-      margin-top: 24px;
+      margin-top: 22px;
       background: var(--accent);
       color: #111;
       padding: 14px 22px;
       border-radius: 8px;
       font-weight: bold;
       font-size: 16px;
-      text-align: center;
       box-shadow: 0 0 12px var(--accent);
-      transition: all 0.3s;
+      transition: transform 0.3s, background 0.3s;
     }
     .btn:hover {
       background: var(--accent-dark);
-      box-shadow: 0 0 24px var(--accent-dark);
-      transform: scale(1.08);
+      transform: scale(1.05);
+      box-shadow: 0 0 18px var(--accent-dark);
     }
 
-    /* REDES SOCIALES */
+    /* Redes sociales */
     .social-links {
       display: flex;
       justify-content: center;
       gap: 24px;
-      margin-top: 30px;
+      margin-top: 28px;
     }
     .social-links a {
-      width: 60px;
-      height: 60px;
+      width: 56px;
+      height: 56px;
       border: 3px solid var(--accent);
       border-radius: 50%;
       background: rgba(0,0,0,0.6);
@@ -250,23 +259,22 @@
       align-items: center;
       justify-content: center;
       color: var(--accent);
+      transition: transform 0.3s, background 0.3s;
       position: relative;
       overflow: hidden;
-      transition: all 0.3s;
     }
     body.light .social-links a {
       background: rgba(255,255,255,0.6);
-      color: var(--accent);
     }
     .social-links a:hover {
       background: rgba(255, 215, 0, 0.9);
       color: #111;
       border-color: var(--accent-dark);
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.9);
-      transform: scale(1.15);
+      transform: scale(1.12);
+      box-shadow: 0 0 20px rgba(255,215,0,0.9);
     }
     .social-links a i {
-      font-size: 28px;
+      font-size: 26px;
       z-index: 2;
     }
     .social-links a::before {
@@ -284,14 +292,13 @@
       height: 120%;
     }
 
-    /* FOOTER */
+    /* Footer */
     footer {
       background: rgba(15,15,15,0.9);
       padding: 16px;
       text-align: center;
       color: #aaa;
       border-top: 2px solid var(--accent);
-      font-size: 14px;
       transition: background 0.3s;
     }
     body.light footer {
@@ -305,7 +312,7 @@
       text-shadow: 0 0 10px var(--accent);
     }
 
-    /* RESPONSIVE */
+    /* Responsivo */
     @media (max-width: 768px) {
       header h1 {
         font-size: 22px;
@@ -338,11 +345,11 @@
     <div class="menu-container">
       <h1>Los Pibes Del Mix</h1>
       <nav>
-        <a href="#inicio" onclick="goReload('#inicio')"><i class="fas fa-house"></i> Inicio</a>
-        <a href="#servidores" onclick="goReload('#servidores')"><i class="fas fa-network-wired"></i> Servidores</a>
-        <a href="#ventas" onclick="goReload('#ventas')"><i class="fas fa-tag"></i> Ventas</a>
-        <a href="#redes" onclick="goReload('#redes')"><i class="fas fa-hashtag"></i> Redes</a>
-        <button id="theme-toggle" style="margin-left: 20px; background: transparent; border: none; color: var(--accent); cursor: pointer;" title="Cambiar tema">
+        <a href="#inicio" onclick="navigateWithTransition('#inicio')"><i class="fas fa-house"></i> Inicio</a>
+        <a href="#servidores" onclick="navigateWithTransition('#servidores')"><i class="fas fa-network-wired"></i> Servidores</a>
+        <a href="#ventas" onclick="navigateWithTransition('#ventas')"><i class="fas fa-tag"></i> Ventas</a>
+        <a href="#redes" onclick="navigateWithTransition('#redes')"><i class="fas fa-hashtag"></i> Redes</a>
+        <button id="theme-toggle" style="margin-left: 15px; background: transparent; border: none; color: var(--accent); cursor: pointer;" title="Cambiar tema">
           <i class="fas fa-adjust"></i>
         </button>
       </nav>
@@ -354,7 +361,7 @@
       <h2>Bienvenido a Los Pibes Del Mix</h2>
       <p>Comunidad de <b>Counter-Strike 1.6</b> con servidores <b>Mix</b>, <b>Público</b> y <b>Mata al Traidor</b>.  
       Unite a la acción y revive la nostalgia del CS clásico 🎮</p>
-      <a href="#servidores" class="btn" onclick="goReload('#servidores')"><i class="fas fa-bolt"></i> Ver Servidores</a>
+      <a href="#servidores" class="btn" onclick="navigateWithTransition('#servidores')"><i class="fas fa-bolt"></i> Ver Servidores</a>
     </div>
   </section>
 
@@ -416,37 +423,38 @@
   </footer>
 
   <script>
-    // Modo claro / oscuro
+    // Tema claro / oscuro
     const toggleBtn = document.getElementById('theme-toggle');
     function setTheme(theme) {
-      document.body.classList.remove('light', 'dark');
+      document.body.classList.remove('dark', 'light');
       document.body.classList.add(theme);
       localStorage.setItem('theme', theme);
     }
     toggleBtn.addEventListener('click', () => {
-      const current = document.body.classList.contains('light') ? 'light' : 'dark';
-      const next = current === 'light' ? 'dark' : 'light';
-      setTheme(next);
+      const cur = document.body.classList.contains('light') ? 'light' : 'dark';
+      setTheme(cur === 'light' ? 'dark' : 'light');
     });
     window.addEventListener('DOMContentLoaded', () => {
       const saved = localStorage.getItem('theme') || 'dark';
       setTheme(saved);
     });
 
-    // navegación recarga
-    function goReload(hash) {
-      location.hash = hash;
-      setTimeout(() => {
-        location.reload();
-      }, 50);
+    // Función para transición entre secciones
+    function navigateWithTransition(hash) {
+      // Usar View Transition API si está disponible
+      if (document.startViewTransition) {
+        document.startViewTransition(() => {
+          location.hash = hash;
+        });
+      } else {
+        location.hash = hash;
+      }
     }
 
-    // lógica para cambiar sección sin recorte bug
+    // Manejar activación de sección actual
     const pages = document.querySelectorAll('.page');
     function showPage(hash) {
-      pages.forEach(p => {
-        p.classList.remove('active');
-      });
+      pages.forEach(p => p.classList.remove('active'));
       const target = document.querySelector(hash);
       if (target) {
         target.classList.add('active');
@@ -461,7 +469,7 @@
       showPage(location.hash);
     });
 
-    // copiar IP con aviso simple
+    // Copiar IP con aviso simple
     function copyIP(ip, btn) {
       navigator.clipboard.writeText(ip).then(() => {
         const notice = btn.nextElementSibling;
