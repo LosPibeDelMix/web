@@ -3,113 +3,237 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Los Pibes Del Mix</title>
+  <title>Los Pibes Del Mix - Comunidad</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
+    /* === VARIABLES === */
     :root {
-      --accent: #f1c40f;
+      --color-accent: #FFD700;
+      --color-dark-bg: #0c0c0c;
+      --color-dark-text: #e0e0e0;
+      --color-light-bg: #f9f9f9;
+      --color-light-text: #111;
     }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: url("https://i.ibb.co/98T5L7M/cs16-bg.jpg") no-repeat center center fixed;
-      background-size: cover;
-      color: #fff;
+      font-family: 'Share Tech Mono', monospace;
+      background: var(--color-dark-bg);
+      color: var(--color-dark-text);
+      transition: background 0.5s, color 0.5s;
     }
+
+    body.light {
+      background: var(--color-light-bg);
+      color: var(--color-light-text);
+    }
+
+    /* === HEADER === */
     header {
-      background: rgba(0, 0, 0, 0.7);
-      padding: 15px;
-      position: sticky;
-      top: 0;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 12px 25px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: fixed;
+      top: 0;
+      width: 100%;
       z-index: 1000;
-      backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--color-accent);
+      backdrop-filter: blur(8px);
     }
+
     header h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 22px;
+      color: var(--color-accent);
       margin: 0;
-      font-size: 20px;
-      color: var(--accent);
     }
+
     nav {
       display: flex;
-      gap: 20px;
+      gap: 12px;
     }
+
     nav a {
-      color: #fff;
+      text-decoration: none;
+      color: #bbb;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 6px 12px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      background: var(--color-accent);
+      color: #111;
+    }
+
+    /* === BOTÓN DARK MODE === */
+    .theme-toggle {
+      cursor: pointer;
+      font-size: 20px;
+      color: var(--color-accent);
+      transition: transform 0.5s ease, color 0.3s;
+    }
+
+    .theme-toggle:hover {
+      transform: rotate(180deg) scale(1.2);
+      color: orange;
+    }
+
+    /* === SECCIONES === */
+    .page {
+      display: none;
+      padding: 100px 20px 60px;
+      min-height: 100vh;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      animation: fadeIn 0.8s ease;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .content-box {
+      max-width: 900px;
+      margin: auto;
+      padding: 30px;
+      background: rgba(15, 15, 15, 0.65);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      box-shadow: 0 0 25px rgba(0,0,0,0.8);
+      backdrop-filter: blur(8px);
+    }
+
+    body.light .content-box {
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid #ccc;
+      color: #111;
+    }
+
+    .content-box h2 {
+      color: var(--color-accent);
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* === SERVIDORES === */
+    .server-card {
+      background: rgba(0,0,0,0.65);
+      border-left: 6px solid var(--color-accent);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    body.light .server-card {
+      background: rgba(255,255,255,0.9);
+      border-left: 6px solid var(--color-accent);
+    }
+
+    .server-card h3 {
+      margin: 0 0 8px;
+      color: var(--color-accent);
+    }
+
+    .server-status {
+      font-weight: bold;
+    }
+    .online { color: limegreen; }
+
+    .copy-btn {
+      margin-top: 8px;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      background: var(--color-accent);
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* === BOTONES === */
+    a.btn {
+      display: inline-block;
+      margin-top: 20px;
+      background: var(--color-accent);
+      color: #111;
+      padding: 12px 22px;
+      border-radius: 8px;
       text-decoration: none;
       font-weight: bold;
       transition: 0.3s;
     }
-    nav a:hover {
-      color: var(--accent);
+    a.btn:hover {
+      background: orange;
+      transform: scale(1.05);
     }
-    main {
-      padding: 40px 20px;
-      min-height: 80vh;
-      background: rgba(0, 0, 0, 0.5);
-      margin: 20px;
-      border-radius: 12px;
-      backdrop-filter: blur(8px);
+
+    /* === REDES === */
+    .social-links a {
+      font-size: 36px;
+      margin: 10px;
+      transition: transform 0.3s, text-shadow 0.3s;
     }
-    section {
-      margin-bottom: 50px;
+    .social-links a:hover {
+      transform: scale(1.2);
+      text-shadow: 0 0 10px currentColor;
     }
-    h2 {
-      color: var(--accent);
-      margin-bottom: 15px;
-    }
-    /* Footer */
+    .instagram { color: #E4405F; }
+    .tiktok { color: #00F2EA; }
+    .discord { color: #5865F2; }
+
+    /* === FOOTER === */
     footer {
-      background: rgba(15, 15, 15, 0.9);
+      background: rgba(0,0,0,0.9);
       padding: 15px;
       text-align: center;
       color: #aaa;
-      font-size: 13px;
-      border-top: 2px solid var(--accent);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
+      font-size: 14px;
+      border-top: 2px solid var(--color-accent);
     }
+
     .discord-btn {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+      margin-top: 8px;
       padding: 8px 14px;
       border-radius: 8px;
       background: #5865F2;
       color: #fff;
-      font-weight: bold;
-      font-size: 14px;
-      transition: 0.3s;
       text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
     }
+
     .discord-btn:hover {
       background: #4752C4;
       transform: scale(1.05);
     }
-    .discord-btn i {
-      font-size: 16px;
-    }
-    /* Responsive */
+
+    /* === RESPONSIVE === */
     @media (max-width: 768px) {
       header {
         flex-direction: column;
         text-align: center;
       }
       nav {
-        flex-direction: column;
-        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
       }
-      main {
-        margin: 10px;
+      .content-box {
         padding: 20px;
-      }
-      .discord-btn {
-        font-size: 12px;
-        padding: 6px 10px;
       }
     }
   </style>
@@ -118,60 +242,104 @@
   <header>
     <h1>Los Pibes Del Mix</h1>
     <nav>
-      <a href="#inicio">Inicio</a>
-      <a href="#servidores">Servidores</a>
-      <a href="#descargas">Descargas</a>
-      <a href="#ventas">Ventas</a>
-      <a href="#discord">Discord</a>
+      <a href="#inicio"><i class="fas fa-home"></i> Inicio</a>
+      <a href="#servidores"><i class="fas fa-server"></i> Servidores</a>
+      <a href="#ventas"><i class="fas fa-shopping-cart"></i> Ventas</a>
+      <a href="#redes"><i class="fas fa-share-alt"></i> Redes</a>
     </nav>
+    <i class="fas fa-moon theme-toggle" id="themeToggle"></i>
   </header>
 
-  <main>
-    <section id="inicio">
-      <h2>Bienvenidos a Los Pibes Del Mix</h2>
-      <p>La mejor comunidad de Counter-Strike 1.6. Únete a nuestros servidores y disfruta de una experiencia única.</p>
-    </section>
+  <!-- INICIO -->
+  <div id="inicio" class="page active" style="background-image:url('https://wallpapercave.com/wp/wp4048451.jpg');">
+    <div class="content-box" style="text-align:center;">
+      <h2>¡Bienvenido a Los Pibes Del Mix!</h2>
+      <p>Comunidad de <b>Counter-Strike 1.6</b> con servidores <b>Mix</b>, <b>Público</b> y <b>Mata al Traidor</b>.</p>
+      <a href="#servidores" class="btn"><i class="fas fa-bolt"></i> Ver Servidores</a>
+    </div>
+  </div>
 
-    <section id="servidores">
-      <h2>Servidores Activos</h2>
-      <ul>
-        <li>[Servidor Público] IP: <b>45.235.99.105:27047</b> 
-          <button onclick="copiarIP('45.235.99.105:27047')">Copiar IP</button>
-        </li>
-        <li>[Mata al Traidor] IP: <b>45.235.99.105:27048</b>
-          <button onclick="copiarIP('45.235.99.105:27048')">Copiar IP</button>
-        </li>
-      </ul>
-    </section>
+  <!-- SERVIDORES -->
+  <div id="servidores" class="page" style="background-image:url('https://wallpapercave.com/wp/wp4048489.jpg');">
+    <div class="content-box">
+      <h2>Servidores</h2>
 
-    <section id="descargas">
-      <h2>Descargas</h2>
-      <ul>
-        <li>Counter Strike 1.6 Steam Gratis</li>
-        <li>Counter Strike 1.6 No-Steam</li>
-        <li>Sxe-Injected (Anti-Cheat)</li>
-      </ul>
-    </section>
+      <div class="server-card">
+        <h3>[MIX] Los Pibes Del Mix</h3>
+        <p class="server-status online">🟢 Activo</p>
+        <p>IP: 45.235.98.220:27262</p>
+        <button class="copy-btn" onclick="copyIP('45.235.98.220:27262')">Copiar IP</button>
+      </div>
 
-    <section id="ventas">
-      <h2>Ventas</h2>
-      <p>Si quieres comprar administraciones o beneficios, contáctanos en nuestro Discord oficial.</p>
-    </section>
-  </main>
+      <div class="server-card">
+        <h3>[PÚBLICO] Los Pibes Del Mix</h3>
+        <p class="server-status online">🟢 Activo</p>
+        <p>IP: 45.235.98.220:27310</p>
+        <button class="copy-btn" onclick="copyIP('45.235.98.220:27310')">Copiar IP</button>
+      </div>
 
+      <div class="server-card">
+        <h3>[MATA AL TRAIDOR] Los Pibes Del Mix</h3>
+        <p class="server-status online">🟢 Activo</p>
+        <p>IP: 45.235.99.105:27643</p>
+        <button class="copy-btn" onclick="copyIP('45.235.99.105:27643')">Copiar IP</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- VENTAS -->
+  <div id="ventas" class="page" style="background-image:url('https://wallpapercave.com/wp/wp1835867.jpg');">
+    <div class="content-box" style="text-align:center;">
+      <h2>Tienda</h2>
+      <p>¿Querés VIP, rangos especiales o skins en nuestros servidores? Unite a nuestro <b>Discord oficial</b> 🔥</p>
+      <a href="https://discord.gg/bSRR7AyYuh" target="_blank" class="btn"><i class="fab fa-discord"></i> Ir al Discord</a>
+    </div>
+  </div>
+
+  <!-- REDES -->
+  <div id="redes" class="page" style="background-image:url('https://wallpapercave.com/wp/wp1835844.jpg');">
+    <div class="content-box" style="text-align:center;">
+      <h2>Nuestras Redes</h2>
+      <div class="social-links">
+        <a href="https://www.instagram.com/lospibesdelmixcs" target="_blank" class="instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com" target="_blank" class="tiktok"><i class="fab fa-tiktok"></i></a>
+        <a href="https://discord.gg/bSRR7AyYuh" target="_blank" class="discord"><i class="fab fa-discord"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
   <footer>
     <p>© 2025 Los Pibes Del Mix. Todos los derechos reservados.</p>
-    <a href="https://discord.gg/TU-LINK" target="_blank" class="discord-btn">
+    <a href="https://discord.gg/bSRR7AyYuh" target="_blank" class="discord-btn">
       <i class="fab fa-discord"></i> Únete a nuestro Discord
     </a>
   </footer>
 
   <script>
-    function copiarIP(ip) {
-      navigator.clipboard.writeText(ip).then(() => {
-        alert("IP copiada: " + ip);
-      });
+    // Navegación
+    const pages = document.querySelectorAll('.page');
+    function showPage(hash) {
+      pages.forEach(p => p.classList.remove('active'));
+      const active = document.querySelector(hash);
+      if (active) active.classList.add('active');
     }
+    window.addEventListener('hashchange', () => showPage(location.hash || '#inicio'));
+    showPage(location.hash || '#inicio');
+
+    // Copiar IP
+    function copyIP(ip) {
+      navigator.clipboard.writeText(ip);
+      alert("IP copiada: " + ip);
+    }
+
+    // Toggle Dark/Light Mode
+    const toggleBtn = document.getElementById("themeToggle");
+    toggleBtn.addEventListener("click", () => {
+      document.body.classList.toggle("light");
+      toggleBtn.classList.toggle("fa-moon");
+      toggleBtn.classList.toggle("fa-sun");
+    });
   </script>
 </body>
 </html>
