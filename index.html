@@ -1,194 +1,218 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Los Pibes Del Mix</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Los Pibes Del Mix - Comunidad</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&family=Russo+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#0b0d10;
-      --panel: rgba(20,20,23,0.7);
-      --muted:#bfc6cd;
-      --accent:#c9a93b;
-      --accent-darker:#a07f2d;
-      --green:#4cd964;
-      --danger:#e04848;
-      --glass: rgba(255,255,255,0.03);
-    }
-    html,body{height:100%;margin:0;font-family:Orbitron,Segoe UI,Arial;background:var(--bg);overflow:hidden;color:var(--muted)}
-    body{
-      background-image: url('https://wallpaperaccess.com/full/184297.jpg');
-      background-size:cover;background-position:center;
-    }
-    body::before{
-      content:"";position:fixed;inset:0;background:rgba(6,8,10,0.7);backdrop-filter:blur(4px);z-index:-1;
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('https://wallpapercave.com/wp/wp5730422.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #ddd;
+      overflow-x: hidden;
     }
 
-    header{
-      height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(10,12,14,0.55);backdrop-filter:blur(4px);border-bottom:1px solid rgba(255,255,255,0.03)
+    header {
+      background: rgba(0, 0, 0, 0.85);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
-    header .brand{display:flex;align-items:center;gap:12px;color:var(--accent)}
-    header .brand i{font-size:20px}
-    header nav{display:flex;align-items:center;gap:10px}
-    header nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600;font-size:14px;transition:all .18s}
-    header nav a:hover{background:var(--glass);color:var(--accent)}
-    header nav a.icon{display:flex;gap:8px;align-items:center}
 
-    main{height:calc(100vh - 64px);display:flex;align-items:center;justify-content:center;position:relative}
-    .page{position:absolute;inset:0;display:none;align-items:center;justify-content:center;padding:30px;box-sizing:border-box;transition:opacity .35s}
-    .page.active{display:flex;opacity:1}
-    .panel{width:100%;max-width:980px;background:var(--panel);border-radius:12px;padding:20px;box-shadow:0 8px 30px rgba(0,0,0,0.6);backdrop-filter:blur(6px)}
-    .panel h2{margin:0 0 10px;color:var(--accent);font-size:18px}
+    header h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 26px;
+      color: #FFD700;
+      margin: 0;
+    }
 
-    .servers-grid{display:flex;flex-direction:column;gap:14px}
-    .server-card{display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));border:1px solid rgba(255,255,255,0.03)}
-    .server-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
-    .server-title{font-weight:700;color:#fff;font-size:16px}
-    .server-status{display:flex;align-items:center;gap:8px;font-size:13px}
-    .dot{width:10px;height:10px;border-radius:50%}
-    .status-online{background:var(--green);box-shadow:0 0 6px rgba(76,217,100,0.15)}
-    .status-off{background:var(--danger);box-shadow:0 0 6px rgba(224,72,72,0.12)}
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #ccc;
+      font-weight: 600;
+      transition: color 0.3s, background 0.3s;
+      padding: 6px 10px;
+      border-radius: 5px;
+    }
 
-    .server-ip{font-family:monospace;color:var(--muted);font-size:13px}
-    .server-stats{display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-    .stat{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:13px}
-    .stat i{color:var(--accent);width:18px;text-align:center}
+    nav a:hover {
+      color: #FFD700;
+      background: rgba(255, 215, 0, 0.15);
+    }
 
-    .occup-bar{height:10px;background:rgba(255,255,255,0.04);border-radius:6px;overflow:hidden;margin-top:6px}
-    .occup-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-darker));width:0%;transition:width .6s ease}
+    .page {
+      display: none;
+      padding: 60px 20px;
+      min-height: calc(100vh - 80px);
+      background: rgba(0, 0, 0, 0.75);
+    }
 
-    .copy-btn{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 12px;border-radius:8px;color:var(--muted);cursor:pointer}
-    .copy-btn.copied{background:var(--green);color:#05110a;border-color:transparent}
+    .page.active {
+      display: block;
+      animation: fadeIn 0.5s;
+    }
 
-    .btn-primary{background:var(--accent);color:#07110b;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:700;border:none;cursor:pointer}
-    .btn-primary:hover{background:var(--accent-darker)}
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
 
-    footer{position:fixed;bottom:10px;right:16px;display:flex;gap:8px;align-items:center}
-    .social-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.03);padding:8px 10px;border-radius:10px;color:var(--muted);text-decoration:none;font-weight:700}
-    .social-btn i{font-size:16px;color:var(--accent)}
+    .content-box {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px;
+      background: rgba(25, 25, 25, 0.85);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+    }
 
-    @media(max-width:720px){
-      .server-stats{flex-direction:column;align-items:flex-start;gap:8px}
-      main{padding:10px}
+    .content-box h2 {
+      color: #FFD700;
+      margin-bottom: 20px;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    /* Servidores */
+    .server-card {
+      background: rgba(0,0,0,0.8);
+      border-left: 5px solid #FFD700;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.6);
+    }
+
+    .server-card h3 {
+      margin: 0 0 10px;
+      color: #FFD700;
+    }
+
+    .server-status.online {
+      color: limegreen;
+    }
+
+    .server-status.offline {
+      color: red;
+    }
+
+    .progress-bar {
+      background: #222;
+      border-radius: 6px;
+      height: 10px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #FFD700;
+      width: 0%;
+      transition: width 0.5s;
     }
   </style>
 </head>
 <body>
-<header>
-  <div class="brand"><i class="fas fa-crosshairs"></i><div style="font-size:14px">Los Pibes Del Mix</div></div>
-  <nav>
-    <a href="#" onclick="showPage('inicio')" class="icon"><i class="fas fa-home"></i> Inicio</a>
-    <a href="#" onclick="showPage('servidores')" class="icon"><i class="fas fa-server"></i> Servidores</a>
-    <a href="#" onclick="showPage('ventas')" class="icon"><i class="fas fa-shopping-cart"></i> Ventas</a>
-    <a href="https://discord.gg/bSRR7AyYuh" target="_blank" class="icon"><i class="fab fa-discord"></i> Discord</a>
-    <a href="https://www.instagram.com/lospibesdelmixcs?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="icon"><i class="fab fa-instagram"></i> IG</a>
-    <a href="https://www.tiktok.com/" target="_blank" class="icon"><i class="fab fa-tiktok"></i> TikTok</a>
-  </nav>
-</header>
+  <header>
+    <h1>Los Pibes Del Mix</h1>
+    <nav>
+      <a href="#inicio"><i class="fas fa-home"></i> Inicio</a>
+      <a href="#servidores"><i class="fas fa-server"></i> Servidores</a>
+      <a href="#ventas"><i class="fas fa-shopping-cart"></i> Ventas</a>
+      <a href="#redes"><i class="fas fa-share-alt"></i> Redes</a>
+    </nav>
+  </header>
 
-<main>
-  <section id="inicio" class="page active">
-    <div class="panel" style="text-align:center">
+  <!-- Inicio -->
+  <div id="inicio" class="page active">
+    <div class="content-box" style="text-align:center;">
       <h2>¡Bienvenido a Los Pibes Del Mix!</h2>
-      <p style="color:var(--muted)">Comunidad dedicada a Counter-Strike · Más de <strong>50,000</strong> en Discord · <strong>300+</strong> jugadores diarios</p>
-      <div style="margin-top:14px"><button class="btn-primary" onclick="showPage('servidores')">Ver Servidores</button></div>
+      <p>Comunidad de Counter-Strike 1.6 con servidores Mix, Público y Mata al Traidor.</p>
     </div>
-  </section>
+  </div>
 
-  <section id="servidores" class="page">
-    <div class="panel">
-      <h2>Servidores Activos</h2>
-      <div id="servers" class="servers-grid"></div>
+  <!-- Servidores -->
+  <div id="servidores" class="page">
+    <div class="content-box">
+      <h2>Servidores en Tiempo Real</h2>
+      <div id="servers-list">Cargando servidores...</div>
     </div>
-  </section>
+  </div>
 
-  <section id="ventas" class="page">
-    <div class="panel" style="text-align:center">
+  <!-- Ventas -->
+  <div id="ventas" class="page">
+    <div class="content-box">
       <h2>Tienda</h2>
-      <ul style="text-align:left;color:var(--muted);margin-left:18px">
-        <li><strong>VIP Permanente</strong> - Slots reservados exclusivos</li>
-        <li><strong>Skins Especiales</strong> - Personaliza tu experiencia</li>
-      </ul>
+      <p>Compra rangos VIP y skins para apoyar la comunidad.</p>
     </div>
-  </section>
-</main>
+  </div>
 
-<footer>
-  <a class="social-btn" href="https://www.instagram.com/lospibesdelmixcs?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
-  <a class="social-btn" href="https://www.tiktok.com/" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a>
-  <a class="social-btn" href="https://discord.gg/bSRR7AyYuh" target="_blank"><i class="fab fa-discord"></i> Discord</a>
-</footer>
-
-<script>
-const API_URL = 'https://lospibedelmix.github.io/web/api/servers.json'; 
-// 👆 Aquí tenés que poner la URL de tu API backend real.
-// GitHub Pages NO soporta Node, deberías hostear tu API en otro lado (ej: VPS, Heroku, Render, etc.)
-
-let REFRESH_MS = 10000;
-
-function showPage(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
-function renderServerCard(srv){
-  const percent = (srv.maxPlayers > 0) ? Math.round((srv.players / srv.maxPlayers)*100) : 0;
-  const statusColor = srv.online ? 'status-online' : 'status-off';
-  const ipLabel = `${srv.ip}:${srv.port}`;
-
-  const div = document.createElement('div');
-  div.className = 'server-card';
-  div.innerHTML = `
-    <div class="server-top">
-      <div class="server-title">${srv.name}</div>
-      <div class="server-status"><span class="dot ${statusColor}"></span><span>${srv.online ? 'Online' : 'Offline'}</span></div>
+  <!-- Redes -->
+  <div id="redes" class="page">
+    <div class="content-box" style="text-align:center;">
+      <h2>Nuestras Redes</h2>
+      <p><a href="https://www.instagram.com/lospibesdelmixcs" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></p>
+      <p><a href="https://www.tiktok.com" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a></p>
     </div>
-    <div class="server-ip">${ipLabel}</div>
+  </div>
 
-    ${srv.online ? `
-      <div class="server-stats">
-        <div class="stat"><i class="fas fa-users"></i> Jugadores <strong>${srv.players}/${srv.maxPlayers}</strong></div>
-        <div class="stat"><i class="fas fa-map"></i> Mapa <strong>${srv.map}</strong></div>
-        <div class="stat"><i class="fas fa-clock"></i> Actualizado <strong>ahora</strong></div>
-      </div>
-      <div class="occup-bar"><div class="occup-fill" style="width:${percent}%"></div></div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
-        <div style="color:var(--muted);font-size:13px">${percent}% ocupación</div>
-        <button class="copy-btn" data-ip="${ipLabel}"><i class="fas fa-copy"></i> Copiar IP</button>
-      </div>
-    ` : `<div style="margin-top:8px;color:var(--muted);font-size:13px">Servidor no disponible</div>`}
-  `;
-  div.querySelectorAll('.copy-btn').forEach(btn=>{
-    btn.addEventListener('click', async ()=>{
-      const ip = btn.dataset.ip;
-      try{
-        await navigator.clipboard.writeText(ip);
-        btn.classList.add('copied');
-        const prev = btn.innerHTML;
-        btn.innerHTML = '<i class="fas fa-check"></i> ¡Copiado!';
-        setTimeout(()=>{ btn.classList.remove('copied'); btn.innerHTML = prev; }, 1500);
-      }catch(e){ console.error(e); }
-    });
-  });
-  return div;
-}
+  <script>
+    // Navegación
+    const pages = document.querySelectorAll('.page');
+    function showPage(hash) {
+      pages.forEach(p => p.classList.remove('active'));
+      const active = document.querySelector(hash);
+      if (active) active.classList.add('active');
+    }
+    window.addEventListener('hashchange', () => showPage(location.hash || '#inicio'));
+    showPage(location.hash || '#inicio');
 
-async function loadServers(){
-  const container = document.getElementById('servers');
-  container.innerHTML = '<div style="color:var(--muted);padding:10px">Cargando servidores...</div>';
-  try{
-    const resp = await fetch(API_URL, {cache: 'no-store'});
-    const data = await resp.json();
-    container.innerHTML = '';
-    data.servers.forEach(s=> container.appendChild(renderServerCard(s)) );
-  }catch(err){
-    container.innerHTML = `<div style="color:var(--muted);padding:10px">No se pudo conectar a la API</div>`;
-  }
-}
-loadServers();
-setInterval(loadServers, REFRESH_MS);
-</script>
+    // Conectar con API del backend
+    const API_URL = "https://lospibes-backend.onrender.com/servers"; // cambia esto con tu URL de Render
+
+    async function loadServers() {
+      try {
+        const res = await fetch(API_URL);
+        const servers = await res.json();
+
+        const container = document.getElementById("servers-list");
+        container.innerHTML = "";
+
+        servers.forEach(srv => {
+          let percent = srv.maxPlayers > 0 ? Math.round((srv.players / srv.maxPlayers) * 100) : 0;
+
+          container.innerHTML += `
+            <div class="server-card">
+              <h3>${srv.name}</h3>
+              <p class="server-status ${srv.online ? 'online' : 'offline'}">
+                ${srv.online ? '🟢 Online' : '🔴 Offline'}
+              </p>
+              <p>IP: ${srv.ip}:${srv.port}</p>
+              ${srv.online ? `
+                <p>Jugadores: ${srv.players}/${srv.maxPlayers}</p>
+                <p>Mapa: ${srv.map}</p>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width:${percent}%"></div>
+                </div>
+              ` : `<p>No disponible</p>`}
+            </div>
+          `;
+        });
+      } catch (e) {
+        document.getElementById("servers-list").innerHTML = "<p>⚠️ Error al cargar servidores.</p>";
+      }
+    }
+
+    setInterval(loadServers, 30000);
+    loadServers();
+  </script>
 </body>
 </html>
